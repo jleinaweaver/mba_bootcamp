@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Session4-Time_Series_Data.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="extra.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: middle, slideblue
+
+.size65[.content-box-white[**Today's Agenda**]]
+
+&lt;br&gt;
+
+.size45[
+Analyzing Time Series Data
+1. Fitting the models
+2. Interpreting the models
+3. Evaluating the models
+]
+
+&lt;br&gt;
+
+.center[.size40[
+  Justin Leinaweaver (Summer 2022)
+]]
+
+???
+
+## Prep for Class
+1. Upload data and variable description document for today
+
+&lt;br&gt;
+
+Welcome back! 
+
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**What is the "best" model of bachelor's degree**]]]
+
+.center[.size35[.content-box-white[**completion in the  Session 1 data?**]]]
+
+&lt;br&gt;
+
+.size45[
+- Outcome:
+    - Bachelors' Degrees
+]
+
+.size45[
+- Predictors to consider:
+    - GDP (Rate), Homeownership, Minimum wage, State Tax Rate on Wages, Unemployment
+
+]
+
+???
+
+We had an assignment for today.
+
+### Everybody ready to go?
+
+
+
+
+---
+
+class: full
+
+.size17[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="5"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;GDP Rate&lt;/td&gt;&lt;td&gt;-79.42&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(61.13)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Homeownership&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.15)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Minimum Wage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.96&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;State Taxes&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.45&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.24)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Unemployment&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-1.83&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.90)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;35.66&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;55.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;24.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;29.30&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;38.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(3.22)&lt;/td&gt;&lt;td&gt;(10.32)&lt;/td&gt;&lt;td&gt;(1.79)&lt;/td&gt;&lt;td&gt;(1.41)&lt;/td&gt;&lt;td&gt;(3.49)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.05&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error (df = 48)&lt;/td&gt;&lt;td&gt;5.27&lt;/td&gt;&lt;td&gt;5.09&lt;/td&gt;&lt;td&gt;4.53&lt;/td&gt;&lt;td&gt;5.17&lt;/td&gt;&lt;td&gt;5.15&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="5" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+???
+
+Simple OLS results. 
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### What did you select from this list? Why?
+
+&lt;br&gt;
+
+SLIDE: My choices based on logic, significance and R2
+
+
+
+
+---
+
+class: full
+
+.size23[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Homeownership&lt;/td&gt;&lt;td&gt;-0.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.15)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Minimum Wage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.96&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Unemployment&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-1.83&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.90)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;55.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;24.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;38.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(10.32)&lt;/td&gt;&lt;td&gt;(1.79)&lt;/td&gt;&lt;td&gt;(3.49)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error (df = 48)&lt;/td&gt;&lt;td&gt;5.09&lt;/td&gt;&lt;td&gt;4.53&lt;/td&gt;&lt;td&gt;5.15&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+???
+
+CLASS: Fit this multiple regression and evaluate using all five steps
+
+
+
+---
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="4"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Homeownership&lt;/td&gt;&lt;td&gt;-0.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.15)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Minimum Wage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.96&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Unemployment&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-1.83&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.90)&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;55.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;24.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;38.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(10.32)&lt;/td&gt;&lt;td&gt;(1.79)&lt;/td&gt;&lt;td&gt;(3.49)&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;5.09 (df = 48)&lt;/td&gt;&lt;td&gt;4.53 (df = 48)&lt;/td&gt;&lt;td&gt;5.15 (df = 48)&lt;/td&gt;&lt;td&gt;4.30 (df = 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;5.27&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;19.36&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;4.12&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="4" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+???
+
+Results compared to the simple models
+
+### Everybody get this?
+
+&lt;br&gt;
+
+- SLIDE: Rest of evaluation steps
+
+
+
+
+
+---
+
+.pull-left[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Homeownership&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Minimum Wage&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Unemployment&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;4.30 (df = 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-6-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;font-weight: bold;background-color: lightgrey !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Home &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Wage &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Unempl &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 5em; background-color: #ece9e8 !important;"&gt; Home &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; -0.37 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; -0.13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 5em; background-color: #ece9e8 !important;"&gt; Wage &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; -0.37 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; -0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 5em; background-color: #ece9e8 !important;"&gt; Unempl &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; -0.13 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; -0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Ok, how well does the OLS fit the data?
+
+
+
+---
+
+class: middle, center
+
+.pull-left[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Homeownership&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Minimum Wage&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Unemployment&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;4.30 (df = 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+.size50[
+Make a marginal effects plot for each of the three predictor variables in the multiple regression.
+]]
+
+???
+
+Make me a marginal effects plot for each of the predictors holding all other values at their mean or mode.
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Here is a visualization of both the simple OLS result and the multiple.
+
+### What do we learn from this?
+
+&lt;br&gt;
+
+### What happened to the estimated effect when controlling for the other two predictors?
+
+- The effect of homeownership is reduced when controlling for the minimum wage and unemployment.
+
+&lt;br&gt;
+
+### Any idea why this might be happening?
+
+- Remember that homeownership and the minimum wage correlate at -.37. Possible that minimum wage is now capturing some of that effect.
+
+&lt;br&gt;
+
+SLIDE: Let's check!
+
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-10-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Looks like some of the homeownership effect is being captured by minimum wage.
+
+&lt;br&gt;
+
+### What do we learn from this?
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-11-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### What do we learn from the effect of unemployment per the model?
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size60[.content-box-white[**Reviewing Sessions 1, 2 &amp; 3**]]]
+
+&lt;br&gt;
+
+.size50[
+1. Descriptive statistics &amp; visualizations
+
+2. Simple OLS Regression
+
+3. Multiple OLS Regression
+]
+
+???
+
+Sessions 1, 2 and 3 Review
+
+As we wrap up our week of work today let's make sure you don't have any questions
+
+### Questions on session 1 material?
+
+&lt;br&gt;
+
+### Session 2 material?
+
+&lt;br&gt;
+
+### Session 3 material?
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-components_time_series.png')
+background-size: 100%
+background-position: center
+
+???
+
+Today we move to exploring and analyzing time series data.
+
+Time series data means variables with observations across time
+
+- Any period is possible: Years, months, weeks, days, minutes, etc.
+
+- Three components of a time series: Trend, seasons and random variations
+
+&lt;br&gt;
+
+Random variation: Random changes from period to period
+- Can be measurement error or unmodeled variation
+
+&lt;br&gt;
+
+Seasonal variation: Changes related to some reoccuring changes in time (e.g.ice cream sales peak in the summer, every summer)
+
+&lt;br&gt;
+
+Trend: Increases or decreases in value across time
+- The kinds of linear trends we've been modeling with OLS
+
+&lt;br&gt;
+
+These components can be mixed and combined in any set of these three pieces. 
+
+- This means a big part of modeling time series data depends on identifying the variation you are interested in and matching your tool to that variation.
+
+- Questions on this?
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size45[.content-box-white[**Session 4 Data: Missouri Across Time**]]]
+
+&lt;br&gt;
+
+.size25[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; state &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; abbrev &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; gdp_millions &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; GDP_Rate &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; min_wage &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; unemployment &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1998 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 169368.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1999 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 177360.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2000 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 187296.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2001 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 191199.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.02 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2002 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 196597.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.03 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 204009.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2004 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 214218.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2005 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 223497.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2006 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 231771.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2007 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 240158.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+Introduce new data: Dataset 1 for MO only, 1997-2018
+
+### CLASS: Explore the data: Any interesting observations?
+
+&lt;br&gt;
+
+### CLASS: Make a line plot of GDP Rate
+
+
+
+---
+
+class: full
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+*DEMO if needed*
+- Highlight only GDP rate, insert line plot, select data, add horizontal labels by highlighting years (without label in row 1)
+
+&lt;br&gt;
+
+### CLASS: Describe the line plot for me. How would you describe the change in GDP rate in MO since 1997?
+
+&lt;br&gt;
+
+### CLASS: Which of the three variation types do you see here? (Random variation)
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+.size45[**Random Variation Forecasting Tools**
+
+1. Naive Forecasts
+
+2. Moving Averages (MA)
+
+3. Weighted Moving Averages (WMA)
+]]
+
+.pull-right[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+Let's now practice these three most common random variation forecasting tools: 
+- Naive Forecasts, 
+
+- Moving Averages (MA), 
+
+- Weighted Moving Averages (WMA)
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size65[.content-box-white[**Forecast 1: Naïve Forecast**]]
+
+&lt;br&gt;
+
+.size55[
+Set forecast to the last observation
+
+Forecast &lt;sub&gt;*t*&lt;/sub&gt; = Actual &lt;sub&gt;*t-1*&lt;/sub&gt;
+]
+
+???
+
+Naive forecasts
+- Super basic concept and, surprisingly, an effective prediction tool! 
+    - At least, just one period into the future.
+- The best prediction for tomorrow is typically the value for today
+
+&lt;br&gt;
+
+- SLIDE: Here's how you do it.
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Naive_Sheet.png')
+background-size: 100%
+background-position: center
+
+???
+
+CLASS: Everybody do this, predict 2019 and plot your naive forecast on top of the current line plot
+
+
+
+
+---
+
+class: full
+
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-15-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+SLIDE: Now we need a method for measuring the "accuracy" of a forecast
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Mean_Squared_Error.png')
+background-size: 100%
+background-position: center
+
+???
+
+*Step through the MSE approach*
+
+&lt;br&gt;
+
+Class: Apply this to the naive forecast
+
+- SLIDE: How to do it
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Mean_Squared_Error2.png')
+background-size: 100%
+background-position: center
+
+???
+
+CLASS: Apply to the naive forecast. 
+
+### What is the MSE?
+
+(SLIDE)
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### Talk to me about this forecast. 
+### - In what ways is the naive a good forecasting approach and in what ways is it problematic?
+
+&lt;br&gt;
+
+SLIDE: Let's move to our second random variation tool, moving average
+
+
+
+---
+
+background-image: url('libs/Images/Session4-MA_textbook.png')
+background-size: 100%
+background-position: center
+
+???
+
+Moving Average Forecast
+
+Discuss the intuition here.
+
+&lt;br&gt;
+
+SLIDE: How to do it...
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-MA3.png')
+background-size: 100%
+background-position: center
+
+???
+
+Here's how you do it.
+
+&lt;br&gt;
+
+Everybody apply this to our trend, calculate the MSE, extend one year and visualize.
+
+
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### Talk to me about this forecast. 
+### - In what ways is the MA-3 a good forecasting approach and in what ways is it problematic?
+
+&lt;br&gt;
+
+Usefully, the moving average approach is fairly dynamic.
+
+- You can choose any number of periods as your smoothing function.
+
+&lt;br&gt;
+
+Everybody now redo the forecast but with 5 periods instead of 3.
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### Talk to me about this forecast. 
+### - How do we think about choosing the "right" number of periods in a moving average?
+
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-WMA_1.png')
+background-size: 100%
+background-position: center
+
+???
+
+Weighted Moving Average Forecast
+
+- *Discuss the intuition here*
+
+&lt;br&gt;
+
+- SLIDE: Examples
+
+
+
+---
+
+background-image: url('libs/Images/Session4-WMA_2.png')
+background-size: 100%
+background-position: top
+class: bottom, slideblue
+
+.size35[
+`$$Forecast_{t} = \frac{(Actual_{t-1} * 2 + Actual_{t-2} * 2 + Actual_{t-3} * 1)}{5}$$`
+]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+???
+
+&lt;br&gt;
+
+Here's an example of an MA-3 with weights.
+
+### Can anybody tell me how each forecast uses the previous three periods differently than a regular MA-3?
+
+- (Double weight on last period AND the period before plus a smaller weight on three periods ago)
+
+&lt;br&gt;
+
+### Why are we dividing the results by 5?
+- Sum of the weights!
+
+### Make sense?
+
+&lt;br&gt;
+
+- SLIDE: A more standard example
+
+
+
+---
+
+background-image: url('libs/Images/Session4-WMA_2.png')
+background-size: 100%
+background-position: top
+class: bottom, slideblue
+
+.size35[
+`$$Forecast_{t} = \frac{(Actual_{t-1} * 3 + Actual_{t-2} * 2 + Actual_{t-3} * 1)}{6}$$`
+]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+???
+
+### How are we weighting the three periods in this example?
+- (Heavily emphasizing last period, some inclusion of two periods ago and a small amount on three periods ago)
+
+- This is a fairly standard set up
+
+&lt;br&gt;
+
+Key is to remember you can set the weights to anything you want.
+
+- Just make sure to divide by the sum of the weights
+
+&lt;br&gt;
+
+### Questions on the logic?
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-WMA_3.png')
+background-size: 100%
+background-position: center
+
+???
+
+Here's how you do it.
+
+&lt;br&gt;
+
+Everybody apply this to our trend, calculate the MSE, extend one year and visualize.
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### Talk to me about this forecast. 
+### - In what ways is the weighted MA a good forecasting approach and in what ways is it problematic?
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size55[.content-box-white[**Comparing our Forecasts**]]
+
+&lt;br&gt;
+
+.size45[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;background-color: lightgrey !important;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: lightgrey !important;"&gt; MSE &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: lightgrey !important;"&gt; Prediction &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; Naive &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 3.18e-04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 0.046 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; MA-3 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 2.31e-04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 0.027 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; MA-5 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 2.01e-04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 0.028 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 10em; "&gt; Weighted-MA3 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 2.32e-04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 0.033 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### In terms of MSE, which is the most "accurate" forecast?
+- (MA-5)
+
+&lt;br&gt;
+
+### So, does that make the MA-5 the winner? Why or why not?
+- (SLIDE: Visualize)
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.size25[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; Method &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;width: 10em; "&gt; MA-5 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;width: 10em; "&gt; MA-3 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;width: 10em; "&gt; Weighted-MA3 &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;width: 10em; "&gt; Naive &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; MSE &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 2.01e-04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 2.31e-04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 2.32e-04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 10em; "&gt; 3.18e-04 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+Now, here's the deal, for the purposes of projecting into the future the MSE is not the only thing to consider. 
+
+&lt;br&gt;
+
+Overfitting: A forecast model can have a tiny error in the past and still make terrible predictions of the future.
+
+&lt;br&gt;
+
+### CLASS: So, which of these models best combines a low MSE with a line that logically tracks the underlying data?
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Practice Using the Tools**]]]
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.size35[
+.center[What is the best forecast model of homeownership rates in MO?]
+
+- Naïve
+- MA (3), or
+- Weighted MA (3)
+
+.center[Predict the next year and calculate the MSE]
+]]
+
+???
+
+Class Practice: Homeowner Rate, fit naive, MA3 and WMA3, calculate MSEs and predict next period
+
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get these?
+
+- Remember, MSE on common forecasts only
+
+&lt;br&gt;
+
+### So, the best model is?
+
+&lt;br&gt;
+
+### Questions on the random variation tools?
+
+&lt;br&gt;
+
+SLIDE: Let's add some new tools!
+
+
+
+---
+
+class: full, middle
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-25-1.png" width="93%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Retail sales measure the total receipts at stores that sell durable and nondurable goods. 
+
+- Consumer spending accounts for two-thirds of GDP and is therefore a key element in economic growth.
+
+&lt;br&gt;
+
+Monthly retail sales from the Federal Reserve in two versions. 
+
+- On the left is the actual data in billions of USD
+
+- On the right is a second version the Federal Reserve provides that they call "adjusted"
+
+- Federal reserve releases both versions and each is useful for different things
+
+Let's explore the actual data, not the adjusted, to see how and why they "adjust" the data.
+
+&lt;br&gt;
+
+SLIDE: Hopefully everyone can see that the actual data here has more going on than just random variation.
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Decompose_Data.png')
+background-size: 100%
+background-position: center
+
+???
+
+Three types of variation possible in time series data.
+
+- Not all time series have all three.
+
+&lt;br&gt;
+
+This is a decomposition of the unadjusted retail sales.
+
+- Here we see that time series includes all three elements: seasonality, trend and random variation.
+
+&lt;br&gt;
+
+*Optional:*
+
+Everybody fit our three random variation models to the unadjusted data
+
+- Naive, MA-3 and a weighted MA-3
+
+
+
+
+---
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get these results?
+
+&lt;br&gt;
+
+### Which model fits the best? Why?
+
+- (Not a great fit but that's because we're ignoring two of the three types of variation in this trend)
+
+&lt;br&gt;
+
+SLIDE: Let's see if we can do a better job of forecasting this data using OLS regressions
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size40[.content-box-white[**Linear Model 1 of Advanced Retail Sales**]]
+
+&lt;br&gt;
+
+.size25[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Retail Sales &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Time &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-01-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 350.07 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-02-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 341.46 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-03-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 392.85 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-04-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 387.35 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-05-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 409.38 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-06-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 397.75 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-07-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 406.39 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 2015-08-01 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 404.73 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.size45[
+Create a "time" variable and regress advanced retail sales on it
+]
+
+???
+
+Create the time variable (1-60), then
+
+Fit a regression of unadjusted sales on time.
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size40[.content-box-white[**Linear Model 1 of Advanced Retail Sales**]]
+
+&lt;br&gt;
+
+.size25[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Retail Sales&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Time&lt;/td&gt;&lt;td&gt;1.54&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;375.76&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(7.62)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;60&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.46&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;29.13 (df = 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;50.61&lt;sup&gt;*&lt;/sup&gt; (df = 1; 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get these results?
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size25[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Retail Sales&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Time&lt;/td&gt;&lt;td&gt;1.54&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;375.76&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(7.62)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;60&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.46&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;29.13 (df = 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;50.61&lt;sup&gt;*&lt;/sup&gt; (df = 1; 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+&lt;br&gt;
+
+.size40[.content-box-white[**Retail Sales = 375.76 + 1.54 * (Time)**]]
+
+???
+
+Remember, the OLS results can be translated into a straight line
+
+Everybody now to visualize these results on top of the actual data
+
+- Line plot with the actual data AND the model line
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.size22[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Retail Sales&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Time&lt;/td&gt;&lt;td&gt;1.54&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;375.76&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(7.62)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;60&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.46&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;29.13 (df = 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;50.61&lt;sup&gt;*&lt;/sup&gt; (df = 1; 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;br&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### What is the MSE for this model?
+### - How do we calculate it?
+
+- (SLIDE)
+
+
+
+---
+
+background-image: url('libs/Images/Session4-OLS_MSE1.png')
+background-size: 90%
+background-position: center
+
+???
+
+The errors in your model are the residuals you output in your regression window
+
+&lt;br&gt;
+
+### If these are the "errors", what do we need to do with them to get the MSE?
+
+- (SLIDE)
+
+
+
+---
+
+background-image: url('libs/Images/Session4-OLS_MSE2.png')
+background-size: 92%
+background-position: center
+
+???
+
+Next step, square the residuals!
+
+
+
+---
+
+background-image: url('libs/Images/Session4-OLS_MSE3.png')
+background-size: 92%
+background-position: center
+
+???
+
+Finally, take the average.
+
+&lt;br&gt;
+
+### Questions on calculating the MSE on an OLS?
+
+&lt;br&gt;
+
+SLIDE: Comparing MSEs across tools
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+
+&lt;br&gt;
+
+.size40[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; MSE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Naive &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1639.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Weighted-MA3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1310.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; MA-3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1289.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Linear OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 820.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### What's happening here? Why is this MSE so much better?
+
+- (This time series tries to include all three types of variation: trend, season and random!)
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size25[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Retail Sales&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Time&lt;/td&gt;&lt;td&gt;1.54&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;375.76&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(7.62)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;60&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.46&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;29.13 (df = 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;50.61&lt;sup&gt;*&lt;/sup&gt; (df = 1; 58)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+&lt;br&gt;
+
+.size40[.content-box-white[**Retail Sales = 375.76 + 1.54 * (Time)**]]
+
+???
+
+Next step, making predictions!
+
+- Unlike the random variation tools which can only project out one period (e.g. next year), this approach can produce any number of predictions you want.
+
+&lt;br&gt;
+
+Everybody use this formula to predict the next 12 months.
+
+- (SLIDE)
+
+
+
+
+---
+
+class: middle, slideblue
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+.size30[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: lightgrey !important;"&gt; Time &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 63 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 65 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 67 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 68 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 69 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 71 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 72 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Predictions &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 470 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 472 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 473 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 475 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 476 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 478 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 479 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 481 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 482 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 484 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 485 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 487 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### Questions on using our linear prediction model to forecast data?
+
+&lt;br&gt;
+
+SLIDE: Back to the decomposition
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Decompose_Data.png')
+background-size: 100%
+background-position: center
+
+???
+
+Everybody can see how the time period created a model of the trend, right?
+
+- In acuality this model is mostly trend and some of the random variation too!
+
+&lt;br&gt;
+
+Now lets talk about seasonality.
+
+
+
+---
+
+.center[.size25[
+"Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
+]]
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-37-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+.center[.size25[
+"Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
+]]
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-38-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+.center[.size25[
+"Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
+]]
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-39-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+???
+
+SLIDE: Ok, let's now add seasonality to our model!
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Model 2: Linear with Seasonal Dummies**]]]
+
+.size40[
+1. Fit the model
+    - Time period = 1:60
+    - Spring = '1' if Apr, May, Jun
+    - Summer = '1' if Jul, Aug, Sep
+    - Fall = '1' if Oct, Nov, Dec
+
+2. Visualize the model (line plot)
+
+3. Predict the next 12 months
+]
+
+???
+
+SLIDE: Ok, to do this you'll need to create dummy variables for the seasons.
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Season_Dummies1.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Why am I omitting the Winter dummy?
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Season_Dummies2.png')
+background-size: 100%
+background-position: center
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Season_Dummies3.png')
+background-size: 100%
+background-position: center
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Season_Dummies4.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Does the logic of this make sense?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Model 2: Linear with Seasonal Dummies**]]]
+
+.size40[
+1. Fit the model
+    - Time period = 1:60
+    - Spring = '1' if Apr, May, Jun
+    - Summer = '1' if Jul, Aug, Sep
+    - Fall = '1' if Oct, Nov, Dec
+
+2. Visualize the model (line plot)
+
+3. Predict the next 12 months
+]
+
+???
+
+Ok, get to it!
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.size17[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Retail Sales&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;time&lt;/td&gt;&lt;td&gt;1.36&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.17)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Spring&lt;/td&gt;&lt;td&gt;33.73&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(8.43)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Summer&lt;/td&gt;&lt;td&gt;28.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(8.47)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Fall&lt;/td&gt;&lt;td&gt;51.73&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(8.56)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;352.90&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(7.49)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;60&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.66&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.size20[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: lightgrey !important;"&gt; Time &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 63 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 65 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 67 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 68 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 69 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 71 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 72 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Predictions &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 436 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 437 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 438 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 473 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 475 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 476 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 473 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 474 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 475 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 500 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 501 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 502 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get these results?
+
+&lt;br&gt;
+
+### Help me understand these results. How does a single OLS table give us a line that changes across time?
+
+- Season dummies shift the intercept, not the slope!
+
+&lt;br&gt;
+
+Now calculate the MSE for our new linear model.
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+
+&lt;br&gt;
+
+.size40[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; MSE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Naive &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1639.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Weighted-MA3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1310.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; MA-3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1289.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Linear OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 820.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Seasonal OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 486.2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+Pretty cool, right?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Model 3: Linear with Monthly Dummies**]]]
+
+.size40[
+1. Fit the model
+    - Time period = 1:60
+    - Month dummies (x 11)
+
+2. Visualize the model (line plot)
+
+3. Predict the next 12 months
+]
+
+???
+
+SLIDE: Last extension of our model, forget seasons, let's do months!
+
+*Optional if you ask them to do this...*
+
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Monthly_Dummies.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Why omit January?
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+&lt;img src="libs/Images/Session4-Monthly_Table_Abridged.png" width="75%" /&gt;
+]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-46-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.size20[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: lightgrey !important;"&gt; Time &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 61 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 62 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 63 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 65 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 67 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 68 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 69 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 70 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 71 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 72 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Predictions &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 420 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 416 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 472 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 459 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 488 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 474 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 476 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 486 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 457 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 470 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 486 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 543 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+How awesome is this!?!
+
+&lt;br&gt;
+
+Now calculate the MSE for our new linear model.
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+.size40[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; MSE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Naive &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1639.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Weighted-MA3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1310.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; MA-3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1289.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Linear OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 820.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Seasonal OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 486.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Monthly OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 36.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+Not a surprise given how close the model line is to the actual data.
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Decompose_Data.png')
+background-size: 100%
+background-position: center
+
+???
+
+Key takeaway?
+
+- Choosing the right tool depends on the variation you are trying to model! 
+
+&lt;br&gt;
+
+### Questions on our tools today?
+
+
+
+---
+
+background-image: url('libs/Images/Session4-Home_Sales_Practice.png')
+background-size: 100%
+background-position: center
+
+???
+
+Let's wrap-up today, and this week, by practicing these linear models.
+
+&lt;br&gt;
+
+Last new dataset: New Home Sales
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.size25[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;New Home Sales&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;time&lt;/td&gt;&lt;td&gt;0.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.02)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;24.02&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.21)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;121&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.77&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.size30[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; MSE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Linear OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 43.3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+???
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.size22[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;New Home Sales&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;time&lt;/td&gt;&lt;td&gt;0.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.01)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Spring&lt;/td&gt;&lt;td&gt;3.50&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.44)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Summer&lt;/td&gt;&lt;td&gt;-1.76&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.44)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Fall&lt;/td&gt;&lt;td&gt;-6.58&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.44)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;24.84&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.35)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;121&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.83&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+.size25[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Method &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; MSE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Linear OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 43.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Seasonal OLS &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+???
+
+
+SLIDE: Predict the rest of the year
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-56-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+.size25[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: lightgrey !important;"&gt; Time &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 122 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 123 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 125 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 126 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 127 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 128 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 129 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 130 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;background-color: lightgrey !important;"&gt; 131 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Predictions &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 72 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 72 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 72 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 67 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 64 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size70[.content-box-white[**Wrapping Up**]]
+
+&lt;br&gt;
+
+.size55[
+This intensive course is designed to help students learn essential aspects of applied data analysis (e.g. visualization, descriptive statistics and modeling) using Excel. 
+]
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
