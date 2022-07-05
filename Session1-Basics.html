@@ -99,15 +99,13 @@ class: center, middle, slideblue
 
 ???
 
-Let's say I gave you a list of data points.
-
-Here's a big list of incomes in the US from a nationally representative survey done in 1990.
-
+Here we see the results of a 1990 survey of Americans that asked them to report their yearly earnings 
+- Survey was a nationally representative sample of 1,800 people,
 - Incomes adjusted for inflation to 2021 dollars and shown in thousands of dollars
 
-&lt;br&gt;
+Let's say you work for me and I gave you this list of data points to analyze.
 
-### What would you do to summarize this for me?
+### What could you do to "analyze" this data for me? What could you tell me about incomes in the USA?
 
 &lt;br&gt;
 
@@ -205,7 +203,9 @@ class: middle, slideblue
 
 ???
 
-### So, for what situations would you prefer the table on the left and in what situations would you want all 1,815 responses?
+### So, for what specific situations could you use the summary data?
+
+### And, in what situations would you prefer having all 1,815 responses?
 
 *Force this discussion*
 
@@ -225,6 +225,22 @@ Statistics is a set of tools we use to summarize data
 Summarize: "give a brief statement of the main points of (something)" (Oxford Dictionary).
 ]
 
+???
+
+Leads us to our first definition of statistics
+
+- In our example we used descriptive statistics like the mean, median and standard deviation to summarize our data.
+
+&lt;br&gt;
+
+For many purposes the summaries of the data are far more useful than the list of data points.
+
+- How are incomes distributed in the US?
+
+- What proportion of Americans live in poverty?
+
+- etc.
+
 
 
 ---
@@ -243,7 +259,19 @@ class: middle, center, slideblue
 
 Defining statistics (level 2) is using summaries of samples to learn about the wider population. Small data to tell us about the whole world.
 
-My aim for this week is to get you doing applied statistical analyses.
+&lt;br&gt;
+
+The survey data we were discussing was designed to be "nationally representative."
+
+- This means the researchers tried to pick a sample whose descriptive statistics would come close, or match, the wider population.
+
+&lt;br&gt;
+
+My aim for this week is to get you doing applied statistical analyses both to learn how to:
+
+- Extract useful analyses from large datasets, and
+
+- Use sample statistics to learn about a wider population.
 
 
 
@@ -548,21 +576,26 @@ class: top, center, slideblue
 
 ???
 
-### Is this a "tidy" dataset?
+### Why specifically is this a "tidy" dataset?
 
 &lt;br&gt;
 
 Time to explore.
 
-Spend some time exploring the spreadsheet using the codebook to decipher the variables. 
+Open up the codebook document on Canvas and use it to make sure you understand what each variable represents.
 
-- Any numbers or cases that surprised you? 
-
-- Any data challenge your preconceived notions?
+- What is it? Where did it come from? What units are they measured in?
 
 &lt;br&gt;
 
-*Report Back*
+Now take a few minutes to explore the data itself
+
+### Which states are doing the "best" and which the "worst"? Why?
+- How did you decide which variables were most important?
+
+&lt;br&gt;
+
+### Any data challenge your preconceived notions about the economics of the states?
 
 
 
@@ -578,8 +611,6 @@ background-position: center
 .textblack[
 .size35[
 **Univariate Analyses**
-
-&lt;br&gt;
 
 &lt;br&gt;
 
@@ -637,14 +668,10 @@ background-position: center
 
 &lt;br&gt;
 
-&lt;br&gt;
-
 Variable type determines analysis tool
 ]]]]
 
 .right-column[
-
-&lt;br&gt;
 
 &lt;br&gt;
 
@@ -776,6 +803,10 @@ background-position: center
 ???
 
 So, this is the table version of our summary.
+
+- Always make sure to polish your table for presentation (e.g. remove blanks and put the categories in a logical order)
+
+&lt;br&gt;
 
 ### How could we visualize the results of this table? What kind of chart would we need?
 - (Bar plot!)
@@ -1071,6 +1102,12 @@ class: middle, slideblue
 ???
 
 ### Everybody get these?
+
+&lt;br&gt;
+
+### What do we learn from this analysis fo state GDP? 
+
+### - Key takeaways?
 
 
 
@@ -1455,52 +1492,175 @@ The technique for building a histogram looks a lot like making a bar plot.
 
 &lt;br&gt;
 
-### What would happen if we used this approach to make a bar plot of GDP in billions of USD?
-- (SLIDE)
+Let's try this process using GDP in billions of dollars.
+
+Everybody start by making a pivot table to count the values of GDP Billions.
+
+(SLIDE)
+
 
 
 
 
 ---
 
-class: middle, slideblue
+class: middle, center, slideblue
 
-.center[.size40[.content-box-white[**Building a Histogram**]]]
+.size40[.content-box-white[**Building a Histogram**]]
 
-.code110[
+&lt;br&gt;
 
-```
+.size21[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 52 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 56.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 73.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 84.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 93.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 114.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 128.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 168.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 169.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
-  33.2563   39.1185   50.3266   52.0149   54.7341   56.0823   60.5876    64.856 
-        1         1         1         1         1         1         1         1 
-  73.4813    77.052   77.4376   84.4639   93.7979  100.2968  114.8342  123.9779 
-        1         1         1         1         1         1         1         1 
- 128.4189   168.318  169.3099  178.1376  189.7016  202.5541  208.0875  221.7355 
-        1         1         1         1         1         1         1         1 
- 233.9299  239.7828  257.2878  275.7269   318.921   336.294  348.2971  364.1049 
-        1         1         1         1         1         1         1         1 
- 366.8005  368.8524  371.7496  412.5842  527.0958  532.8925  563.6905   565.831 
-        1         1         1         1         1         1         1         1 
-  569.488  592.1534  622.0028  675.9052  783.1678  865.3104 1039.2364 1668.8662 
-        1         1         1         1         1         1         1         1 
-1802.5112 2997.7328 
-        1         1 
-```
+&lt;br&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 178.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 189.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 202.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 208.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 221.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 233.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 239.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 257.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 275.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 318.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 336.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 348.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 364.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 366.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 368.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 371.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 412.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 527.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 532.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 563.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 565.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 569.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 592.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 622 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 675.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 783.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 865.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1039.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1668.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1802.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
 
 ???
 
-Here's my results of making a table of GDP
+Here's my results of making a table of GDP.
 
-### What's wrong with making a bar chart of these? Why wouldn't this tell us anything useful about the distribution?
+### What would we get if we tried to draw this as a bar plot?
 
-- (SLIDE)
-
+(SLIDE)
 
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-20-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1508,9 +1668,11 @@ Here's my results of making a table of GDP
 
 - Not really a distribution, but a series of 50 lines
 
+More like a method for showing the numbers on a number line but not a good summary of the data.
+
 &lt;br&gt;
 
-More like a method for showing the numbers on a number line but not a good summary of the data.
+SLIDE: Let's try the histogram approach to summarizing this numerical variable.
 
 
 
@@ -1520,36 +1682,150 @@ class: middle, slideblue
 
 .center[.size40[.content-box-white[**Building a Histogram**]]]
 
-.code100[
+&lt;br&gt;
 
-```
+.size21[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 52 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 56.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 73.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 84.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 93.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 114.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 128.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 168.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 169.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
-  33.2563   39.1185   50.3266   52.0149   54.7341   56.0823   60.5876    64.856 
-        1         1         1         1         1         1         1         1 
-  73.4813    77.052   77.4376   84.4639   93.7979  100.2968  114.8342  123.9779 
-        1         1         1         1         1         1         1         1 
- 128.4189   168.318  169.3099  178.1376  189.7016  202.5541  208.0875  221.7355 
-        1         1         1         1         1         1         1         1 
- 233.9299  239.7828  257.2878  275.7269   318.921   336.294  348.2971  364.1049 
-        1         1         1         1         1         1         1         1 
- 366.8005  368.8524  371.7496  412.5842  527.0958  532.8925  563.6905   565.831 
-        1         1         1         1         1         1         1         1 
-  569.488  592.1534  622.0028  675.9052  783.1678  865.3104 1039.2364 1668.8662 
-        1         1         1         1         1         1         1         1 
-1802.5112 2997.7328 
-        1         1 
-```
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 178.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 189.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 202.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 208.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 221.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 233.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 239.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 257.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 275.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 318.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 336.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 348.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 364.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 366.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 368.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 371.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 412.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 527.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 532.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 563.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 565.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 569.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 592.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 622 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 675.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 783.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 865.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1039.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1668.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1802.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 ]
+
+&lt;br&gt;
 
 .center[
 .size40[**Create "bins" of $500 (e.g. 0-500, 501-1,000, etc.), remake the table and make a new bar chart by hand.**]
 ]
 
 ???
-
-&lt;br&gt;
-
-&lt;br&gt;
 
 So, let's try this table approach again but instead of individual values let's create bins!
 
@@ -1563,7 +1839,7 @@ SLIDE: result
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-26-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1638,9 +1914,9 @@ class: slideblue
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-24-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-29-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1674,7 +1950,7 @@ class: middle, slideblue
 
 2. By Hand: Make a box plot
 
-3. By Hand: Make a histogram
+3. By Hand: Make a histogram with 7 bins (each .01 wide)
 ]
 
 ???
@@ -1735,9 +2011,10 @@ class: slideblue
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-27-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
 ]
 
 ???
@@ -1750,14 +2027,14 @@ class: slideblue
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-29-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-33-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-35-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2034,9 +2311,9 @@ background-position: center
 
 ???
 
-This code will make a box plot with three boxes (one per level of population).
+Once you have separate columns for each box you want to make, highlight the columns and insert a box chart.
 
-AND it will put the boxes in this order (the order of the columns).
+- Note: it will put the boxes in this order (the order of the columns).
 
 &lt;br&gt;
 
@@ -2045,7 +2322,7 @@ Everybody do this and insert the box plot.
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-36-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2086,7 +2363,7 @@ Everybody make a box plot to help us answer this question.
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-33-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-37-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2135,7 +2412,7 @@ background-position: center
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-38-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2182,11 +2459,11 @@ class: slideblue, middle
 .center[.size35[.content-box-white[**Explaining GDP (Billions USD)**]]]
 
 .pull-left[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-35-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-39-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-36-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-40-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2200,11 +2477,11 @@ class: slideblue, middle
 .center[.size35[.content-box-white[**Explaining GDP (Rate)**]]]
 
 .pull-left[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-37-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-41-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-38-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-42-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???

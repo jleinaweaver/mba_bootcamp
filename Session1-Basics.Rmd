@@ -110,15 +110,13 @@ d_ross$earnk2021[1:176]
 
 ???
 
-Let's say I gave you a list of data points.
-
-Here's a big list of incomes in the US from a nationally representative survey done in 1990.
-
+Here we see the results of a 1990 survey of Americans that asked them to report their yearly earnings 
+- Survey was a nationally representative sample of 1,800 people,
 - Incomes adjusted for inflation to 2021 dollars and shown in thousands of dollars
 
-<br>
+Let's say you work for me and I gave you this list of data points to analyze.
 
-### What would you do to summarize this for me?
+### What could you do to "analyze" this data for me? What could you tell me about incomes in the USA?
 
 <br>
 
@@ -172,7 +170,9 @@ d_ross$earnk2021[1:204]
 
 ???
 
-### So, for what situations would you prefer the table on the left and in what situations would you want all 1,815 responses?
+### So, for what specific situations could you use the summary data?
+
+### And, in what situations would you prefer having all 1,815 responses?
 
 *Force this discussion*
 
@@ -192,6 +192,22 @@ Statistics is a set of tools we use to summarize data
 Summarize: "give a brief statement of the main points of (something)" (Oxford Dictionary).
 ]
 
+???
+
+Leads us to our first definition of statistics
+
+- In our example we used descriptive statistics like the mean, median and standard deviation to summarize our data.
+
+<br>
+
+For many purposes the summaries of the data are far more useful than the list of data points.
+
+- How are incomes distributed in the US?
+
+- What proportion of Americans live in poverty?
+
+- etc.
+
 
 
 ---
@@ -210,7 +226,19 @@ class: middle, center, slideblue
 
 Defining statistics (level 2) is using summaries of samples to learn about the wider population. Small data to tell us about the whole world.
 
-My aim for this week is to get you doing applied statistical analyses.
+<br>
+
+The survey data we were discussing was designed to be "nationally representative."
+
+- This means the researchers tried to pick a sample whose descriptive statistics would come close, or match, the wider population.
+
+<br>
+
+My aim for this week is to get you doing applied statistical analyses both to learn how to:
+
+- Extract useful analyses from large datasets, and
+
+- Use sample statistics to learn about a wider population.
 
 
 
@@ -279,21 +307,26 @@ d |>
 
 ???
 
-### Is this a "tidy" dataset?
+### Why specifically is this a "tidy" dataset?
 
 <br>
 
 Time to explore.
 
-Spend some time exploring the spreadsheet using the codebook to decipher the variables. 
+Open up the codebook document on Canvas and use it to make sure you understand what each variable represents.
 
-- Any numbers or cases that surprised you? 
-
-- Any data challenge your preconceived notions?
+- What is it? Where did it come from? What units are they measured in?
 
 <br>
 
-*Report Back*
+Now take a few minutes to explore the data itself
+
+### Which states are doing the "best" and which the "worst"? Why?
+- How did you decide which variables were most important?
+
+<br>
+
+### Any data challenge your preconceived notions about the economics of the states?
 
 
 
@@ -309,8 +342,6 @@ background-position: center
 .textblack[
 .size35[
 **Univariate Analyses**
-
-<br>
 
 <br>
 
@@ -368,14 +399,10 @@ background-position: center
 
 <br>
 
-<br>
-
 Variable type determines analysis tool
 ]]]]
 
 .right-column[
-
-<br>
 
 <br>
 
@@ -507,6 +534,10 @@ background-position: center
 ???
 
 So, this is the table version of our summary.
+
+- Always make sure to polish your table for presentation (e.g. remove blanks and put the categories in a logical order)
+
+<br>
 
 ### How could we visualize the results of this table? What kind of chart would we need?
 - (Bar plot!)
@@ -783,6 +814,12 @@ d %>%
 ???
 
 ### Everybody get these?
+
+<br>
+
+### What do we learn from this analysis fo state GDP? 
+
+### - Key takeaways?
 
 
 
@@ -1129,32 +1166,65 @@ The technique for building a histogram looks a lot like making a bar plot.
 
 <br>
 
-### What would happen if we used this approach to make a bar plot of GDP in billions of USD?
-- (SLIDE)
+Let's try this process using GDP in billions of dollars.
+
+Everybody start by making a pivot table to count the values of GDP Billions.
+
+(SLIDE)
+
 
 
 
 
 ---
 
-class: middle, slideblue
+class: middle, center, slideblue
 
-.center[.size40[.content-box-white[**Building a Histogram**]]]
+.size40[.content-box-white[**Building a Histogram**]]
 
-.code110[
+<br>
+
+.size21[
 ```{r}
-table(d$gdp_billions)
+#table(d$gdp_billions)
+d |> 
+  count(gdp_billions) |>
+  slice(1:19) |>
+  rename("GDP" = gdp_billions) |>
+  t() |>
+  kbl(digits = 1, align = 'c')
+```
+
+<br>
+
+```{r}
+d |> 
+  count(gdp_billions) |>
+  slice(20:35) |>
+  rename("GDP" = gdp_billions) |>
+  t() |>
+  kbl(digits = 1, align = 'c')
+```
+
+<br>
+
+```{r}
+d |> 
+  count(gdp_billions) |>
+  slice(36:50) |>
+  rename("GDP" = gdp_billions) |>
+  t() |>
+  kbl(digits = 1, align = 'c')
 ```
 ]
 
 ???
 
-Here's my results of making a table of GDP
+Here's my results of making a table of GDP.
 
-### What's wrong with making a bar chart of these? Why wouldn't this tell us anything useful about the distribution?
+### What would we get if we tried to draw this as a bar plot?
 
-- (SLIDE)
-
+(SLIDE)
 
 
 ---
@@ -1163,7 +1233,9 @@ Here's my results of making a table of GDP
 d |>
   ggplot(aes(x = gdp_billions)) +
   geom_bar() +
-  theme_bw()
+  theme_bw() +
+  scale_y_continuous(limits = c(0, 1.5), breaks = c(0,1)) +
+  labs(x = "GDP (billions USD)")
 ```
 
 ???
@@ -1172,9 +1244,11 @@ d |>
 
 - Not really a distribution, but a series of 50 lines
 
+More like a method for showing the numbers on a number line but not a good summary of the data.
+
 <br>
 
-More like a method for showing the numbers on a number line but not a good summary of the data.
+SLIDE: Let's try the histogram approach to summarizing this numerical variable.
 
 
 
@@ -1184,21 +1258,45 @@ class: middle, slideblue
 
 .center[.size40[.content-box-white[**Building a Histogram**]]]
 
-.code100[
+<br>
+
+.size21[
 ```{r}
-table(d$gdp_billions)
+#table(d$gdp_billions)
+d |> 
+  count(gdp_billions) |>
+  slice(1:19) |>
+  rename("GDP" = gdp_billions) |>
+  t() |>
+  kbl(digits = 1, align = 'c')
+```
+
+```{r}
+d |> 
+  count(gdp_billions) |>
+  slice(20:35) |>
+  rename("GDP" = gdp_billions) |>
+  t() |>
+  kbl(digits = 1, align = 'c')
+```
+
+```{r}
+d |> 
+  count(gdp_billions) |>
+  slice(36:50) |>
+  rename("GDP" = gdp_billions) |>
+  t() |>
+  kbl(digits = 1, align = 'c')
 ```
 ]
+
+<br>
 
 .center[
 .size40[**Create "bins" of $500 (e.g. 0-500, 501-1,000, etc.), remake the table and make a new bar chart by hand.**]
 ]
 
 ???
-
-<br>
-
-<br>
 
 So, let's try this table approach again but instead of individual values let's create bins!
 
@@ -1337,7 +1435,7 @@ class: middle, slideblue
 
 2. By Hand: Make a box plot
 
-3. By Hand: Make a histogram
+3. By Hand: Make a histogram with 7 bins (each .01 wide)
 ]
 
 ???
@@ -1389,13 +1487,30 @@ d |>
 ```
 
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.asp=0.618, fig.width = 5, cache=TRUE}
+# d %>%
+#   ggplot(aes(x = gdp_rate)) +
+#   geom_histogram(fill = "darkblue", color = "white", bins = 15) +
+#   theme_bw() +
+#   labs(x = "GDP (billions USD)", y = "")# +
+#   #scale_x_continuous(breaks = seq(0,3e3,5e2))
+
 d %>%
-  ggplot(aes(x = gdp_rate)) +
-  geom_histogram(fill = "darkblue", color = "white", bins = 15) +
+  mutate(
+    gdp2 = case_when(
+      gdp_rate < .03 ~ ".02-.029",
+      gdp_rate < .04 ~ ".03-.039",
+      gdp_rate < .05 ~ ".04-.049",
+      gdp_rate < .06 ~ ".05-.059",
+      gdp_rate < .07 ~ ".06-.069",
+      gdp_rate < .08 ~ ".07-.079",
+      gdp_rate < .09 ~ ".08-.089")
+  ) |> 
+  ggplot(aes(x = gdp2)) +
+  geom_bar(fill = "darkblue", color = "white") +
   theme_bw() +
-  labs(x = "GDP (billions USD)", y = "")# +
-  #scale_x_continuous(breaks = seq(0,3e3,5e2))
+  labs(x = "GDP (billions USD)", y = "")
 ```
+
 ]
 
 ???
@@ -1713,9 +1828,9 @@ background-position: center
 
 ???
 
-This code will make a box plot with three boxes (one per level of population).
+Once you have separate columns for each box you want to make, highlight the columns and insert a box chart.
 
-AND it will put the boxes in this order (the order of the columns).
+- Note: it will put the boxes in this order (the order of the columns).
 
 <br>
 
