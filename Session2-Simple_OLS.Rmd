@@ -48,11 +48,11 @@ d <- read_excel("../Data_for_Class/Session2/MBA_Session2-Data.xlsx", na = c("NA"
 
 class: middle, slideblue
 
-.size65[.content-box-white[**Today's Agenda**]]
+.size60[.content-box-white[**Today's Agenda**]]
 
 <br>
 
-.size45[
+.size40[
 Simple OLS Regression Modeling
 1. Fitting the models
 2. Interpreting the models
@@ -161,7 +161,7 @@ knitr::include_graphics('libs/Images/Session2-Ross1990_header.png')
 ```{r, results='asis'}
 d |>
   select(height:education, age, walk, exercise) |>
-  slice(1:10) |>
+  slice(1:9) |>
   kbl(format = "html", align = 'c') |>
   row_spec(row = 0, background = "#eedc82")
 ```
@@ -240,8 +240,6 @@ SLIDE: Let's take some time to practice our skills from Session 1 and learn some
 
 class: middle, slideblue
 
-.center[.size50[.content-box-white[**Let's Practice!**]]]
-
 .size40[
 1. What is the most common level of education in the sample?
 
@@ -254,6 +252,10 @@ class: middle, slideblue
 
 ???
 
+**Let's Practice!**
+
+<br>
+
 ### What tools from last class could we use to answer each of these questions?
 
 - (SLIDE)
@@ -264,9 +266,7 @@ class: middle, slideblue
 
 class: middle, slideblue
 
-.center[.size45[.content-box-white[**Let's Practice!**]]]
-
-.size35[
+.size40[
 1. What is the most common level of education in the sample? .textred[**(Pivot table & bar plot)**]
 
 2. What is the distribution of income? What are the maximum and minimum earnings reported? .textred[**(Histogram & descriptive stats)**]
@@ -508,7 +508,7 @@ class: middle, slideblue
 .center[
 .size60[.content-box-white[**The Formula for a Line**]]
 
-.size70[
+.size65[
 Y = &#945; + &#946; X
 ]]
 
@@ -813,7 +813,7 @@ Quick tangent: The Excel regression output is... let's just identify it as non-s
 
 class: middle
 
-.size35[
+.size30[
 ```{r, results='asis'}
 res1 <- d %>% lm(data = ., weight ~ height)
 
@@ -1236,15 +1236,13 @@ d %>%
 
 class: middle
 
-.center[.size30[.content-box-white[**Evaluation Step 2: Statistical Significance**]]]
-
 ```{r, results='asis'}
 # Simple Regression Options
 res1 <- d %>% lm(data = ., earnk2021 ~ height)
 res2 <- d %>% lm(data = ., earnk2021 ~ age)
 res3 <- d %>% lm(data = ., earnk2021 ~ education)
 
-stargazer(res1, res2, res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
 
 ???
@@ -1273,7 +1271,7 @@ class: middle
 .pull-left[
 .size25[
 ```{r, results='asis'}
-stargazer(res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
+stargazer(res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
 ```
 ]]
 
@@ -1318,7 +1316,7 @@ class: middle
 .pull-left[
 .size25[
 ```{r, results='asis'}
-stargazer(res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
+stargazer(res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
 ```
 ]]
 
@@ -1476,6 +1474,8 @@ knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3.png')
 
 .center[.size30[.content-box-white[**P-Values: A shortcut to determining statistical significance**]]]
 
+<br>
+
 .size40[
 "The p-value is the probability of observing another computed test statistic ... that is more extreme (either positive or negative) than the one computed for your sample. ... 
 ]
@@ -1494,15 +1494,30 @@ Basically, this test starts from the assumption that both coefficients are actua
 
 - The p-value is a test of the likelihood you would get a coefficient estimate as "extreme" as you did IF THE TRUE VALUE IS ZERO. 
 
---
 
-.size40[
-**Therefore, the smaller the p-value, the more support for the alternative hypothesis**" (p82).
-]
 
-???
+
+---
+
+class: middle, slideblue
+
+```{r, fig.align='center'}
+knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3.png')
+```
 
 <br>
+
+<br>
+
+.center[.size30[.content-box-white[**P-Values: A shortcut to determining statistical significance**]]]
+
+<br>
+
+.center[.size40[
+**Therefore, the smaller the p-value, the more support for the alternative hypothesis**" (p82).
+]]
+
+???
 
 The key for us is we want really, really small p-values.
 
@@ -1613,10 +1628,8 @@ In terms of the regression output you can see that the p-value on smoking is .19
 
 class: middle
 
-.center[.size30[.content-box-white[**Evaluation Step 2: Statistical Significance**]]]
-
 ```{r, results='asis'}
-stargazer(res1, res2, res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
 
 ???
@@ -1628,13 +1641,13 @@ stargazer(res1, res2, res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p <
 
 class: middle
 
-.center[.size30[.content-box-white[**Evaluation Step 3: Coefficient of Determination**]]]
-
 ```{r, results='asis'}
-stargazer(res1, res2, res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
 
 ???
+
+Evaluation Step 3: Coefficient of Determination
 
 ### What do we learn about these models using Step 3?
 
@@ -1681,13 +1694,13 @@ A "low" R2, meaning values closer to 0, implies big differences between the mode
 
 class: middle
 
-.center[.size30[.content-box-white[**Evaluation Step 3: Coefficient of Determination**]]]
-
 ```{r, results='asis'}
-stargazer(res1, res2, res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
 
 ???
+
+Evaluation Step 3: Coefficient of Determination
 
 ### So, what do we learn about these models from their R2 values?
 

@@ -35,8 +35,6 @@ class: middle, slideblue
 
 .size65[.content-box-white[**Today's Agenda**]]
 
-<br>
-
 .size45[
 Multiple OLS Regression Modeling
 1. Fitting the models
@@ -93,9 +91,9 @@ class: middle, slideblue
 
 class: middle, slideblue
 
-.center[.size45[.content-box-white[**Do states that pay a higher minimum**]]]
+.center[.size40[.content-box-white[**Do states that pay a higher minimum**]]]
 
-.center[.size45[.content-box-white[**wage see more people finish college?**]]]
+.center[.size40[.content-box-white[**wage see more people finish college?**]]]
 
 <br>
 
@@ -217,8 +215,6 @@ class: middle, slideblue
 <br>
 
 .pull-left[
-
-<br>
 
 .size30[
 ```{r, results='asis'}
@@ -374,7 +370,7 @@ background-position: center
 <br>
 
 .center[
-.size45[
+.size40[
 Calculate the mean earnk2021 for each gender:
 
 Pivot table
@@ -904,7 +900,7 @@ stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*
 ]]
 
 .pull-right[
-.size30[
+.size25[
 ```{r, results='asis'}
 d %>%
     group_by(gender) %>%
@@ -916,6 +912,7 @@ d %>%
   column_spec(column = 1:2, width = "5em", background = "#ece9e8")
 ```
 ]
+
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=4, fig.asp=0.618, cache=TRUE}
 d %>%
     ggplot(aes(x = factor(male), y = earnk2021)) +
@@ -929,7 +926,7 @@ d %>%
 
 <br>
 
-.center[.size35[
+.center[.size30[
 **Earnings** = 32.12 + 27.78 * 0 = 32.1
 
 **Earnings** = 32.12 + 27.78 * 1 = 59.9
@@ -1000,15 +997,9 @@ Let's start with just approach 1 and 2.
 
 class: middle, center, slideblue
 
-.size30[.content-box-white[**Is there a significant difference across reported**]] 
-
-.size30[.content-box-white[**ethnicities in yearly earnings?**]]
+.size40[**Is there a significant difference across reported ethnicities in yearly earnings?**]
 
 .left-column[
-
-<br>
-
-<br>
 
 <br>
 
@@ -1103,8 +1094,6 @@ stargazer(res4, type = "html", omit.stat = c("rsq", "ser", "f", "adj.rsq"), star
 ```
 ]]
 
-<br>
-
 .center[.size30[
 .content-box-white[Earnings = 44.08 - 9.34(Black) - 12.07(Hispanic) - 1.18(Other)]
 ]]
@@ -1188,7 +1177,9 @@ d %>%
     theme_bw() +
     labs(x = "", y = "Yearly Earnings (2021 USD)") +
     scale_x_discrete(labels = c("Female", "Male"))
+```
 
+```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=5, fig.asp=0.618, cache=TRUE}
 d %>%
     ggplot(aes(x = education, y = earnk2021)) +
     geom_point() +
@@ -1227,7 +1218,7 @@ d |>
   ggplot(aes(x = education, y = earnk2021, color = gender, shape = gender)) +
   geom_point(size = 3) +
   theme_bw() +
-  labs(x = "Education (Years)", y = "Yearly Earnings (2021 USDk)") +
+  labs(x = "Education (Years)", y = "Yearly Earnings (2021 USDk)", color = "", shape = "") +
   scale_color_manual(values = c("red", "blue"))
 ```
 
@@ -1262,7 +1253,7 @@ d |>
   ggplot(aes(x = education, y = earnk2021, color = gender, shape = gender)) +
   geom_point(size = 3) +
   theme_bw() +
-  labs(x = "Education (Years)", y = "Yearly Earnings (2021 USDk)") +
+  labs(x = "Education (Years)", y = "Yearly Earnings (2021 USDk)", color = "", shape = "") +
   scale_color_manual(values = c("red", "blue")) +
   facet_wrap(~ gender)
 ```
@@ -1293,7 +1284,7 @@ background-position: center
 
 <br>
 
-.size45[
+.size40[
 Regress earnk2021 on male AND education
 
 - Make sure to remove missing data!
@@ -1568,8 +1559,6 @@ stargazer(res3, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*
 ```
 ]
 
-<br>
-
 .center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
 
 ???
@@ -1811,8 +1800,6 @@ class: middle, slideblue
 
 .center[.size40[.content-box-white[**regression model**]]]
 
-<br>
-
 .size40[
 1. Choose the "logical" predictors from your options
 
@@ -1970,10 +1957,7 @@ Here are seven common regression mistakes from a stats book by Wheelan.
 
 class: middle, slideblue
 
-.center[.size40[.content-box-white[**Common Regression Mistakes**]]] 
-
-.center[.size40[.content-box-white[**(Wheelan ch12)**]]]
-
+.center[.size35[.content-box-white[**Common Regression Mistakes (Wheelan ch12)**]]] 
 <br>
 
 .size40[
@@ -1985,7 +1969,7 @@ class: middle, slideblue
 6. .textorange[Extrapolating beyond the data]
 7. .textblue[Data mining (too many variables)]
 
-.center[Textbook Evaluation Steps: .textblue[1], .textorange[2], .textgreen[3], .textred[4], .textwhite[5]
+.center[**Textbook Evaluation Steps: .textblue[1], .textorange[2], .textgreen[3], .textred[4], .textwhite[5]**
 ]]
 
 ???
@@ -2027,22 +2011,20 @@ Let's now create a marginal effects plot for one of the predictors in our "best"
 
 class: middle, slideblue
 
-.center[.size45[.content-box-white[**For Next Class**]]]
+.center[.size45[**For Next Class:** What is the "best" model of bachelor's degree completion in the  Session 1 data?]]
 
-<br>
-
-.center[.size45[What is the "best" model of bachelor's degree completion in the  Session 1 data?]]
-
-.size45[
+.size40[
 - Outcome:
     - Bachelors' Degrees
 ]
 
-.size45[
+.size40[
 - Predictors to consider:
     - GDP (Rate), Homeownership, Minimum wage, State Tax Rate on Wages, Unemployment
 
 ]
+
+???
 
 ### Questions on the assignment?
 

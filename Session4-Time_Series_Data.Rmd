@@ -15,7 +15,6 @@ output:
 ##xaringan::inf_mr()
 ## For offline work: https://bookdown.org/yihui/rmarkdown/some-tips.html#working-offline
 ## Images not appearing? Put images folder inside the libs folder as that is the main data directory
-
 library(tidyverse)
 library(readxl)
 library(stargazer)

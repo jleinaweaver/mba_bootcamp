@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE,
                       comment = NA)
 
-d <- read_excel("../Data_for_Class/Session1/MBA_Session1-Data.xlsx", na = "NA") |>
+d <- read_excel("../Data_for_Class/Session1/Financial_Data_US_States-2018.xlsx", na = "NA") |>
   mutate(
     gdp_category = factor(gdp_category, levels = c("Low", "Medium", "High")),
     pop_category = factor(pop_category, levels = c("Low", "Medium", "High")),
@@ -47,9 +47,7 @@ class: middle, slideblue
 
 .size50[
 1. Organizing Data
-
 2. Univariate Analyses
-
 3. Bivariate Analyses
 ]
 
@@ -92,7 +90,7 @@ Welcome everybody!
 
 class: center, middle, slideblue
 
-.code110[
+.code100[
 ```{r}
 ## Random data
 weights <- round(runif(n = 400, min = 50, max = 300), 0)
@@ -267,13 +265,13 @@ Variable type determines analysis tool
 
 <br>
 
-.size55[
+.size50[
 - Categorical Variables
     - Nominal
     - Ordinal
 ]
 
-.size55[
+.size50[
 - Numerical Variables
     - Interval
     - Ratio
@@ -630,8 +628,6 @@ class: middle, slideblue
 .center[
 .size35[.content-box-white[**Analyzing Numerical Variables (Johnson 2012)**]]
 ]
-
-<br>
 
 .size40[
 - Measures of Central Tendency
@@ -1130,7 +1126,7 @@ class: middle, slideblue
 
 .center[.size40[.content-box-white[**Building a Histogram**]]]
 
-.code110[
+.code100[
 ```{r}
 table(d$gdp_billions)
 ```
@@ -1445,8 +1441,6 @@ class: middle, center, slideblue
 
 <br>
 
-<br>
-
 .size40[.content-box-white[Remember: Variable type dictates tool selection]]
 
 ???
@@ -1593,8 +1587,6 @@ In our second set of bivariate analyses we move to situations where you'd like t
 class: middle, slideblue
 
 .center[.size35[.content-box-white[**Bivariate Analyses: Numerical x Categorical**]]]
-
-<br>
 
 .size45[
 1. Convert GDP into billions of USD

@@ -19,8 +19,6 @@ class: middle, slideblue
 
 .size65[.content-box-white[**Today's Agenda**]]
 
-&lt;br&gt;
-
 .size45[
 Multiple OLS Regression Modeling
 1. Fitting the models
@@ -77,9 +75,9 @@ class: middle, slideblue
 
 class: middle, slideblue
 
-.center[.size45[.content-box-white[**Do states that pay a higher minimum**]]]
+.center[.size40[.content-box-white[**Do states that pay a higher minimum**]]]
 
-.center[.size45[.content-box-white[**wage see more people finish college?**]]]
+.center[.size40[.content-box-white[**wage see more people finish college?**]]]
 
 &lt;br&gt;
 
@@ -207,8 +205,6 @@ class: middle, slideblue
 &lt;br&gt;
 
 .pull-left[
-
-&lt;br&gt;
 
 .size30[
 &lt;table&gt;
@@ -374,7 +370,7 @@ background-position: center
 &lt;br&gt;
 
 .center[
-.size45[
+.size40[
 Calculate the mean earnk2021 for each gender:
 
 Pivot table
@@ -956,7 +952,7 @@ class: middle, center, slideblue
 ]]
 
 .pull-right[
-.size30[
+.size25[
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -976,12 +972,13 @@ class: middle, center, slideblue
 &lt;/tbody&gt;
 &lt;/table&gt;
 ]
+
 &lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 &lt;br&gt;
 
-.center[.size35[
+.center[.size30[
 **Earnings** = 32.12 + 27.78 * 0 = 32.1
 
 **Earnings** = 32.12 + 27.78 * 1 = 59.9
@@ -1052,15 +1049,9 @@ Let's start with just approach 1 and 2.
 
 class: middle, center, slideblue
 
-.size30[.content-box-white[**Is there a significant difference across reported**]] 
-
-.size30[.content-box-white[**ethnicities in yearly earnings?**]]
+.size40[**Is there a significant difference across reported ethnicities in yearly earnings?**]
 
 .left-column[
-
-&lt;br&gt;
-
-&lt;br&gt;
 
 &lt;br&gt;
 
@@ -1191,8 +1182,6 @@ class: middle, slideblue
 &lt;/table&gt;
 ]]
 
-&lt;br&gt;
-
 .center[.size30[
 .content-box-white[Earnings = 44.08 - 9.34(Black) - 12.07(Hispanic) - 1.18(Other)]
 ]]
@@ -1280,7 +1269,9 @@ class: middle, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="95%" style="display: block; margin: auto;" /&gt;&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-2.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-37-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1307,7 +1298,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-37-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-38-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1335,7 +1326,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-38-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-39-1.png" width="87%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1363,7 +1354,7 @@ background-position: center
 
 &lt;br&gt;
 
-.size45[
+.size40[
 Regress earnk2021 on male AND education
 
 - Make sure to remove missing data!
@@ -1550,7 +1541,7 @@ Everybody make a residuals plot for this model
 
 class: middle, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-43-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1660,7 +1651,7 @@ class: slideblue, middle
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-45-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-46-1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1703,8 +1694,6 @@ class: slideblue
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]
-
-&lt;br&gt;
 
 .center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
 
@@ -2008,7 +1997,7 @@ Now make your marginal effects plot with these two lines.
 
 class: middle, center, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-52-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-53-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2040,8 +2029,6 @@ class: middle, slideblue
 
 .center[.size40[.content-box-white[**regression model**]]]
 
-&lt;br&gt;
-
 .size40[
 1. Choose the "logical" predictors from your options
 
@@ -2071,7 +2058,7 @@ Process of building a "useful" multiple regression
 
 class: middle, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-53-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-54-1.png" width="65%" style="display: block; margin: auto;" /&gt;
 
 .size40[
 **Predictors to Consider**
@@ -2137,7 +2124,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-55-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-56-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2202,10 +2189,7 @@ Here are seven common regression mistakes from a stats book by Wheelan.
 
 class: middle, slideblue
 
-.center[.size40[.content-box-white[**Common Regression Mistakes**]]] 
-
-.center[.size40[.content-box-white[**(Wheelan ch12)**]]]
-
+.center[.size35[.content-box-white[**Common Regression Mistakes (Wheelan ch12)**]]] 
 &lt;br&gt;
 
 .size40[
@@ -2217,7 +2201,7 @@ class: middle, slideblue
 6. .textorange[Extrapolating beyond the data]
 7. .textblue[Data mining (too many variables)]
 
-.center[Textbook Evaluation Steps: .textblue[1], .textorange[2], .textgreen[3], .textred[4], .textwhite[5]
+.center[**Textbook Evaluation Steps: .textblue[1], .textorange[2], .textgreen[3], .textred[4], .textwhite[5]**
 ]]
 
 ???
@@ -2259,22 +2243,20 @@ Let's now create a marginal effects plot for one of the predictors in our "best"
 
 class: middle, slideblue
 
-.center[.size45[.content-box-white[**For Next Class**]]]
+.center[.size45[**For Next Class:** What is the "best" model of bachelor's degree completion in the  Session 1 data?]]
 
-&lt;br&gt;
-
-.center[.size45[What is the "best" model of bachelor's degree completion in the  Session 1 data?]]
-
-.size45[
+.size40[
 - Outcome:
     - Bachelors' Degrees
 ]
 
-.size45[
+.size40[
 - Predictors to consider:
     - GDP (Rate), Homeownership, Minimum wage, State Tax Rate on Wages, Unemployment
 
 ]
+
+???
 
 ### Questions on the assignment?
 
