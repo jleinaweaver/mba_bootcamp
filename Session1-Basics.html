@@ -58,7 +58,8 @@ Welcome everybody!
 
 ### What is your experience with applied statistics?
 
-- (SLIDE: Prompt with vector of numbers) 
+- (SLIDE: What would you do to summarize a vector of data?) 
+
 
 
 
@@ -66,53 +67,147 @@ Welcome everybody!
 
 class: center, middle, slideblue
 
-.code100[
+.code90[
 
 ```
-  [1] 190 278 140  86  65 193 181 265 111  74 257 269 184  54 296 232 148 162
- [19]  65  86  72 163 248  55 291 271 220 268 233 236 272 120  56 144 113 200
- [37] 269  96 186 189 297 144 286 215 177 281  75 230 139 240 269 283 150 225
- [55] 189 160 268 188  70  99 266 114 281 155 107 262 150 211 243 222 270 164
- [73] 250 300 170  85 100 245 184 114 262 164 117  63 279  68  59 261  91 129
- [91] 260 115 129 149 243  72 147 115 121 130 143 114 257 193 171 182 194 241
-[109]  54 134 236  88 148 131  72 284 113 166  74 153 203 188 233 260  68 163
-[127] 157  86 208 104 250 206 108 152 121 110 154 299 212 217 265  82 288 128
-[145] 157 253 189 269 192 105  54 282 122 254 199 170  85 261 153 299 296 245
-[163]  62  84 157 209 100  74 161  96 133  83  60 126 289 230 161 123 243 148
-[181] 221 125 106 197 150  74 189 268 105 286  94  89  75 257 127 275  96 207
-[199] 208 129 105 272 102 229 183 254  66 271 208  93 259 139 140  68 161  63
-[217] 293 250 215 188 223  69 109 152 287  94 205 241 284 161 131 226 259 269
-[235]  50 267 160 295  96 161 288 251  90 130 155 288 197 163  80 129  55 190
-[253] 220  59 188 206 296 233 172 177 144 124 276  86 257 287 144 208  56 247
-[271] 238 244 179 191  56  60  90 242 171  90  90 255 144 205 231 110 124 242
-[289]  89  83 185 207 297 298 201 173 155 287 289 117 130 189 192 220 195 238
-[307] 177 225 234 252  87 204 163 234 268 139  59 271 246 263 141  73 278  63
-[325] 214  68 121 236 295 140 193 201 265 289  72 166 101 180  52 118 180 244
-[343] 148 145 241  55 184 252 273  90 101 170 105 241 253 264 229  56 149 233
-[361] 214 153  61 128  72 234 190 256 176  62 138 152  57 293 296 264 296 220
-[379]  56 118 211 154 283 193 282 169 267 173 130 134 130 281 105  72  80 279
-[397] 251 133  82 246
+  [1] 101.330000 121.596000  60.798000  50.665000 101.330000 125.649200 103.356600  18.239400
+  [9]  58.771400  64.851200   4.053200  70.931000  54.718200  13.233698   0.000000  60.798000
+ [17]  24.319200  30.399000  24.319200  40.532000   0.000000  50.665000  44.585200  50.665000
+ [25]  40.532000  34.452200  81.064000  89.170400   0.000000  14.186200 107.409800  10.133000
+ [33]  10.133000  28.372400  91.197000  11.146300  81.064000  68.904400  10.133000  20.266000
+ [41]   0.000000  54.718200 125.649200  30.399000   0.000000 101.330000   0.000000  83.090600
+ [49]   0.000000  30.399000  50.665000  50.665000 151.995000  54.718200  24.319200  81.064000
+ [57]  15.199500  50.665000  60.798000  42.558600  54.718200  91.197000   6.079800  50.665000
+ [65]  48.638400  64.851200  20.266000   0.000000  22.292600  37.897420  40.532000   7.093100
+ [73]  26.345800  50.665000  42.558600  68.904400  10.133000  12.159600  34.452200  70.931000
+ [81]   8.106400  10.133000  28.372400  20.266000  50.665000   0.000000 176.314200  32.425600
+ [89]   0.000000  30.399000   0.000000  32.425600  50.665000  33.438900  30.399000   8.106400
+ [97]   7.782144  10.133000  44.585200   0.405320  52.691600   5.066500  34.452200  50.665000
+[105]  16.212800  50.665000   0.000000  24.319200  20.266000  10.133000 202.660000  20.266000
+[113]   0.000000  30.399000  91.197000  30.399000   4.863840  60.798000  60.798000  20.266000
+[121]  10.133000  24.319200  40.532000  40.532000  40.532000  50.665000  10.133000   0.000000
+[129]  50.665000   2.431920  10.133000   1.418620  40.532000  20.266000  60.798000  50.665000
+[137]  81.064000  50.665000  91.197000  20.266000 121.596000  91.197000   0.000000  36.478800
+[145]  30.399000 101.330000  32.506664  30.399000  20.266000  66.877800  36.478800  30.399000
+[153]  42.558600  42.558600  74.984200  77.010800  34.452200   0.000000   0.000000  30.399000
+[161]  64.851200  55.731500  30.399000  33.438900   0.000000   0.000000  50.665000  54.718200
+[169]  10.133000 141.862000  10.133000  10.133000 125.649200  30.399000  40.532000   8.106400
 ```
 ]
 
+**And 1,639 more responses...**
+
 ???
 
-### In other words, if I gave you a vector of data what would you do with it? 
+Let's say I gave you a list of data points.
 
-### - How could you summarize this for me?
+Here's a big list of incomes in the US from a nationally representative survey done in 1990.
 
-&lt;br&gt;
-
-### What would it mean to summarize this with it's "middle"? How do we do that and what would it tell us?
+- Incomes adjusted for inflation to 2021 dollars and shown in thousands of dollars
 
 &lt;br&gt;
 
-### What would it mean to summarize this with it's "range"? How do we do that and what would it tell us?
+### What would you do to summarize this for me?
 
 &lt;br&gt;
 
-### What would it mean to summarize this with it's "variation"? How do we do that and what would it tell us?
+### The Middle: How do we identify the "middle" of the data and when is that summary useful?
 
+&lt;br&gt;
+
+### The Range: How do we identify the "range" of the data and when is that summary useful?
+
+&lt;br&gt;
+
+### The Variation: How do we identify the "variation" of the data and when is that summary useful?
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+.size35[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;The Middle&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Mean &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Median &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="3"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;The Range&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Minimum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Maximum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 405 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Range &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 405 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="1"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;The Variation&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Standard Deviation &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+.code60[
+
+```
+  [1] 101.330000 121.596000  60.798000  50.665000 101.330000 125.649200
+  [7] 103.356600  18.239400  58.771400  64.851200   4.053200  70.931000
+ [13]  54.718200  13.233698   0.000000  60.798000  24.319200  30.399000
+ [19]  24.319200  40.532000   0.000000  50.665000  44.585200  50.665000
+ [25]  40.532000  34.452200  81.064000  89.170400   0.000000  14.186200
+ [31] 107.409800  10.133000  10.133000  28.372400  91.197000  11.146300
+ [37]  81.064000  68.904400  10.133000  20.266000   0.000000  54.718200
+ [43] 125.649200  30.399000   0.000000 101.330000   0.000000  83.090600
+ [49]   0.000000  30.399000  50.665000  50.665000 151.995000  54.718200
+ [55]  24.319200  81.064000  15.199500  50.665000  60.798000  42.558600
+ [61]  54.718200  91.197000   6.079800  50.665000  48.638400  64.851200
+ [67]  20.266000   0.000000  22.292600  37.897420  40.532000   7.093100
+ [73]  26.345800  50.665000  42.558600  68.904400  10.133000  12.159600
+ [79]  34.452200  70.931000   8.106400  10.133000  28.372400  20.266000
+ [85]  50.665000   0.000000 176.314200  32.425600   0.000000  30.399000
+ [91]   0.000000  32.425600  50.665000  33.438900  30.399000   8.106400
+ [97]   7.782144  10.133000  44.585200   0.405320  52.691600   5.066500
+[103]  34.452200  50.665000  16.212800  50.665000   0.000000  24.319200
+[109]  20.266000  10.133000 202.660000  20.266000   0.000000  30.399000
+[115]  91.197000  30.399000   4.863840  60.798000  60.798000  20.266000
+[121]  10.133000  24.319200  40.532000  40.532000  40.532000  50.665000
+[127]  10.133000   0.000000  50.665000   2.431920  10.133000   1.418620
+[133]  40.532000  20.266000  60.798000  50.665000  81.064000  50.665000
+[139]  91.197000  20.266000 121.596000  91.197000   0.000000  36.478800
+[145]  30.399000 101.330000  32.506664  30.399000  20.266000  66.877800
+[151]  36.478800  30.399000  42.558600  42.558600  74.984200  77.010800
+[157]  34.452200   0.000000   0.000000  30.399000  64.851200  55.731500
+[163]  30.399000  33.438900   0.000000   0.000000  50.665000  54.718200
+[169]  10.133000 141.862000  10.133000  10.133000 125.649200  30.399000
+[175]  40.532000   8.106400 151.995000 121.596000  10.133000  60.798000
+[181] 141.862000  10.133000 101.330000  89.170400  81.064000  60.798000
+[187]  30.399000  70.931000   0.000000  20.266000  46.611800   0.000000
+[193]  91.197000  30.399000   8.106400  34.452200  60.798000  55.731500
+[199]  11.527301  36.478800  70.931000  91.197000  87.143800  64.851200
+```
+]]
+
+
+???
+
+### So, for what situations would you prefer the table on the left and in what situations would you want all 1,815 responses?
+
+*Force this discussion*
 
 
 
@@ -1251,18 +1346,6 @@ SLIDE x 9: Results
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-
 &lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 
@@ -1294,6 +1377,18 @@ SLIDE x 9: Results
 ---
 
 &lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-17-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-18-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1405,7 +1500,7 @@ Here's my results of making a table of GDP
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-18-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-20-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1468,7 +1563,7 @@ SLIDE: result
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-20-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1543,9 +1638,9 @@ class: slideblue
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-24-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-23-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1640,9 +1735,9 @@ class: slideblue
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-27-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-26-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1655,14 +1750,14 @@ class: slideblue
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-27-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-29-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-29-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1950,7 +2045,7 @@ Everybody do this and insert the box plot.
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1991,7 +2086,7 @@ Everybody make a box plot to help us answer this question.
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-33-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2040,7 +2135,7 @@ background-position: center
 
 ---
 
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2087,11 +2182,11 @@ class: slideblue, middle
 .center[.size35[.content-box-white[**Explaining GDP (Billions USD)**]]]
 
 .pull-left[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-33-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-35-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-34-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-36-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2105,11 +2200,11 @@ class: slideblue, middle
 .center[.size35[.content-box-white[**Explaining GDP (Rate)**]]]
 
 .pull-left[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-35-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-37-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-36-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-38-1.png" width="98%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???

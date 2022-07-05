@@ -82,7 +82,8 @@ Welcome everybody!
 
 ### What is your experience with applied statistics?
 
-- (SLIDE: Prompt with vector of numbers) 
+- (SLIDE: What would you do to summarize a vector of data?) 
+
 
 
 
@@ -90,33 +91,90 @@ Welcome everybody!
 
 class: center, middle, slideblue
 
-.code100[
+.code90[
 ```{r}
-## Random data
-weights <- round(runif(n = 400, min = 50, max = 300), 0)
+## Ross 1990 data adjusted to 2022
+d_ross <- read_excel("../Data_for_Class/Session2/MBA_Session2-Data.xlsx", guess_max = 10000) |>
+  mutate(
+    earnk2021 = earnk*2.0266
+  )
 
-weights
+# Increase columns for output on this slide
+options(width = 100)
+
+d_ross$earnk2021[1:176]
 ```
 ]
 
+**And 1,639 more responses...**
+
 ???
 
-### In other words, if I gave you a vector of data what would you do with it? 
+Let's say I gave you a list of data points.
 
-### - How could you summarize this for me?
+Here's a big list of incomes in the US from a nationally representative survey done in 1990.
 
-<br>
-
-### What would it mean to summarize this with it's "middle"? How do we do that and what would it tell us?
+- Incomes adjusted for inflation to 2021 dollars and shown in thousands of dollars
 
 <br>
 
-### What would it mean to summarize this with it's "range"? How do we do that and what would it tell us?
+### What would you do to summarize this for me?
 
 <br>
 
-### What would it mean to summarize this with it's "variation"? How do we do that and what would it tell us?
+### The Middle: How do we identify the "middle" of the data and when is that summary useful?
 
+<br>
+
+### The Range: How do we identify the "range" of the data and when is that summary useful?
+
+<br>
+
+### The Variation: How do we identify the "variation" of the data and when is that summary useful?
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+.size35[
+```{r}
+## Random data
+tibble(
+  Mean = mean(d_ross$earnk2021),
+  Median = median(d_ross$earnk2021),
+  Minimum = min(d_ross$earnk2021),
+  Maximum = max(d_ross$earnk2021),
+  Range = Maximum - Minimum,
+  #Variance = var(weights),
+  'Standard Deviation' = sd(d_ross$earnk2021)
+) |>
+  mutate_if(.predicate = is.numeric, .funs = round, 0) |>
+  t() |>
+  kbl() |>
+  pack_rows("The Middle", 1, 2) |>
+  pack_rows("The Range", 3, 5) |>
+  pack_rows("The Variation", 6, 6)
+```
+]]
+
+.pull-right[
+.code60[
+```{r}
+# Reduce columns for output on this slide
+options(width = 80)
+
+d_ross$earnk2021[1:204]
+```
+]]
+
+
+???
+
+### So, for what situations would you prefer the table on the left and in what situations would you want all 1,815 responses?
+
+*Force this discussion*
 
 
 
