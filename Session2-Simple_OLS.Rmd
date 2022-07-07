@@ -308,6 +308,10 @@ d |>
 
 ???
 
+## 1. What is the most common level of education in the sample?
+
+<br>
+
 ### What is the answer to our question?
 
 <br>
@@ -341,6 +345,10 @@ d |>
 ```
 
 ???
+
+## 2. What is the distribution of income? What are the maximum and minimum earnings reported?
+
+<br>
 
 ### What is the answer to our question?
 
@@ -377,6 +385,10 @@ d |>
 
 ???
 
+## 3. Is there a gender difference in height? How big is the difference on average?
+
+<br>
+
 ### What is the answer to our question?
 
 <br>
@@ -403,6 +415,10 @@ d |>
 ```
 
 ???
+
+## 4. Do reported earnings increase with the level of education?
+
+<br>
 
 ### What is the answer to our question?
 
@@ -792,9 +808,9 @@ background-position: center
 
 ???
 
-Lots of nonsense here and we'll discuss much of it, but let's keep our focus for now on these two numbers.
+We'll discuss most of the output here, but keep yourself rooted in our work so far on the formula for a line.
 
-- These are the two numbers you need to fill in the formula for a line.
+All of this detail is provided to allow us to estimate the formula for the OLS line and to evaluate how well the line fits the actual data.
 
 - The intercept "coefficient" is the alpha (e.g. the constant)
 
@@ -804,7 +820,7 @@ Lots of nonsense here and we'll discuss much of it, but let's keep our focus for
 
 Quick tangent: The Excel regression output is... let's just identify it as non-standard.
 
-- No one reports regression results using the Excel default output. It looks terrible and is hard to read.
+- Never provide someone with the raw Excel output if they ask you for a regression analysis. It looks terrible and is rather hard to disentangle.
 
 
 
@@ -825,12 +841,15 @@ stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*
 
 In most published work with regression results you'll see a table that looks something like this.
 
-- The main section lists the elements you need for the formula of a line
-
-- The bottom section provides basic info you need to evaluate the fit of the model
-    - The sample size, R2, residual error and various tests of model fit like the F statistic.
+- The first section, with the variable names, lists the elements you need to draw the OLS line (e.g. use the formula of a line)
+    - Each coefficient is the number we plug into the formula for this line
+    - The standard errors below each coefficient are a measure of how "good" your estimate is.
+    - The stars represent a shorthand way of saying the fit is "good" or not
     
-We also see the stars that denote statistical tests of significance.
+So, this OLS table describes a line where yearly earnings = -31
+
+- The bottom section provides the info we need to evaluate the fit of the model as a whole
+    - The number of observations, R^2, residual error and various tests of model fit like the F statistic.
 
 <br>
 
@@ -850,6 +869,9 @@ First, let's make sure everyone writes this down in their notes.
 
 - This is how you take the Excel output and format it into a more standard table.
 
+<br>
+
+SLIDE: The height OLS regression in a report ready table
 
 
 
@@ -988,6 +1010,9 @@ It can be useful to calculate point estimates for interesting differences in the
 class: middle
 
 .pull-left[
+
+<br>
+
 .size40[
 .center[Calculate point estimates using the following values for height:]
 
@@ -1096,7 +1121,7 @@ class: middle, slideblue
 <br>
 
 .size45[
-Analyze the following three relationships using a scatterplot and the OLS method
+Analyze the following three relationships using a scatterplot **AND** the OLS method
 
 - Model 1: Regress earnk2021 on height
 
@@ -1169,7 +1194,10 @@ d %>%
 
 <br>
 
-SLIDE: Let's dig more deeply to the fit of these models to the data
+SLIDE: Let's explore what the other statistics in our regression tables tell us about how well these models fit the data.
+
+
+
 
 ---
 
@@ -1228,6 +1256,16 @@ d %>%
 
 ???
 
+This is very much the conversation we have been having as we tried to interpret the scatter plots with model line.
+
+- Is the causal mechanism here logical?
+
+- Does the size of the effect make sense?
+
+- Does the direction of the effect make sense?
+
+<br>
+
 ### What do we learn about these models using Step 1?
 
 
@@ -1236,14 +1274,27 @@ d %>%
 
 class: middle
 
+.pull-left[
+
+<br>
+
+<br>
+
+<br>
+
+.center[.size45[**Evaluation Step 2: Statistical Significance**]]
+]
+
+.pull-right[
 ```{r, results='asis'}
 # Simple Regression Options
 res1 <- d %>% lm(data = ., earnk2021 ~ height)
 res2 <- d %>% lm(data = ., earnk2021 ~ age)
 res3 <- d %>% lm(data = ., earnk2021 ~ education)
 
-stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
+]
 
 ???
 
@@ -1255,7 +1306,7 @@ Let's talk about the second step in our evaluation process: statistical signific
 
 This is a deeply problematic and much misunderstood topic.
 
-- Let's try to clarify the intuitions here so we can work with them AND understand the limitations of them.
+- Let's try to clarify the intuitions here so we can work with them AND understand their considerable limitations.
 
 
 
@@ -1271,7 +1322,7 @@ class: middle
 .pull-left[
 .size25[
 ```{r, results='asis'}
-stargazer(res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
+stargazer(res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
 ```
 ]]
 
@@ -1295,7 +1346,7 @@ Conventional statistical significance testing is based on the idea that we can p
 
 The 'alternative' refers to a hypothesis that the predictor and the outcome are related.
 
-### So, what is the alternative hypothesis for this education model?
+### So, what is the alternative hypothesis for this education model? What do we think is the relationship?
 - (Higher levels of education are associated with larger incomes)
 
 <br>
@@ -1316,7 +1367,7 @@ class: middle
 .pull-left[
 .size25[
 ```{r, results='asis'}
-stargazer(res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
+stargazer(res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
 ```
 ]]
 
@@ -1445,18 +1496,13 @@ Let's root ourselves here back in the Excel regression output and focus on the c
 
 <br>
 
-The standard error is a measure of uncertainty in the coefficient.
-- e.g. how confident are we that the effect of height is actually 5.57
+### Remind me, what does the coefficient on education represent? How do we interpret it?
+
+### And what about the coefficient on the intercept?
 
 <br>
 
-The T Statistic is the coefficient divided by the SE
-- 5.57 / .36 = 15.36
-
-<br>
-
-The p-value is the key test result here
-- It is a test of the t-value
+So, remember the coefficients are the estimated values in our formula for a line and our job in evaluation step 2 is to ask if these estimates are "statistically significant."
 
 
 
@@ -1464,100 +1510,436 @@ The p-value is the key test result here
 
 class: middle, slideblue
 
+.size65[.center[**The Standard Error**]]
+
+<br>
+
 ```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3.png')
+knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3a.png')
 ```
 
 <br>
 
-<br>
-
-.center[.size30[.content-box-white[**P-Values: A shortcut to determining statistical significance**]]]
-
-<br>
-
-.size40[
-"The p-value is the probability of observing another computed test statistic ... that is more extreme (either positive or negative) than the one computed for your sample. ... 
-]
+.size65[.center[**How uncertain is each estimated coefficient?**]]
 
 ???
 
-The textbook's description.
+The standard error is an attempt to represent the uncertainty in our coefficient estimates.
 
-- Not super intuitive, eh?
-
-<br>
-
-Basically, this test starts from the assumption that both coefficients are actually zero. 
-
-- p-values are a proportion so can only take on values between zero and 1
-
-- The p-value is a test of the likelihood you would get a coefficient estimate as "extreme" as you did IF THE TRUE VALUE IS ZERO. 
-
+- SLIDE: Think of this like the standard deviation we calculate for any list of numbers.
 
 
 
 ---
 
-class: middle, slideblue
+class: slideblue, middle, full
 
-```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3.png')
+```{r, fig.retina=3, fig.align='center', fig.asp=0.45, fig.width=9, out.width='100%', cache=TRUE}
+tibble(
+  x1 = rnorm(n = 5000, mean = 0, sd = 2),
+  x2 = rnorm(n = 5000, mean = 0, sd = 6)
+) |>
+  pivot_longer(cols = x1:x2, names_to = "Vars", values_to = "Values") |>
+  mutate(
+    Vars = if_else(Vars == "x1", "Small Standard Deviation", "Large Standard Deviation")
+  ) |>
+  ggplot(aes(x = Values)) +
+  geom_histogram(bins = 15, color = "white") +
+  facet_wrap(~Vars, scales = "free_y") +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.25) +
+  theme_bw() +
+  labs(x = "", y = "") +
+  scale_x_continuous(breaks = seq(-20, 20, 10), labels = c("-20", "-10", "Mean", "+10", "+20"))
 ```
 
-<br>
-
-<br>
-
-.center[.size30[.content-box-white[**P-Values: A shortcut to determining statistical significance**]]]
-
-<br>
-
-.center[.size40[
-**Therefore, the smaller the p-value, the more support for the alternative hypothesis**" (p82).
-]]
-
 ???
 
-The key for us is we want really, really small p-values.
+The standard deviation tells you how far from the mean the values in any list of numbers are on average.
 
-- e.g. close to zero
-
-<br>
-
-### How small are these two p-values?
-- (Teeny, teeny, teeny, tiny)
-    - Negative exponentiated values move the decimal place to the left.
-
-### What standard is customarily used for a "significant" result?
-- The completely arbitrary 95% which corresponds to 1 - .95 = 0.05
-
-- Smaller than that means your alternative hypothesis wins. 
-
-- Bigger than .05 means the null wins.
+- If the mean is the "correct" answer, the sd tells you how far off these numbers tend to be.
 
 <br>
 
-So, we say that both of these coefficients are statistically significant at p < 0.05.
+Here we see two histograms of different lists of numbers.
 
-SLIDE: Let's visualize it one more time.
+- In both lists, the mean is the most common value but the rest of the numbers are spread around it.
 
+- On the left we see a distribution with a large standard deviation
+    - A big sd means the numbers are very spread out and any single number you select from the list may be very far from the mean
 
+- On the right we see a distribution with a small standard deviation
+    - A small sd means any single number in the list is likely close to the mean.
 
-
----
-
-background-image: url('libs/Images/Session2-Simple_OLS6.png')
-background-size: 100%
-background-position: center
-
-???
-
-Here are the Excel results and the scatter plot.
-
-- These p-values are both below 0.05 so we say that the blue line fits the data better than the red line.
+<br>
 
 ### Make sense?
+
+
+
+---
+
+class: middle, slideblue, size35
+
+```{r, fig.align='center'}
+knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3a.png')
+```
+
+```{r, fig.retina=3, fig.align='center', fig.asp=0.45, fig.width=8, out.width='100%', cache=TRUE}
+tibble(
+  x1 = rnorm(n = 5000, mean = 5.57, sd = 2),
+  x2 = rnorm(n = 5000, mean = 5.57, sd = 6)
+) |>
+  pivot_longer(cols = x1:x2, names_to = "Vars", values_to = "Values") |>
+  mutate(
+    Vars = if_else(Vars == "x1", "1. Small Standard Error (2)", "2. Large Standard Error (6)")
+  ) |>
+  ggplot(aes(x = Values)) +
+  geom_histogram(bins = 15, color = "white") +
+  facet_wrap(~Vars, scales = "free_y") +
+  geom_vline(xintercept = 5.57, color = "red", lwd = 1.25) +
+  theme_bw() +
+  labs(x = "", y = "") +
+  scale_x_continuous(breaks = c(-10, 0, 5.57, 10, 20), labels = c("-10", "0", "\u03B2", "10", "20"))
+```
+
+???
+
+The standard error works like this for the regression estimates.
+
+- Here we see the education beta estimate at 5.57 with a large and a small standard error.
+
+- Technically, the standard error is an estimate of the standard deviation of the coefficient.
+
+- In other words, the SE describes how much we'd expect the coefficient estimate to change if we re-ran our analysis on new data for our sample using this same model.
+    - e.g. ran a new nationally representative survey of Americans and asked them about their earnings and education. 
+
+- Just as before, large SEs mean we should not be confident because any new replication of this model and analysis will produce estimates that may be very far away from our current one.
+
+- Small SEs mean we are confident that our estimated coefficient is closer to the 'true' parameter value and that new replications will reinforce our confidence.
+
+### Does this make sense?
+
+### Out of curiosity, which plot better represents our actual regression results?
+
+(SLIDE)
+
+
+---
+
+class: middle, slideblue, size35
+
+```{r, fig.align='center'}
+knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3a.png')
+```
+
+```{r, fig.retina=3, fig.align='center', fig.asp=0.45, fig.width=8, out.width='100%', cache=TRUE}
+tibble(
+  x1 = rnorm(n = 5000, mean = 5.57, sd = 0.362),
+  x2 = rnorm(n = 5000, mean = 5.57, sd = 6)
+) |>
+  pivot_longer(cols = x1:x2, names_to = "Vars", values_to = "Values") |>
+  mutate(
+    Vars = if_else(Vars == "x1", "1. Estimated Standard Error (0.36)", "2. Large Standard Error (6)")
+  ) |>
+  ggplot(aes(x = Values)) +
+  geom_histogram(bins = 15, color = "white") +
+  facet_wrap(~Vars, scales = "free") +
+  geom_vline(xintercept = 5.57, color = "red", lwd = 1.25) +
+  theme_bw() +
+  labs(x = "", y = "")
+  #scale_x_continuous(breaks = c(-10, 0, 5.57, 10, 20), labels = c("-10", "0", "\u03B2", "10", "20"))
+```
+
+???
+
+Our actual estimated SE is tiny!
+- These histograms use the SE to simulate our whole analysis 5,000 times.
+
+### What do we notice when comparing these two histograms? Perhaps something related to the null hypothesis?
+
+### Focusing just on the histogram that uses our actual SE, what can we say about the education coefficient across all 5,000 simulations?
+- (Basically every single simulation produced an estimate of the coefficient between 4.5 and 6.5!)
+    - We should feel super confident about our estimate!
+    
+### And what do we learn from the 5,000 simulations with the large SE?
+- (Results show a HUGE range; estimates vary from -10 to above 20!)
+- (AND a bunch of the estimates are 0, e.g. the null hypothesis!)
+- (AND a bunch of results are NEGATIVE meaning more education lowers your earnings!)
+
+### Does this make sense? Any questions on how to interpret the SE?
+
+**SLIDE:** Now, with an estimate of the coefficient and a measure of the error we can try to measure the probability that our alternative hypothesis beats the null hypothesis.
+
+
+
+
+
+---
+
+class: middle, slideblue
+
+.size65[.center[**Calculating the T-Statistic**]]
+
+<br>
+
+```{r, fig.align='center'}
+knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3b.png')
+```
+
+<br>
+
+.center[
+
+.size45[**Rescaling our coefficient into SE-units**
+
+T-statistic = $\frac{\text{coefficient}}{\text{standard error}}$
+
+]]
+
+
+???
+
+The t-statistic gives us a statistical method for determining if our model estimates are likely to be significant, rather than having to visualize thousands of simulations.
+
+- Calculated by dividing the estimated coefficient by the standard error
+
+<br>
+
+This converts our estimates into a new number, called a t-statistic, which represents the number of error units between zero (the null hypothesis) and our estimate (the alternative hypothesis).
+
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+distdata <- tibble(
+  x = seq(qt(p = c(0.0001), df = 1800), qt(p = c(0.9999), df = 1800), 0.0001),
+  y = dt(x = x, df = 1800)
+)
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution (df = 1,800)") 
+```
+
+???
+
+It turns out that t-scores can be evaluated using the Student's t-distribution which is approximately normal in shape and can be estimated using degrees of freedom when you don't know the actual underlying standard deviation.
+
+- Here we see a density curve of the Student's t with 1800 degrees of freedom (approximately the size of our survey sample).
+
+- Think of this like a histogram but instead of counting bins it represents probabilities.
+
+- The entire area under the curve equals 100% of all possible coefficient estimates.
+
+<br>
+
+We can use this distribution to evaluate our model's t-statistic and it will tell us how likely we are to get our results IF THE NULL HYPOTHESIS IS TRUE.
+
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+
+## 50% interval
+dist50 <- distdata |>
+  filter(x >= qt(p = .25, df = 1800) & x <= qt(p = .75, df = 1800))
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution: 50% of Outcomes") +
+  geom_ribbon(data = dist50, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
+  annotate("text", x = 1, y = .025, label = "+0.67") +
+  annotate("text", x = -1, y = .025, label = "-0.67")
+```
+
+???
+
+The Student's t allows us to make projections based on a world where the null hypothesis is true.
+
+<br>
+
+For example, let's say we could re-run our survey 1000 times with 1000 different samples.
+
+- The t distribution tells us that in half of the new surveys the coefficient on education would have a t-statistic between -.67 and +.67.
+
+- In other words, assuming the null is true and education has ZERO effect on earnings we would expect to find half of our surveys give results in this blue area.
+    - This blue area, therefore, represents results mostly indistinguishable from zero.
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+
+## 75% interval
+dist75 <- distdata |>
+  filter(x >= qt(p = .125, df = 1800) & x <= qt(p = .875, df = 1800))
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution: 75% of Outcomes") +
+  geom_ribbon(data = dist75, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
+  annotate("text", x = 1.5, y = .025, label = "+1.15") +
+  annotate("text", x = -1.5, y = .025, label = "-1.15")
+```
+
+???
+
+Let's say we want to be more careful than that, so we bump it to 75%
+
+- Here we see that 75% of the new surveys would produce education t-stats between -1.15 and 1.15.
+
+- So, a result above or below those numbers would be different than 75% of the null results.
+
+### Making some sense?
+
+<br>
+
+### Does anybody know what we conventionally use as our threshold of significance in statistics?
+- (SLIDE: 95%)
+
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+
+## 95% interval
+dist95 <- distdata |>
+  filter(x >= qt(p = .025, df = 1800) & x <= qt(p = .975, df = 1800))
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution: 95% of Outcomes") +
+  geom_ribbon(data = dist95, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
+  annotate("text", x = 2.2, y = .1, label = "+1.96") +
+  annotate("text", x = -2.2, y = .1, label = "-1.96")
+```
+
+???
+
+So, we run 1,000 new analyses using our current research plan and we would expect 95% of the education t-stats to be between -2 and 2 ASSUMING THE NULL HYPOTHESIS IS TRUE.
+
+- In other words, assuming a null hypothesis world you should almost never see a t-score on education above 2!
+
+### And what is the t-stat we estimated in our regression?
+- (SLIDE)
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+
+## 95% interval
+dist95 <- distdata |>
+  filter(x >= qt(p = .025, df = 1800) & x <= qt(p = .975, df = 1800))
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution: 95% of Outcomes") +
+  geom_ribbon(data = dist95, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
+  annotate("text", x = 2.2, y = .1, label = "+1.96") +
+  annotate("text", x = -2.2, y = .1, label = "-1.96") +
+  geom_vline(xintercept = 15.4, color = "blue", lwd = 1.25)
+```
+
+???
+
+And this is the intuition behind the check for statistical significance.
+
+<br>
+
+Typically we assume that t-statistics above 2 or below -2 are far enough away from zero to be meaningful (e.g. "statistically significant").
+
+- In other words, estimates that are at least two error units away from zero are probably pretty good.
+
+<br>
+
+In our education example we see our coefficient estimate is 15 SE units away from zero.
+
+- That's a long, long way out there!
+
+SLIDE: Of course, nobody really communicates in SE units, so let's convert those into probabilities!
+
+
+
+
+---
+
+class: middle, slideblue
+
+.size65[.center[**The P-Value**]]
+
+<br>
+
+```{r, fig.align='center'}
+knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3c.png')
+```
+
+<br>
+
+.center[
+
+.size55[**Converts the t-stat into a probability**]]
+
+???
+
+In our visualizations we kept increasing the spread of our experiment from 50% to 75% to 95%.
+
+The p-value in an OLS regression table is presented in the other direction, e.g. 1 - this %.
+- In other words, the smaller the p-value the better
+
+- So, giving the null hypothesis a 95% chance of winning is 1 - .95 = 0.05, e.g. a 5% test.
+
+### Make sense?
+
+<br>
+
+Key takeaway: Researchers have come to accept that any p-value smaller than 5% (0.05) is "statistically significant."
+
+- p-values smaller than 0.05 means your alternative hypothesis "wins" (e.g. fits the data better than the null). 
+
+- p-values larger than 0.05 means the null "wins"  (e.g. fits the data better than the alternative).
+
+### So, which wins for our education coefficient?
+- (Here we see a p-value on education of 4x10-50. That's an **incredibly** tiny number.)
+    - In other words, if reality is that education has ZERO effect on earnings we would ALMOST NEVER expect to find an effect as large as 5.57
+
+### What questions do you have about this chain of steps that start with a coefficient and end with a probability?
 
 
 ---
@@ -1568,7 +1950,11 @@ background-position: center
 
 ???
 
-And here's how it appears in most regression tables. 
+Let's put it all together.
+
+Here are the Excel results, the properly fomratted regression table and the scatter plot.
+
+- These p-values are both below 0.05 so we say that the blue line fits the data better than the red line.
 
 - The star indicates a p-value smaller than some threshold. 
 
@@ -1628,22 +2014,49 @@ In terms of the regression output you can see that the p-value on smoking is .19
 
 class: middle
 
+.pull-left[
+
+<br>
+
+<br>
+
+<br>
+
+.center[.size45[**Evaluation Step 2: Statistical Significance**]]
+]
+
+.pull-right[
 ```{r, results='asis'}
-stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
+]
 
 ???
 
 ### So, what do we learn about these models using Step 2?
 
 
+
 ---
 
 class: middle
 
+.pull-left[
+
+<br>
+
+<br>
+
+<br>
+
+.center[.size45[**Evaluation Step 3: Coefficient of Determination**]]
+]
+
+.pull-right[
 ```{r, results='asis'}
-stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
+]
 
 ???
 
@@ -1654,7 +2067,9 @@ Evaluation Step 3: Coefficient of Determination
 <br>
 
 - SLIDE: Example of high R2
+
 - SLIDE: Example of low R2
+
 
 
 
@@ -1694,9 +2109,22 @@ A "low" R2, meaning values closer to 0, implies big differences between the mode
 
 class: middle
 
+.pull-left[
+
+<br>
+
+<br>
+
+<br>
+
+.center[.size45[**Evaluation Step 3: Coefficient of Determination**]]
+]
+
+.pull-right[
 ```{r, results='asis'}
-stargazer(res1, res2, res3, omit.stat = c("rsq", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
+]
 
 ???
 
@@ -1796,7 +2224,7 @@ On the left, the model shows homoscedastic errors, meaning it is about equally a
     
 On the right, the model shows heteroskedastic errors and they indicate something is wrong with our model.
 
-- 2In our example on the right, our model makes much more accurate predictions at the low end and MUCH more inaccurate predictions at the high end.
+- In our example on the right, our model makes much more accurate predictions at the low end and MUCH more inaccurate predictions at the high end.
 
 - This is evidence that our model is missing something at the high end and may be over-fitting to the data on the low end.
 
@@ -1945,9 +2373,22 @@ d %>%
 
 class: middle
 
+.pull-left[
+.size50[
+1. Logic
+
+2. Significance
+
+3. Coefficient of Determination (R&sup2;)
+
+4. Non-linearity and heteroskedasticity
+]]
+
+.pull-right[
 ```{r, results='asis'}
-stargazer(res1, res2, res3, omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
+stargazer(res1, res2, res3, omit.stat = c("rsq", "ser", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
+]
 
 ???
 
@@ -2022,8 +2463,11 @@ d %>%
 ]
 
 .pull-right[
+
+<br>
+
 ```{r, results='asis'}
-stargazer(res1, res2, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Mother's Education", "Exercise", "Constant"), dep.var.labels = "Earnings (2021 USD)", dep.var.caption = "")
+stargazer(res1, res2, type = "html", omit.stat = c("rsq", "ser", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Mother's Education", "Exercise", "Constant"), dep.var.labels = "Earnings (2021 USD)", dep.var.caption = "")
 ```
 ]
 
@@ -2070,6 +2514,8 @@ d %>%
   geom_smooth(se = FALSE, method = "lm")
 ```
 ]
+
+???
 
 ### Residual plots look ok?
 

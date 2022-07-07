@@ -554,6 +554,10 @@ class: middle, slideblue
 
 ???
 
+## 1. What is the most common level of education in the sample?
+
+&lt;br&gt;
+
 ### What is the answer to our question?
 
 &lt;br&gt;
@@ -586,6 +590,10 @@ class: middle, slideblue
 &lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ???
+
+## 2. What is the distribution of income? What are the maximum and minimum earnings reported?
+
+&lt;br&gt;
 
 ### What is the answer to our question?
 
@@ -629,6 +637,10 @@ class: middle, slideblue
 
 ???
 
+## 3. Is there a gender difference in height? How big is the difference on average?
+
+&lt;br&gt;
+
 ### What is the answer to our question?
 
 &lt;br&gt;
@@ -649,6 +661,10 @@ class: middle, slideblue
 &lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-12-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 
 ???
+
+## 4. Do reported earnings increase with the level of education?
+
+&lt;br&gt;
 
 ### What is the answer to our question?
 
@@ -1030,9 +1046,9 @@ background-position: center
 
 ???
 
-Lots of nonsense here and we'll discuss much of it, but let's keep our focus for now on these two numbers.
+We'll discuss most of the output here, but keep yourself rooted in our work so far on the formula for a line.
 
-- These are the two numbers you need to fill in the formula for a line.
+All of this detail is provided to allow us to estimate the formula for the OLS line and to evaluate how well the line fits the actual data.
 
 - The intercept "coefficient" is the alpha (e.g. the constant)
 
@@ -1042,7 +1058,7 @@ Lots of nonsense here and we'll discuss much of it, but let's keep our focus for
 
 Quick tangent: The Excel regression output is... let's just identify it as non-standard.
 
-- No one reports regression results using the Excel default output. It looks terrible and is hard to read.
+- Never provide someone with the raw Excel output if they ask you for a regression analysis. It looks terrible and is rather hard to disentangle.
 
 
 
@@ -1072,12 +1088,15 @@ class: middle
 
 In most published work with regression results you'll see a table that looks something like this.
 
-- The main section lists the elements you need for the formula of a line
-
-- The bottom section provides basic info you need to evaluate the fit of the model
-    - The sample size, R2, residual error and various tests of model fit like the F statistic.
+- The first section, with the variable names, lists the elements you need to draw the OLS line (e.g. use the formula of a line)
+    - Each coefficient is the number we plug into the formula for this line
+    - The standard errors below each coefficient are a measure of how "good" your estimate is.
+    - The stars represent a shorthand way of saying the fit is "good" or not
     
-We also see the stars that denote statistical tests of significance.
+So, this OLS table describes a line where yearly earnings = -31
+
+- The bottom section provides the info we need to evaluate the fit of the model as a whole
+    - The number of observations, R^2, residual error and various tests of model fit like the F statistic.
 
 &lt;br&gt;
 
@@ -1097,6 +1116,9 @@ First, let's make sure everyone writes this down in their notes.
 
 - This is how you take the Excel output and format it into a more standard table.
 
+&lt;br&gt;
+
+SLIDE: The height OLS regression in a report ready table
 
 
 
@@ -1252,6 +1274,9 @@ It can be useful to calculate point estimates for interesting differences in the
 class: middle
 
 .pull-left[
+
+&lt;br&gt;
+
 .size40[
 .center[Calculate point estimates using the following values for height:]
 
@@ -1386,7 +1411,7 @@ class: middle, slideblue
 &lt;br&gt;
 
 .size45[
-Analyze the following three relationships using a scatterplot and the OLS method
+Analyze the following three relationships using a scatterplot **AND** the OLS method
 
 - Model 1: Regress earnk2021 on height
 
@@ -1442,7 +1467,10 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-SLIDE: Let's dig more deeply to the fit of these models to the data
+SLIDE: Let's explore what the other statistics in our regression tables tell us about how well these models fit the data.
+
+
+
 
 ---
 
@@ -1484,6 +1512,16 @@ class: middle, slideblue
 
 ???
 
+This is very much the conversation we have been having as we tried to interpret the scatter plots with model line.
+
+- Is the causal mechanism here logical?
+
+- Does the size of the effect make sense?
+
+- Does the direction of the effect make sense?
+
+&lt;br&gt;
+
 ### What do we learn about these models using Step 1?
 
 
@@ -1492,6 +1530,18 @@ class: middle, slideblue
 
 class: middle
 
+.pull-left[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[.size45[**Evaluation Step 2: Statistical Significance**]]
+]
+
+.pull-right[
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (Thousands)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
@@ -1509,9 +1559,9 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;40.28 (df = 1813)&lt;/td&gt;&lt;td&gt;41.81 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
+]
 
 ???
 
@@ -1523,7 +1573,7 @@ Let's talk about the second step in our evaluation process: statistical signific
 
 This is a deeply problematic and much misunderstood topic.
 
-- Let's try to clarify the intuitions here so we can work with them AND understand the limitations of them.
+- Let's try to clarify the intuitions here so we can work with them AND understand their considerable limitations.
 
 
 
@@ -1548,7 +1598,6 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]]
@@ -1573,7 +1622,7 @@ Conventional statistical significance testing is based on the idea that we can p
 
 The 'alternative' refers to a hypothesis that the predictor and the outcome are related.
 
-### So, what is the alternative hypothesis for this education model?
+### So, what is the alternative hypothesis for this education model? What do we think is the relationship?
 - (Higher levels of education are associated with larger incomes)
 
 &lt;br&gt;
@@ -1603,7 +1652,6 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]]
@@ -1705,18 +1753,13 @@ Let's root ourselves here back in the Excel regression output and focus on the c
 
 &lt;br&gt;
 
-The standard error is a measure of uncertainty in the coefficient.
-- e.g. how confident are we that the effect of height is actually 5.57
+### Remind me, what does the coefficient on education represent? How do we interpret it?
+
+### And what about the coefficient on the intercept?
 
 &lt;br&gt;
 
-The T Statistic is the coefficient divided by the SE
-- 5.57 / .36 = 15.36
-
-&lt;br&gt;
-
-The p-value is the key test result here
-- It is a test of the t-value
+So, remember the coefficients are the estimated values in our formula for a line and our job in evaluation step 2 is to ask if these estimates are "statistically significant."
 
 
 
@@ -1724,96 +1767,292 @@ The p-value is the key test result here
 
 class: middle, slideblue
 
-&lt;img src="libs/Images/Session2-Excel_Output_Education3.png" style="display: block; margin: auto;" /&gt;
+.size65[.center[**The Standard Error**]]
 
 &lt;br&gt;
 
-&lt;br&gt;
-
-.center[.size30[.content-box-white[**P-Values: A shortcut to determining statistical significance**]]]
+&lt;img src="libs/Images/Session2-Excel_Output_Education3a.png" style="display: block; margin: auto;" /&gt;
 
 &lt;br&gt;
 
-.size40[
-"The p-value is the probability of observing another computed test statistic ... that is more extreme (either positive or negative) than the one computed for your sample. ... 
-]
+.size65[.center[**How uncertain is each estimated coefficient?**]]
 
 ???
 
-The textbook's description.
+The standard error is an attempt to represent the uncertainty in our coefficient estimates.
 
-- Not super intuitive, eh?
-
-&lt;br&gt;
-
-Basically, this test starts from the assumption that both coefficients are actually zero. 
-
-- p-values are a proportion so can only take on values between zero and 1
-
-- The p-value is a test of the likelihood you would get a coefficient estimate as "extreme" as you did IF THE TRUE VALUE IS ZERO. 
-
+- SLIDE: Think of this like the standard deviation we calculate for any list of numbers.
 
 
 
 ---
 
-class: middle, slideblue
+class: slideblue, middle, full
 
-&lt;img src="libs/Images/Session2-Excel_Output_Education3.png" style="display: block; margin: auto;" /&gt;
-
-&lt;br&gt;
-
-&lt;br&gt;
-
-.center[.size30[.content-box-white[**P-Values: A shortcut to determining statistical significance**]]]
-
-&lt;br&gt;
-
-.center[.size40[
-**Therefore, the smaller the p-value, the more support for the alternative hypothesis**" (p82).
-]]
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-34-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
-The key for us is we want really, really small p-values.
+The standard deviation tells you how far from the mean the values in any list of numbers are on average.
 
-- e.g. close to zero
-
-&lt;br&gt;
-
-### How small are these two p-values?
-- (Teeny, teeny, teeny, tiny)
-    - Negative exponentiated values move the decimal place to the left.
-
-### What standard is customarily used for a "significant" result?
-- The completely arbitrary 95% which corresponds to 1 - .95 = 0.05
-
-- Smaller than that means your alternative hypothesis wins. 
-
-- Bigger than .05 means the null wins.
+- If the mean is the "correct" answer, the sd tells you how far off these numbers tend to be.
 
 &lt;br&gt;
 
-So, we say that both of these coefficients are statistically significant at p &lt; 0.05.
+Here we see two histograms of different lists of numbers.
 
-SLIDE: Let's visualize it one more time.
+- In both lists, the mean is the most common value but the rest of the numbers are spread around it.
 
+- On the left we see a distribution with a large standard deviation
+    - A big sd means the numbers are very spread out and any single number you select from the list may be very far from the mean
 
+- On the right we see a distribution with a small standard deviation
+    - A small sd means any single number in the list is likely close to the mean.
 
-
----
-
-background-image: url('libs/Images/Session2-Simple_OLS6.png')
-background-size: 100%
-background-position: center
-
-???
-
-Here are the Excel results and the scatter plot.
-
-- These p-values are both below 0.05 so we say that the blue line fits the data better than the red line.
+&lt;br&gt;
 
 ### Make sense?
+
+
+
+---
+
+class: middle, slideblue, size35
+
+&lt;img src="libs/Images/Session2-Excel_Output_Education3a.png" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+The standard error works like this for the regression estimates.
+
+- Here we see the education beta estimate at 5.57 with a large and a small standard error.
+
+- Technically, the standard error is an estimate of the standard deviation of the coefficient.
+
+- In other words, the SE describes how much we'd expect the coefficient estimate to change if we re-ran our analysis on new data for our sample using this same model.
+    - e.g. ran a new nationally representative survey of Americans and asked them about their earnings and education. 
+
+- Just as before, large SEs mean we should not be confident because any new replication of this model and analysis will produce estimates that may be very far away from our current one.
+
+- Small SEs mean we are confident that our estimated coefficient is closer to the 'true' parameter value and that new replications will reinforce our confidence.
+
+### Does this make sense?
+
+### Out of curiosity, which plot better represents our actual regression results?
+
+(SLIDE)
+
+
+---
+
+class: middle, slideblue, size35
+
+&lt;img src="libs/Images/Session2-Excel_Output_Education3a.png" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Our actual estimated SE is tiny!
+- These histograms use the SE to simulate our whole analysis 5,000 times.
+
+### What do we notice when comparing these two histograms? Perhaps something related to the null hypothesis?
+
+### Focusing just on the histogram that uses our actual SE, what can we say about the education coefficient across all 5,000 simulations?
+- (Basically every single simulation produced an estimate of the coefficient between 4.5 and 6.5!)
+    - We should feel super confident about our estimate!
+    
+### And what do we learn from the 5,000 simulations with the large SE?
+- (Results show a HUGE range; estimates vary from -10 to above 20!)
+- (AND a bunch of the estimates are 0, e.g. the null hypothesis!)
+- (AND a bunch of results are NEGATIVE meaning more education lowers your earnings!)
+
+### Does this make sense? Any questions on how to interpret the SE?
+
+**SLIDE:** Now, with an estimate of the coefficient and a measure of the error we can try to measure the probability that our alternative hypothesis beats the null hypothesis.
+
+
+
+
+
+---
+
+class: middle, slideblue
+
+.size65[.center[**Calculating the T-Statistic**]]
+
+&lt;br&gt;
+
+&lt;img src="libs/Images/Session2-Excel_Output_Education3b.png" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+.center[
+
+.size45[**Rescaling our coefficient into SE-units**
+
+T-statistic = `\(\frac{\text{coefficient}}{\text{standard error}}\)`
+
+]]
+
+
+???
+
+The t-statistic gives us a statistical method for determining if our model estimates are likely to be significant, rather than having to visualize thousands of simulations.
+
+- Calculated by dividing the estimated coefficient by the standard error
+
+&lt;br&gt;
+
+This converts our estimates into a new number, called a t-statistic, which represents the number of error units between zero (the null hypothesis) and our estimate (the alternative hypothesis).
+
+
+
+
+---
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-40-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+It turns out that t-scores can be evaluated using the Student's t-distribution which is approximately normal in shape and can be estimated using degrees of freedom when you don't know the actual underlying standard deviation.
+
+- Here we see a density curve of the Student's t with 1800 degrees of freedom (approximately the size of our survey sample).
+
+- Think of this like a histogram but instead of counting bins it represents probabilities.
+
+- The entire area under the curve equals 100% of all possible coefficient estimates.
+
+&lt;br&gt;
+
+We can use this distribution to evaluate our model's t-statistic and it will tell us how likely we are to get our results IF THE NULL HYPOTHESIS IS TRUE.
+
+
+
+
+---
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-41-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+The Student's t allows us to make projections based on a world where the null hypothesis is true.
+
+&lt;br&gt;
+
+For example, let's say we could re-run our survey 1000 times with 1000 different samples.
+
+- The t distribution tells us that in half of the new surveys the coefficient on education would have a t-statistic between -.67 and +.67.
+
+- In other words, assuming the null is true and education has ZERO effect on earnings we would expect to find half of our surveys give results in this blue area.
+    - This blue area, therefore, represents results mostly indistinguishable from zero.
+
+
+
+---
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-42-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Let's say we want to be more careful than that, so we bump it to 75%
+
+- Here we see that 75% of the new surveys would produce education t-stats between -1.15 and 1.15.
+
+- So, a result above or below those numbers would be different than 75% of the null results.
+
+### Making some sense?
+
+&lt;br&gt;
+
+### Does anybody know what we conventionally use as our threshold of significance in statistics?
+- (SLIDE: 95%)
+
+
+
+
+---
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-43-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+So, we run 1,000 new analyses using our current research plan and we would expect 95% of the education t-stats to be between -2 and 2 ASSUMING THE NULL HYPOTHESIS IS TRUE.
+
+- In other words, assuming a null hypothesis world you should almost never see a t-score on education above 2!
+
+### And what is the t-stat we estimated in our regression?
+- (SLIDE)
+
+
+
+---
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+And this is the intuition behind the check for statistical significance.
+
+&lt;br&gt;
+
+Typically we assume that t-statistics above 2 or below -2 are far enough away from zero to be meaningful (e.g. "statistically significant").
+
+- In other words, estimates that are at least two error units away from zero are probably pretty good.
+
+&lt;br&gt;
+
+In our education example we see our coefficient estimate is 15 SE units away from zero.
+
+- That's a long, long way out there!
+
+SLIDE: Of course, nobody really communicates in SE units, so let's convert those into probabilities!
+
+
+
+
+---
+
+class: middle, slideblue
+
+.size65[.center[**The P-Value**]]
+
+&lt;br&gt;
+
+&lt;img src="libs/Images/Session2-Excel_Output_Education3c.png" style="display: block; margin: auto;" /&gt;
+
+&lt;br&gt;
+
+.center[
+
+.size55[**Converts the t-stat into a probability**]]
+
+???
+
+In our visualizations we kept increasing the spread of our experiment from 50% to 75% to 95%.
+
+The p-value in an OLS regression table is presented in the other direction, e.g. 1 - this %.
+- In other words, the smaller the p-value the better
+
+- So, giving the null hypothesis a 95% chance of winning is 1 - .95 = 0.05, e.g. a 5% test.
+
+### Make sense?
+
+&lt;br&gt;
+
+Key takeaway: Researchers have come to accept that any p-value smaller than 5% (0.05) is "statistically significant."
+
+- p-values smaller than 0.05 means your alternative hypothesis "wins" (e.g. fits the data better than the null). 
+
+- p-values larger than 0.05 means the null "wins"  (e.g. fits the data better than the alternative).
+
+### So, which wins for our education coefficient?
+- (Here we see a p-value on education of 4x10-50. That's an **incredibly** tiny number.)
+    - In other words, if reality is that education has ZERO effect on earnings we would ALMOST NEVER expect to find an effect as large as 5.57
+
+### What questions do you have about this chain of steps that start with a coefficient and end with a probability?
 
 
 ---
@@ -1824,7 +2063,11 @@ background-position: center
 
 ???
 
-And here's how it appears in most regression tables. 
+Let's put it all together.
+
+Here are the Excel results, the properly fomratted regression table and the scatter plot.
+
+- These p-values are both below 0.05 so we say that the blue line fits the data better than the red line.
 
 - The star indicates a p-value smaller than some threshold. 
 
@@ -1845,7 +2088,7 @@ SLIDE: Let me show you a not significant result as a comparison.
 
 ---
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-35-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-46-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1875,6 +2118,18 @@ In terms of the regression output you can see that the p-value on smoking is .19
 
 class: middle
 
+.pull-left[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[.size45[**Evaluation Step 2: Statistical Significance**]]
+]
+
+.pull-right[
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (Thousands)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
@@ -1892,19 +2147,32 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;40.28 (df = 1813)&lt;/td&gt;&lt;td&gt;41.81 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
+]
 
 ???
 
 ### So, what do we learn about these models using Step 2?
 
 
+
 ---
 
 class: middle
 
+.pull-left[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[.size45[**Evaluation Step 3: Coefficient of Determination**]]
+]
+
+.pull-right[
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (Thousands)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
@@ -1922,9 +2190,9 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;40.28 (df = 1813)&lt;/td&gt;&lt;td&gt;41.81 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
+]
 
 ???
 
@@ -1935,7 +2203,9 @@ Evaluation Step 3: Coefficient of Determination
 &lt;br&gt;
 
 - SLIDE: Example of high R2
+
 - SLIDE: Example of low R2
+
 
 
 
@@ -1975,6 +2245,18 @@ A "low" R2, meaning values closer to 0, implies big differences between the mode
 
 class: middle
 
+.pull-left[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[.size45[**Evaluation Step 3: Coefficient of Determination**]]
+]
+
+.pull-right[
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (Thousands)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
@@ -1992,9 +2274,9 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;40.28 (df = 1813)&lt;/td&gt;&lt;td&gt;41.81 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
+]
 
 ???
 
@@ -2022,7 +2304,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-39-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-50-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2076,7 +2358,7 @@ On the left, the model shows homoscedastic errors, meaning it is about equally a
     
 On the right, the model shows heteroskedastic errors and they indicate something is wrong with our model.
 
-- 2In our example on the right, our model makes much more accurate predictions at the low end and MUCH more inaccurate predictions at the high end.
+- In our example on the right, our model makes much more accurate predictions at the low end and MUCH more inaccurate predictions at the high end.
 
 - This is evidence that our model is missing something at the high end and may be over-fitting to the data on the low end.
 
@@ -2140,7 +2422,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-40-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-51-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2162,7 +2444,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-41-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-52-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2183,7 +2465,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-42-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-53-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 ???
 
 ### Everybody get this?
@@ -2198,6 +2480,18 @@ class: middle
 
 class: middle
 
+.pull-left[
+.size50[
+1. Logic
+
+2. Significance
+
+3. Coefficient of Determination (R&amp;sup2;)
+
+4. Non-linearity and heteroskedasticity
+]]
+
+.pull-right[
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (Thousands)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
@@ -2215,10 +2509,9 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;40.28 (df = 1813)&lt;/td&gt;&lt;td&gt;41.81 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;155.52&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;td&gt;14.22&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;td&gt;235.79&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
+]
 
 ???
 
@@ -2272,10 +2565,13 @@ class: middle, slideblue
 ---
 
 .pull-left[
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-55-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
+
+&lt;br&gt;
+
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
@@ -2290,8 +2586,6 @@ class: middle, slideblue
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,570&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.12&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;40.45 (df = 1568)&lt;/td&gt;&lt;td&gt;41.75 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;212.09&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1568)&lt;/td&gt;&lt;td&gt;19.83&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]
@@ -2315,12 +2609,14 @@ class: middle, slideblue
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
 .pull-left[
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-46-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-57-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-47-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-58-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 ]
+
+???
 
 ### Residual plots look ok?
 
