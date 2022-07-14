@@ -773,9 +773,17 @@ background-position: center
 
 ---
 
-background-image: url('libs/Images/Session1-univariate22.png')
-background-size: 100%
-background-position: center
+class: middle, size40
+
+Statistic|Function
+------|-------
+Mean|= AVERAGE
+Median|= MEDIAN
+Standard Deviation|= STDEV.S
+Minimum|= MIN
+Maximum|= MAX
+25th Percentile|= QUARTILE.EXC(, 1)
+75th Percentile|= QUARTILE.EXC(, 3)
 
 ???
 
@@ -850,10 +858,21 @@ class: slideblue
 
 <br>
 
-```{r}
-knitr::include_graphics('libs/Images/Session1-univariate23.png')
-```
-]
+<br>
+
+.size20[
+
+Statistic|Function
+------|-------
+Mean|= AVERAGE
+Median|= MEDIAN
+Standard Deviation|= STDEV.S
+Minimum|= MIN
+Maximum|= MAX
+25th Percentile|= QUARTILE.EXC(, 1)
+75th Percentile|= QUARTILE.EXC(, 3)
+
+]]
 
 ???
 
@@ -2046,6 +2065,38 @@ d %>%
 ]
 
 ???
+
+
+---
+
+class: middle, slideblue
+
+.size35[.content-box-white[**Session 1: Descriptive Statistics and Visualizations**]]
+
+.size35[
+3) Matching our Tools to the Type of Variable
+
+- **Categorical**: Tables of counts and bar plots
+
+- **Numerical**: Descriptive stats, box plots and histograms
+
+- **Cat x Cat**: Pivot tables, side-by-side and stacked bar plots
+
+- **Cat x Num**: Pivot tables and box plots
+
+- **Num x Num**: Scatter plots
+]
+
+???
+
+### Any questions on the meaning of these tools?
+
+### Or how to make them in Excel?
+
+
+
+
+
 
 
 

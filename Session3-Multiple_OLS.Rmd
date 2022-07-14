@@ -667,6 +667,20 @@ knitr::include_graphics('libs/Images/Session3-convert_vars3.png')
 
 ???
 
+Create a new variable (column) for each level of the categorical variable.
+
+- 'Male' gets a 1 for every respondent row that identifies as male and 0 for females.
+
+- 'Female' variable is coded in the opposite way.
+
+### Make sense?
+
+Get to it!
+
+<br>
+
+### Any idea why we refer to these new variables as "dummies"?
+
 
 
 ---
@@ -681,7 +695,7 @@ class: middle, center, slideblue
 <br>
 
 ```{r, out.width='100%'}
-knitr::include_graphics('libs/Images/Session3-convert_vars3.png')
+knitr::include_graphics('libs/Images/Session3-convert_vars5.png')
 ```
 ]
 
@@ -693,32 +707,12 @@ knitr::include_graphics('libs/Images/Session3-mannequin.jpeg')
 
 ???
 
+Like a mannequin, these variables are meant to serve as stand-ins for actual variables.
 
+- Reflecting only a certain characteristic of a given variable, rather than trying to capture all the variation in it.
 
+### Make sense?
 
----
-
-class: middle, center, slideblue
-
-.pull-left[
-.center[.size35[.content-box-white[**Convert Categorical**]]]
-
-.center[.size35[.content-box-white[**Vars to Dummies**]]]
-
-<br>
-
-```{r, out.width='95%'}
-knitr::include_graphics('libs/Images/Session3-convert_vars4.png')
-```
-]
-
-.pull-right[
-```{r, out.width='75%'}
-knitr::include_graphics('libs/Images/Session3-mannequin.jpeg')
-```
-]
-
-???
 
 
 
@@ -742,7 +736,7 @@ knitr::include_graphics('libs/Images/Session3-convert_vars5.png')
 ```{r}
 d |>
   select(earnk2021, male) |>
-  slice(1:10) |>
+  slice(1:9) |>
   kbl(format = "html", digits = 2, align = 'c') |>
   row_spec(row = 0, background = "#ece9e8")
 ```
@@ -750,7 +744,9 @@ d |>
 
 ???
 
-Remove one dummy as a baseline.
+Back to the process of preparing a categorical variable for running an OLS in Excel.
+
+- Next step is to remove one dummy as a baseline.
 
 <br>
 
@@ -764,7 +760,7 @@ To refresh, preparing a categorical variable for OLS regression in Excel require
 
 Why do we delete one of the dummies? 
 
-- Let's fit our regression and use those results to answer the question.
+- Everybody now run a regression of earnings on the male dummy variable.
 
 <br>
 
@@ -1303,9 +1299,9 @@ Everybody now regress earnk2021 on male and education
 
 class: middle
 
-.size20[
+.size25[
 ```{r, results='asis', fig.align='center'}
-stargazer(res1, res2, res3, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, dep.var.labels = "Earnings (2021 USD)", dep.var.caption = "", covariate.labels = c("Male", "Education"))
+stargazer(res1, res2, res3, type = "html", omit.stat = c("rsq", "ser", "f"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, dep.var.labels = "Earnings (2021 USD)", dep.var.caption = "", covariate.labels = c("Male", "Education"))
 ```
 ]
 

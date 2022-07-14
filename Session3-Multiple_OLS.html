@@ -661,6 +661,20 @@ class: middle, center, slideblue
 
 ???
 
+Create a new variable (column) for each level of the categorical variable.
+
+- 'Male' gets a 1 for every respondent row that identifies as male and 0 for females.
+
+- 'Female' variable is coded in the opposite way.
+
+### Make sense?
+
+Get to it!
+
+&lt;br&gt;
+
+### Any idea why we refer to these new variables as "dummies"?
+
 
 
 ---
@@ -674,7 +688,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-&lt;img src="libs/Images/Session3-convert_vars3.png" width="100%" /&gt;
+&lt;img src="libs/Images/Session3-convert_vars5.png" width="100%" /&gt;
 ]
 
 .pull-right[
@@ -683,28 +697,12 @@ class: middle, center, slideblue
 
 ???
 
+Like a mannequin, these variables are meant to serve as stand-ins for actual variables.
 
+- Reflecting only a certain characteristic of a given variable, rather than trying to capture all the variation in it.
 
+### Make sense?
 
----
-
-class: middle, center, slideblue
-
-.pull-left[
-.center[.size35[.content-box-white[**Convert Categorical**]]]
-
-.center[.size35[.content-box-white[**Vars to Dummies**]]]
-
-&lt;br&gt;
-
-&lt;img src="libs/Images/Session3-convert_vars4.png" width="95%" /&gt;
-]
-
-.pull-right[
-&lt;img src="libs/Images/Session3-mannequin.jpeg" width="75%" /&gt;
-]
-
-???
 
 
 
@@ -767,17 +765,15 @@ class: middle, center, slideblue
    &lt;td style="text-align:center;"&gt; 58.77 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 64.85 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
-  &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 ]]
 
 ???
 
-Remove one dummy as a baseline.
+Back to the process of preparing a categorical variable for running an OLS in Excel.
+
+- Next step is to remove one dummy as a baseline.
 
 &lt;br&gt;
 
@@ -791,7 +787,7 @@ To refresh, preparing a categorical variable for OLS regression in Excel require
 
 Why do we delete one of the dummies? 
 
-- Let's fit our regression and use those results to answer the question.
+- Everybody now run a regression of earnings on the male dummy variable.
 
 &lt;br&gt;
 
@@ -844,7 +840,7 @@ class: middle, center, slideblue
 &lt;/table&gt;
 ]
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-24-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -907,7 +903,7 @@ class: middle, center, slideblue
 &lt;/table&gt;
 ]
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-27-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 &lt;br&gt;
@@ -973,7 +969,7 @@ class: middle, center, slideblue
 &lt;/table&gt;
 ]
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 &lt;br&gt;
@@ -1087,7 +1083,7 @@ class: middle, center, slideblue
 ]]]
 
 .right-column[
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1269,9 +1265,9 @@ class: middle, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-37-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-35-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1298,7 +1294,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-38-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1326,7 +1322,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-39-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-37-1.png" width="87%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1373,7 +1369,7 @@ Everybody now regress earnk2021 on male and education
 
 class: middle
 
-.size20[
+.size25[
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
@@ -1388,8 +1384,6 @@ class: middle
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;206.76&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;td&gt;235.79&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1811)&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]
@@ -1541,7 +1535,7 @@ Everybody make a residuals plot for this model
 
 class: middle, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-42-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1651,7 +1645,7 @@ class: slideblue, middle
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-46-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1997,7 +1991,7 @@ Now make your marginal effects plot with these two lines.
 
 class: middle, center, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-53-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-51-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2058,7 +2052,7 @@ Process of building a "useful" multiple regression
 
 class: middle, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-54-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-52-1.png" width="65%" style="display: block; margin: auto;" /&gt;
 
 .size40[
 **Predictors to Consider**
@@ -2124,7 +2118,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-56-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-54-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???

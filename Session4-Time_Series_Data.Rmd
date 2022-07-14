@@ -35,10 +35,9 @@ class: middle, slideblue
 
 .size65[.content-box-white[**Today's Agenda**]]
 
-<br>
-
 .size45[
 Analyzing Time Series Data
+
 1. Fitting the models
 2. Interpreting the models
 3. Evaluating the models
@@ -97,7 +96,7 @@ We had an assignment for today.
 
 class: full
 
-.size17[
+.size16[
 ```{r, results='asis'}
 ## Assignment for Today: Model bachelors degrees
 d <- read_excel("../Data_for_Class/Session1/MBA_Session1-Data.xlsx", na = "NA") |>
@@ -111,7 +110,7 @@ res1c <- d %>% lm(data = ., bachelors ~ min_wage)
 res1d <- d %>% lm(data = ., bachelors ~ state_rate_wages)
 res1e <- d %>% lm(data = ., bachelors ~ unemployment)
 
-stargazer(res1a, res1b, res1c, res1d, res1e, omit.stat = c("f", "rsq"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", covariate.labels = c("GDP Rate", "Homeownership", "Minimum Wage", "State Taxes", "Unemployment"), type = "html")
+stargazer(res1a, res1b, res1c, res1d, res1e, omit.stat = c("f", "rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", covariate.labels = c("GDP Rate", "Homeownership", "Minimum Wage", "State Taxes", "Unemployment"), type = "html")
 ```
 ]
 
@@ -123,7 +122,11 @@ Simple OLS results.
 
 <br>
 
-### What did you select from this list? Why?
+### Walk me through each OLS model, what do we learn from this?
+
+<br>
+
+### What did you select from this list for your multiple regression? Why?
 
 <br>
 
@@ -138,7 +141,7 @@ class: full
 
 .size23[
 ```{r, results='asis'}
-stargazer(res1b, res1c, res1e, omit.stat = c("f", "rsq"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html", covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+stargazer(res1b, res1c, res1e, omit.stat = c("f", "rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html", covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
 ```
 ]
 
@@ -164,7 +167,11 @@ Results compared to the simple models
 
 <br>
 
-- SLIDE: Rest of evaluation steps
+### Before we get to evaluating our new model, talk to me about what has changed between the simple and multiple results.
+
+<br>
+
+SLIDE: Ok, let's check our evaluation steps
 
 
 
@@ -206,7 +213,17 @@ d |>
 
 ???
 
-### Ok, how well does the OLS fit the data?
+### Did everybody get these same results?
+
+<br>
+
+### Bottom line, how well does our multiple regression fit the data? Is this a "better" model than the three simple ones?
+
+<br>
+
+### Remind me, how do we communicate the results from a multiple regression model using a visualization?
+
+(SLIDE: Marginal effects plots!)
 
 
 
@@ -216,7 +233,7 @@ class: middle, center
 
 .pull-left[
 ```{r, results='asis'}
-stargazer(res1f, omit.stat = "rsq", star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html", covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+stargazer(res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html", covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
 ```
 ]
 
@@ -225,19 +242,90 @@ stargazer(res1f, omit.stat = "rsq", star.cutoffs = .05, notes = "*p<0.05", notes
 <br>
 
 .size50[
-Make a marginal effects plot for each of the three predictor variables in the multiple regression.
+Make a marginal effects plot of homeownership using our multiple regression results
 ]]
 
 ???
 
-Make me a marginal effects plot for each of the predictors holding all other values at their mean or mode.
+### Refresh my memory, how do we build a marginal effects plot?
+- Make a new table of two columns, one for the levels of a single selected predictor and the other the fitted value for the model using each value of the predictor.
+- Highlight the two columns and insert a scatterplot with points connected by a line.
 
+<br>
+
+### What values should we use for homeownership?
+- Use the range of the actual data
+    - 51:75
+
+### And what values do we set minimum wage and unemployment to in our model predictions?
+- (General Rule of Thumb: Use the sample mean for numeric variables and the mode for categorical variables)
+    - Min wage: $7.71
+    - Unemployment: 3.776
+
+<br>
+
+### Questions on this?
+
+Get to it!
 
 
 
 ---
 
 ```{r, fig.align='center', fig.retina=3, out.width='90%', fig.width=6, fig.asp=0.618, cache=TRUE}
+tibble(
+  homeowner_rate = 50:75,
+  min_wage = mean(d$min_wage),
+  unemployment = mean(d$unemployment)
+) |>
+  #add_predictions(res1b, var = "Simple OLS") |>
+  add_predictions(res1f, var = "Multiple OLS") |>
+  pivot_longer(cols = c("Multiple OLS"), names_to = "Model", values_to = "Values") |>
+  ggplot(aes(x = homeowner_rate, y = Values, color = Model)) +
+  geom_line(size = 1.4) +
+  theme_bw() +
+  labs(x = "Homeownership Rate (%)", y = "Predicted Bachelors Degrees (%)", color = "") +
+  coord_cartesian(ylim = c(25, 40)) +
+  scale_color_manual(values = c("blue", "pink")) +
+  guides(color = "none")
+```
+
+???
+
+### Did everybody produce a plot like this?
+
+<br>
+
+### In a professional setting, when might you prefer to present regression results like this instead of as a properly formatted regression table?
+
+<br>
+
+### Stepping back into what we've actually found here. What do we think is driving this negative effect of homeownership on college graduations?
+
+<br>
+
+SLIDE: Now, remember, we have actually estimated this relationship twice. Once using a simple and once using a multiple regression.
+
+
+
+
+---
+
+class: middle, center
+
+.pull-left[
+```{r, results='asis'}
+stargazer(res1b, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+```
+]
+
+.pull-right[
+
+<br>
+
+<br>
+
+```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=4, fig.asp=0.85, cache=FALSE}
 tibble(
   homeowner_rate = 50:75,
   min_wage = mean(d$min_wage),
@@ -254,36 +342,75 @@ tibble(
   scale_color_manual(values = c("blue", "pink")) +
   theme(legend.position = c(.8, .3))
 ```
+]
 
 ???
 
-Here is a visualization of both the simple OLS result and the multiple.
+Here is a visualization of both the simple OLS results as compared to the multiple OLS results. 
 
 ### What do we learn from this?
 
-<br>
-
 ### What happened to the estimated effect when controlling for the other two predictors?
-
 - The effect of homeownership is reduced when controlling for the minimum wage and unemployment.
 
-<br>
-
 ### Any idea why this might be happening?
-
 - Remember that homeownership and the minimum wage correlate at -.37. Possible that minimum wage is now capturing some of that effect.
 
 <br>
 
-SLIDE: Let's check!
+### As an aside, can we see here why this kind of visualization, a marginal effects plot, can be used to compare multiple models in a much more intuitive way?
 
+### How could you replicate this plot?
+
+Try it!
 
 
 
 
 ---
 
-```{r, fig.align='center', fig.retina=3, out.width='98%', fig.width=6, fig.asp=0.618, cache=TRUE}
+class: middle, center
+
+.pull-left[
+```{r, results='asis'}
+stargazer(res1c, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+```
+]
+
+.pull-right[
+
+<br>
+
+.size50[
+Make a marginal effects plot for minimum wage with both lines (simple and multiple results)
+]]
+
+???
+
+Let's practice it again!
+
+Remember to set homeowner rate and unemployment at their mean values in the sample.
+
+
+
+
+---
+
+class: middle, center
+
+.pull-left[
+```{r, results='asis'}
+stargazer(res1c, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+```
+]
+
+.pull-right[
+
+<br>
+
+<br>
+
+```{r, fig.align='center', fig.retina=3, out.width='98%', fig.width=4, fig.asp=0.85, cache=TRUE}
 tibble(
   homeowner_rate = mean(d$homeowner_rate),
   min_wage = 0:12,
@@ -301,20 +428,65 @@ tibble(
   scale_x_continuous(breaks = seq(0, 12, 1)) +
   theme(legend.position = c(.8, .3))
 ```
+]
 
 ???
 
-Looks like some of the homeownership effect is being captured by minimum wage.
+### Did everybody get these?
 
 <br>
 
 ### What do we learn from this?
 
+Looks like some of the homeownership effect is being captured by minimum wage.
+
+
 
 
 ---
 
-```{r, fig.align='center', fig.retina=3, out.width='98%', fig.width=6, fig.asp=0.618, cache=TRUE}
+class: middle, center
+
+.pull-left[
+```{r, results='asis'}
+stargazer(res1e, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+```
+]
+
+.pull-right[
+
+<br>
+
+.size50[
+Make a marginal effects plot for unemployment with only the multiple regression results
+]]
+
+???
+
+Last time, but we only need the one line.
+
+- What should be clear here is that the coefficients are practically the same in both models.
+
+
+
+
+---
+
+class: middle, center
+
+.pull-left[
+```{r, results='asis'}
+stargazer(res1e, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+```
+]
+
+.pull-right[
+
+<br>
+
+<br>
+
+```{r, fig.align='center', fig.retina=3, out.width='98%', fig.width=4, fig.asp=0.85, cache=TRUE}
 tibble(
   homeowner_rate = mean(d$homeowner_rate),
   min_wage = mean(d$min_wage),
@@ -332,10 +504,37 @@ tibble(
   scale_x_continuous(breaks = seq(1, 7, 1)) +
   theme(legend.position = c(.2, .3))
 ```
+]
 
 ???
 
 ### What do we learn from the effect of unemployment per the model?
+
+### - Any idea why the effect is fairly stable across the two models?
+
+
+
+---
+
+```{r, results='asis'}
+res1f <- d %>% lm(data = ., bachelors ~ homeowner_rate + min_wage + unemployment)
+
+stargazer(res1b, res1c, res1e, res1f, type = "html", omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
+```
+
+???
+
+Ultimately, multiple regression extends the OLS model in at least two ways that help us as data analysts.
+
+1. If your goal is prediction, e.g. what does the future hold, adding relevant predictors boosts the R^2 and makes your model fit better.
+    - HOWEVER, just because your model fits the past well DOES NOT mean it predicts the future.
+    
+2. If your goal is causal explanation, e.g. what is the effect of raising the minimum wage by $1, then adding confounder variables is necessary for making that argument.
+    - The concept of causality and confounders is material for another class, but that's where the science happens!
+    
+<br>
+
+### Questions on any of this?
 
 
 
@@ -434,7 +633,7 @@ d <- read_excel("../Data_for_Class/Session4/MBA_Session4-Data.xlsx", sheet = "MO
 
 d |>
   select(state:unemployment) |>
-  slice(1:10) |>
+  slice(1:9) |>
   kbl(format = "html", digits = 2, align = 'c') |>
   row_spec(row = 0, bold = TRUE, background = "lightgrey")
 ```

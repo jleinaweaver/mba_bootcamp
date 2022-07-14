@@ -19,10 +19,9 @@ class: middle, slideblue
 
 .size65[.content-box-white[**Today's Agenda**]]
 
-&lt;br&gt;
-
 .size45[
 Analyzing Time Series Data
+
 1. Fitting the models
 2. Interpreting the models
 3. Evaluating the models
@@ -81,7 +80,7 @@ We had an assignment for today.
 
 class: full
 
-.size17[
+.size16[
 
 &lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="5"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;/tr&gt;
@@ -105,7 +104,6 @@ class: full
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.05&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error (df = 48)&lt;/td&gt;&lt;td&gt;5.27&lt;/td&gt;&lt;td&gt;5.09&lt;/td&gt;&lt;td&gt;4.53&lt;/td&gt;&lt;td&gt;5.17&lt;/td&gt;&lt;td&gt;5.15&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="5" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]
@@ -118,7 +116,11 @@ Simple OLS results.
 
 &lt;br&gt;
 
-### What did you select from this list? Why?
+### Walk me through each OLS model, what do we learn from this?
+
+&lt;br&gt;
+
+### What did you select from this list for your multiple regression? Why?
 
 &lt;br&gt;
 
@@ -149,7 +151,6 @@ class: full
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error (df = 48)&lt;/td&gt;&lt;td&gt;5.09&lt;/td&gt;&lt;td&gt;4.53&lt;/td&gt;&lt;td&gt;5.15&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]
@@ -192,7 +193,11 @@ Results compared to the simple models
 
 &lt;br&gt;
 
-- SLIDE: Rest of evaluation steps
+### Before we get to evaluating our new model, talk to me about what has changed between the simple and multiple results.
+
+&lt;br&gt;
+
+SLIDE: Ok, let's check our evaluation steps
 
 
 
@@ -262,7 +267,17 @@ Results compared to the simple models
 
 ???
 
-### Ok, how well does the OLS fit the data?
+### Did everybody get these same results?
+
+&lt;br&gt;
+
+### Bottom line, how well does our multiple regression fit the data? Is this a "better" model than the three simple ones?
+
+&lt;br&gt;
+
+### Remind me, how do we communicate the results from a multiple regression model using a visualization?
+
+(SLIDE: Marginal effects plots!)
 
 
 
@@ -287,7 +302,6 @@ class: middle, center
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;4.30 (df = 46)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
@@ -298,13 +312,31 @@ class: middle, center
 &lt;br&gt;
 
 .size50[
-Make a marginal effects plot for each of the three predictor variables in the multiple regression.
+Make a marginal effects plot of homeownership using our multiple regression results
 ]]
 
 ???
 
-Make me a marginal effects plot for each of the predictors holding all other values at their mean or mode.
+### Refresh my memory, how do we build a marginal effects plot?
+- Make a new table of two columns, one for the levels of a single selected predictor and the other the fitted value for the model using each value of the predictor.
+- Highlight the two columns and insert a scatterplot with points connected by a line.
 
+&lt;br&gt;
+
+### What values should we use for homeownership?
+- Use the range of the actual data
+    - 51:75
+
+### And what values do we set minimum wage and unemployment to in our model predictions?
+- (General Rule of Thumb: Use the sample mean for numeric variables and the mode for categorical variables)
+    - Min wage: $7.71
+    - Unemployment: 3.776
+
+&lt;br&gt;
+
+### Questions on this?
+
+Get to it!
 
 
 
@@ -314,51 +346,299 @@ Make me a marginal effects plot for each of the predictors holding all other val
 
 ???
 
-Here is a visualization of both the simple OLS result and the multiple.
+### Did everybody produce a plot like this?
+
+&lt;br&gt;
+
+### In a professional setting, when might you prefer to present regression results like this instead of as a properly formatted regression table?
+
+&lt;br&gt;
+
+### Stepping back into what we've actually found here. What do we think is driving this negative effect of homeownership on college graduations?
+
+&lt;br&gt;
+
+SLIDE: Now, remember, we have actually estimated this relationship twice. Once using a simple and once using a multiple regression.
+
+
+
+
+---
+
+class: middle, center
+
+.pull-left[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;homeowner_rate&lt;/td&gt;&lt;td&gt;-0.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.15)&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;min_wage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;unemployment&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;55.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(10.32)&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;5.27&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+Here is a visualization of both the simple OLS results as compared to the multiple OLS results. 
 
 ### What do we learn from this?
 
-&lt;br&gt;
-
 ### What happened to the estimated effect when controlling for the other two predictors?
-
 - The effect of homeownership is reduced when controlling for the minimum wage and unemployment.
 
-&lt;br&gt;
-
 ### Any idea why this might be happening?
-
 - Remember that homeownership and the minimum wage correlate at -.37. Possible that minimum wage is now capturing some of that effect.
 
 &lt;br&gt;
 
-SLIDE: Let's check!
+### As an aside, can we see here why this kind of visualization, a marginal effects plot, can be used to compare multiple models in a much more intuitive way?
 
+### How could you replicate this plot?
+
+Try it!
 
 
 
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-10-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+class: middle, center
+
+.pull-left[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;homeowner_rate&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;min_wage&lt;/td&gt;&lt;td&gt;0.96&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;unemployment&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;24.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.79)&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;19.36&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+.size50[
+Make a marginal effects plot for minimum wage with both lines (simple and multiple results)
+]]
 
 ???
 
-Looks like some of the homeownership effect is being captured by minimum wage.
+Let's practice it again!
+
+Remember to set homeowner rate and unemployment at their mean values in the sample.
+
+
+
+
+---
+
+class: middle, center
+
+.pull-left[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;homeowner_rate&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;min_wage&lt;/td&gt;&lt;td&gt;0.96&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;unemployment&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;24.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.79)&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;19.36&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-14-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### Did everybody get these?
 
 &lt;br&gt;
 
 ### What do we learn from this?
 
+Looks like some of the homeownership effect is being captured by minimum wage.
+
+
 
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-11-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+class: middle, center
+
+.pull-left[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;homeowner_rate&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;min_wage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;unemployment&lt;/td&gt;&lt;td&gt;-1.83&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.90)&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;38.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(3.49)&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;4.12&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+.size50[
+Make a marginal effects plot for unemployment with only the multiple regression results
+]]
+
+???
+
+Last time, but we only need the one line.
+
+- What should be clear here is that the coefficients are practically the same in both models.
+
+
+
+
+---
+
+class: middle, center
+
+.pull-left[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;homeowner_rate&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;min_wage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;unemployment&lt;/td&gt;&lt;td&gt;-1.83&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.90)&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;38.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(3.49)&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;4.12&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-17-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+]
 
 ???
 
 ### What do we learn from the effect of unemployment per the model?
+
+### - Any idea why the effect is fairly stable across the two models?
+
+
+
+---
+
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="4"&gt;Bachelors' Degrees (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Homeownership&lt;/td&gt;&lt;td&gt;-0.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.15)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.14)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Minimum Wage&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.96&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.82&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Unemployment&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;-1.83&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-1.89&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.90)&lt;/td&gt;&lt;td&gt;(0.76)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;55.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;24.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;38.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;46.23&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(10.32)&lt;/td&gt;&lt;td&gt;(1.79)&lt;/td&gt;&lt;td&gt;(3.49)&lt;/td&gt;&lt;td&gt;(11.09)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;td&gt;0.06&lt;/td&gt;&lt;td&gt;0.34&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;5.27&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;19.36&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;4.12&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;td&gt;9.58&lt;sup&gt;*&lt;/sup&gt; (df = 3; 46)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="5" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="4" style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+???
+
+Ultimately, multiple regression extends the OLS model in at least two ways that help us as data analysts.
+
+1. If your goal is prediction, e.g. what does the future hold, adding relevant predictors boosts the R^2 and makes your model fit better.
+    - HOWEVER, just because your model fits the past well DOES NOT mean it predicts the future.
+    
+2. If your goal is causal explanation, e.g. what is the effect of raising the minimum wage by $1, then adding confounder variables is necessary for making that argument.
+    - The concept of causality and confounders is material for another class, but that's where the science happens!
+    
+&lt;br&gt;
+
+### Questions on any of this?
 
 
 
@@ -542,15 +822,6 @@ class: middle, slideblue
    &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 4.9 &lt;/td&gt;
   &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; Missouri &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; MO &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 2007 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 240158.8 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 6.50 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 5.1 &lt;/td&gt;
-  &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 ]
@@ -571,7 +842,7 @@ Introduce new data: Dataset 1 for MO only, 1997-2018
 
 class: full
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -608,7 +879,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -669,7 +940,7 @@ CLASS: Everybody do this, predict 2019 and plot your naive forecast on top of th
 class: full
 
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-15-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -719,7 +990,7 @@ CLASS: Apply to the naive forecast.
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -776,7 +1047,7 @@ Everybody apply this to our trend, calculate the MSE, extend one year and visual
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -802,7 +1073,7 @@ Everybody now redo the forecast but with 5 periods instead of 3.
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-25-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -927,7 +1198,7 @@ Everybody apply this to our trend, calculate the MSE, extend one year and visual
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -997,7 +1268,7 @@ class: middle, center, slideblue
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 .size25[
 &lt;table&gt;
@@ -1045,7 +1316,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-30-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1069,7 +1340,7 @@ Class Practice: Homeowner Rate, fit naive, MA3 and WMA3, calculate MSEs and pred
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1095,7 +1366,7 @@ SLIDE: Let's add some new tools!
 
 class: full, middle
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-25-1.png" width="93%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-32-1.png" width="93%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1153,7 +1424,7 @@ Everybody fit our three random variation models to the unadjusted data
 
 ---
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-26-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1336,7 +1607,7 @@ class: middle, center, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-31-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-38-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 &lt;br&gt;
@@ -1442,7 +1713,7 @@ class: middle, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-33-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-40-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1498,7 +1769,7 @@ Everybody use this formula to predict the next 12 months.
 
 class: middle, slideblue
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 .size30[
@@ -1576,7 +1847,7 @@ Now lets talk about seasonality.
 "Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
 ]]
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-37-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-44-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1586,7 +1857,7 @@ Now lets talk about seasonality.
 "Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
 ]]
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-38-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-45-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1597,7 +1868,7 @@ Now lets talk about seasonality.
 "Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
 ]]
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-39-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-46-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1723,7 +1994,7 @@ class: middle, center, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-41-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-48-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .size20[
@@ -1821,7 +2092,7 @@ class: middle, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-44-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1880,7 +2151,7 @@ class: middle, center, slideblue
 ]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-46-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 .size20[
@@ -1977,7 +2248,7 @@ class: middle, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-56-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2041,7 +2312,7 @@ class: middle, center, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-51-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-58-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 .size30[
 &lt;table&gt;
@@ -2094,7 +2365,7 @@ class: middle, center, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-54-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-61-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 .size25[
 &lt;table&gt;
@@ -2129,7 +2400,7 @@ SLIDE: Predict the rest of the year
 
 class: middle, center, slideblue
 
-&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-56-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session4-Time_Series_Data_files/figure-html/unnamed-chunk-63-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 .size25[
 &lt;table&gt;
