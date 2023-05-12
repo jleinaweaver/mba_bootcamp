@@ -1,0 +1,2419 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Session3-Multiple_OLS.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="extra.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: middle, slideblue
+
+.size65[.content-box-white[**Today's Agenda**]]
+
+.size45[
+Multiple OLS Regression Modeling
+1. Fitting the models
+2. Interpreting the models
+3. Evaluating the models
+]
+
+&lt;br&gt;
+
+.center[.size40[
+  Justin Leinaweaver (Summer 2023)
+]]
+
+???
+
+## Prep for Class
+1. Upload data and variable description document for today
+
+&lt;br&gt;
+
+Welcome back! 
+
+- Let's review our material from Session 2 and make sure we're all ready to move forward.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size45[.content-box-white[**Session 2: Simple OLS Regression**]]]
+
+&lt;br&gt;
+
+.size40[
+.center[Estimating a linear relationship between two variables]
+
+1. Fitting in Excel
+
+2. Interpreting the results
+
+3. Evaluating the fit (4 steps)
+4. Making point estimates
+]
+
+???
+
+### Touching base, questions on what we've done so far? Clarifications needed?
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Do states that pay a higher minimum**]]]
+
+.center[.size40[.content-box-white[**wage see more people finish college?**]]]
+
+&lt;br&gt;
+
+.size35[
+1. Visualize the relationship (scatter plot)
+
+2. Regress bachelors on min_wage
+
+3. Evaluate the fit (four steps)
+
+4. Make five predictions
+    - Minimum wage at the minimum, 25th percentile, median, 75th percentile and the maximum
+]
+
+???
+
+Use the data from Session 1 to practice all our skills so far!
+
+
+
+---
+
+class: slideblue
+
+.pull-left[
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-2-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+.size24[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Bachelors (%)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Minimum Wage&lt;/td&gt;&lt;td&gt;0.96&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.22)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;24.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.79)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;50&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.27&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;4.53 (df = 48)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;19.36&lt;sup&gt;*&lt;/sup&gt; (df = 1; 48)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p&lt;0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+???
+
+### Everybody get these results?
+
+&lt;br&gt;
+
+### How does this regression answer our question: Do states that pay a higher minimum wage see more people finish college?
+
+&lt;br&gt;
+
+SLIDE: Making predictions
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size40[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;font-weight: bold;background-color: lightgrey !important;"&gt; Minimum Wage &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Predicted Bachelors &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 15em; background-color: #ece9e8 !important;"&gt; Minimum = 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 24.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 15em; background-color: #ece9e8 !important;"&gt; 25th percentile = 7.25 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 31.16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 15em; background-color: #ece9e8 !important;"&gt; Median = 8.25 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 15em; background-color: #ece9e8 !important;"&gt; 75th percentile = 9.96 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 33.75 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 15em; background-color: #ece9e8 !important;"&gt; Maximum = 11.50 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 35.22 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get these results?
+
+&lt;br&gt;
+
+### How does this deepen our understanding of the results of the model? 
+### - In what specific ways is this a useful addition to our regression table?
+
+&lt;br&gt;
+
+SLIDE: This table also represents a useful process for visualizing much more complicated models (e.g. the multiple regression models from today)
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size55[**A Marginal Effects Plot**]]
+
+&lt;br&gt;
+
+.pull-left[
+
+.size30[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Minimum Wage &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Predicted Bachelors &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 24.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 7.25 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 31.16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 8.25 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 9.96 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 33.75 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 11.50 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; background-color: #ece9e8 !important;"&gt; 35.22 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-7-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+Everybody create two new columns on their spreadsheet and then use those new columns to insert a scatter plot with connecting lines.
+
+&lt;br&gt;
+
+This is a marginal effects plot
+
+- e.g. It shows the estimated relationship between one of our predictors and the outcome controlling for all the other parts of the model.
+
+&lt;br&gt;
+
+As your models get more complicated, e.g. more variables and more complex transformations, this can become the only way to easily communicate to other people what you've found.
+
+### Any questions on making or interpreting a marginal effects plot?
+
+&lt;br&gt;
+
+### Everybody clear on the value add of this exercise?
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size55[
+Simple linear regression formula
+
+.center[.content-box-white[Y = &amp;#945; + &amp;#946; X]]
+
+Multiple linear regression formula
+]
+
+.size40[
+.center[.content-box-white[Y = &amp;#945; + &amp;#946;&lt;sub&gt;1&lt;/sub&gt; X&lt;sub&gt;1&lt;/sub&gt; + &amp;#946;&lt;sub&gt;2&lt;/sub&gt; X&lt;sub&gt;2&lt;/sub&gt; + ... + + &amp;#946;&lt;sub&gt;k&lt;/sub&gt; X&lt;sub&gt;k&lt;/sub&gt;]]
+]
+
+???
+
+Introducing multiple regression as a change in the formula for a line
+
+&lt;br&gt;
+
+In essence, multiple regression is exactly the same as what we did with simple regression. 
+
+- An effort to draw a single line through the data that quantifies the relationship between a predictor and an outcome.
+
+- However, now we want to include more than one predictor in our estimate of "the line"
+
+&lt;br&gt;
+
+Key 1: No matter how many variables we include, this is still just one line
+
+Key 2: Once we produce estimates for all these coefficients (the Xs) we can't interpret any one of them without knowing something about all of them.
+
+&lt;br&gt;
+
+SLIDE: Let's build up to building a multiple regression using the Ross (1990) data
+- Session 2 data
+
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size45[.content-box-white[**Is there a significant gender difference**]] 
+
+.size45[.content-box-white[**in yearly earnings?**]]
+
+???
+
+Jump back to the Ross (1990) data from Session 2!
+
+&lt;br&gt;
+
+### Any ideas? How could we attack this?
+
+--
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size40[.content-box-white[**Three Approaches**]
+
+1) Group means,
+
+2) Box plots, and
+
+3) OLS regression
+
+]
+
+???
+
+&lt;br&gt;
+
+Let's examine three ways to answer this question with our data!
+
+1. Group means,
+
+2. Box plots, and
+
+3. Our OLS regression
+
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+.size35[.center[.textblack[**Is there a significant gender difference in income?**]]]
+]
+
+.right-column[
+
+&lt;br&gt;
+
+.center[
+.size40[
+Calculate the mean earnk2021 for each gender:
+
+Pivot table
+
+OR 
+
+Sort the data by gender and use AVERAGE()
+]]]
+
+???
+
+Let's do the first one.
+
+- Everybody calculate the group means.
+
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+.size35[.center[.textblack[**Is there a significant gender difference in income?**]]]
+]
+
+.right-column[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size60[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; gender &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### Is this a conclusive answer to our question? Why or why not?
+
+- Seems a pretty stark difference, no?
+
+- HOWEVER, the key here for our understanding is, how well does the average represent the full distirbution of the data?
+
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+.size35[.center[.textblack[**Is there a significant gender difference in income?**]]]
+]
+
+.right-column[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[
+.size65[
+Make a box plot of earnk2021 with separate boxes for each gender
+]]]
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+.size35[.center[.textblack[**Is there a significant gender difference in income?**]]]
+]
+
+.right-column[
+.size30[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; gender &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-10-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### Is this a conclusive answer to our question? Why or why not?
+
+&lt;br&gt;
+
+SLIDE: Also worth zooming in on the IQR
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+.size35[.center[.textblack[**Is there a significant gender difference in income?**]]]
+]
+
+.right-column[
+.size30[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; gender &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-12-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### So, do we now have a clear answer to the question? Why or why not?
+
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+.size35[.center[.textblack[**Is there a significant gender difference in income?**]]]
+]
+
+.right-column[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[
+.size65[
+Regress earnk2021 on gender using OLS
+]]]
+
+???
+
+Thanks to regression we now have the basic tools to check the "statistical significance" of this difference. 
+
+&lt;br&gt;
+
+SLIDE: Unfortunately, Excel cannot fit an OLS to categorical variables...
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**OLS Regressions with Categorical Variables**]]]
+
+&lt;br&gt;
+
+.size45[
+.center[Excel cannot fit an OLS to categorical variables]
+
+1. Create dummy variables for each level of the categorical variable, but
+
+2. Omit one level as a baseline (the intercept).
+]
+
+???
+
+Two steps
+
+
+
+---
+
+class: middle, center, slideblue
+
+.center[.size40[.content-box-white[**Convert Categorical Vars to Dummies**]]]
+
+&lt;br&gt;
+
+&lt;img src="libs/Images/Session3-convert_vars1.png" width="60%" /&gt;
+
+???
+
+Copy the data you need for the regression to a new sheet
+
+
+
+---
+
+class: middle, center, slideblue
+
+.center[.size40[.content-box-white[**Convert Categorical Vars to Dummies**]]]
+
+&lt;br&gt;
+
+&lt;img src="libs/Images/Session3-convert_vars2.png" width="60%" /&gt;
+
+???
+
+To make recoding easier sort the data by the categorical variable
+
+- SUPER IMPORTANT: You MUST highlight ALL columns when you sort to keep the rows intact!
+
+
+
+---
+
+class: middle, center, slideblue
+
+.center[.size40[.content-box-white[**Convert Categorical Vars to Dummies**]]]
+
+&lt;br&gt;
+
+&lt;img src="libs/Images/Session3-convert_vars3.png" width="60%" /&gt;
+
+???
+
+Create a new variable (column) for each level of the categorical variable.
+
+- 'Male' gets a 1 for every respondent row that identifies as male and 0 for females.
+
+- 'Female' variable is coded in the opposite way.
+
+### Make sense?
+
+Get to it!
+
+&lt;br&gt;
+
+### Any idea why we refer to these new variables as "dummies"?
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.center[.size35[.content-box-white[**Convert Categorical**]]]
+
+.center[.size35[.content-box-white[**Vars to Dummies**]]]
+
+&lt;br&gt;
+
+&lt;img src="libs/Images/Session3-convert_vars5.png" width="100%" /&gt;
+]
+
+.pull-right[
+&lt;img src="libs/Images/Session3-mannequin.jpeg" width="75%" /&gt;
+]
+
+???
+
+Like a mannequin, these variables are meant to serve as stand-ins for actual variables.
+
+- Reflecting only a certain characteristic of a given variable, rather than trying to capture all the variation in it.
+
+### Make sense?
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.center[.size40[.content-box-white[**Convert Categorical Vars to Dummies**]]]
+
+&lt;br&gt;
+
+.pull-left[
+&lt;img src="libs/Images/Session3-convert_vars5.png" width="100%" /&gt;
+]
+
+.pull-right[
+
+.size25[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; earnk2021 &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; male &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 101.33 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 121.60 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 60.80 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 50.67 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 101.33 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 125.65 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 103.36 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 18.24 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; 58.77 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+???
+
+Back to the process of preparing a categorical variable for running an OLS in Excel.
+
+- Next step is to remove one dummy as a baseline.
+
+&lt;br&gt;
+
+To refresh, preparing a categorical variable for OLS regression in Excel requires
+
+1. Create a dummy for each level of the cat var
+
+2. Delete the cat and ONE of the dummies
+
+&lt;br&gt;
+
+Why do we delete one of the dummies? 
+
+- Everybody now run a regression of earnings on the male dummy variable.
+
+&lt;br&gt;
+
+SLIDE: Results
+
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.size25[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+.size35[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; gender &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### Can anybody tell us how these two things are linked? The regression results and the group means?
+
+### - Where did our deleted dummy variable go?
+
+&lt;br&gt;
+
+SLIDE: Try writing the regression as the formula for a line...
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.size25[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+.size35[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; gender &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;br&gt;
+
+.center[.size35[**Earnings = 32.12 + 27.78 * Male**]]
+
+???
+
+### Does this help make the connection clearer?
+
+&lt;br&gt;
+
+### What is the model's predicted earnings for a female respondent?
+
+### What about a male respondent?
+
+- (SLIDE)
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.pull-left[
+.size20[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;206.76&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+.size25[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; gender &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;br&gt;
+
+.center[.size30[
+**Earnings** = 32.12 + 27.78 * 0 = 32.1
+
+**Earnings** = 32.12 + 27.78 * 1 = 59.9
+]]
+
+???
+
+### Everybody get these predictions?
+
+&lt;br&gt;
+
+### So, what happened to the deleted dummy variable?
+- (Captured by the intercept of the model)
+
+&lt;br&gt;
+
+### So, what is our conclusive answer to the question? Is there a meaningful difference in earnings across the genders? Why or why not?
+
+- The significance test is evidence that the data is more consistent with our alternative hypothesis than the null hypothesis
+    - e.g. In other words, the underlying data is more consistent with a meaningful gender difference than with gender having no effect on earnings.
+    
+### Make sense?
+
+&lt;br&gt;
+
+SLIDE: Let's practice this exercise and move us towards multiple regression.
+- e.g. regression on more than one predictor
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size45[.content-box-white[**Is there a significant difference**]] 
+
+.size45[.content-box-white[**across reported ethnicities**]] 
+
+.size45[.content-box-white[**in yearly earnings?**]]
+
+&lt;br&gt;
+
+.size50[
+1) Group means,
+
+2) Box plot, and
+
+3) OLS regression
+
+]
+
+???
+
+Everybody repeat our exercise but now using a categorical variable with more than two levels.
+
+- Ethnicity has four levels.
+
+&lt;br&gt;
+
+Let's start with just approach 1 and 2.
+
+- Everybody calculate the group means and the box plots.
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size40[**Is there a significant difference across reported ethnicities in yearly earnings?**]
+
+.left-column[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size25[.textblack[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;background-color: #ece9e8 !important;"&gt; Ethnicity &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; Black &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 34.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; Hispanic &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 32.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; Other &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 42.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; White &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 44.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]]
+
+.right-column[
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### What are your takeaways from these results?
+
+&lt;br&gt;
+
+SLIDE: Ok, now make your dummy variables and fit the regression.
+
+
+
+---
+
+background-image: url('libs/Images/Session3-convert_categories2.png')
+background-size: 100%
+background-position: center
+
+???
+
+Since "White" is the highest group mean, let's set it as the baseline and run the regression.
+
+&lt;br&gt;
+
+SLIDE: Results
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size30[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;background-color: #ece9e8 !important;"&gt; Ethnicity &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Mean &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; Black &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 34.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; Hispanic &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 32.0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; Other &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 42.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 8em; "&gt; White &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 44.1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+.size23[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Black&lt;/td&gt;&lt;td&gt;-9.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(3.30)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Hispanic&lt;/td&gt;&lt;td&gt;-12.07&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.24)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Other&lt;/td&gt;&lt;td&gt;-1.18&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(6.87)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;44.08&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.08)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.center[.size30[
+.content-box-white[Earnings = 44.08 - 9.34(Black) - 12.07(Hispanic) - 1.18(Other)]
+]]
+
+???
+
+### Everybody get these results?
+### - Are you still clear on how the group means connect to the regression results?
+
+&lt;br&gt;
+
+### So, how do these analyses answer our question?
+- (On average, Black and hispanic respondents report significantly less yearly earnings)
+
+- While the box plots show a great deal of overlap in the IQR, the regression accounts for the outliers too and shows that there is a substantial difference in the groups.
+
+### Make sense?
+
+&lt;br&gt;
+
+### Any questions on fitting an OLS regression in Excel?
+
+&lt;br&gt;
+
+SLIDE: Connect this back to multiple regression
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size55[
+Simple linear regression formula
+
+.center[.content-box-white[Y = &amp;#945; + &amp;#946; X]]
+
+Multiple linear regression formula
+]
+
+.size40[
+.center[.content-box-white[Y = &amp;#945; + &amp;#946;&lt;sub&gt;1&lt;/sub&gt; X&lt;sub&gt;1&lt;/sub&gt; + &amp;#946;&lt;sub&gt;2&lt;/sub&gt; X&lt;sub&gt;2&lt;/sub&gt; + ... + + &amp;#946;&lt;sub&gt;k&lt;/sub&gt; X&lt;sub&gt;k&lt;/sub&gt;]]
+]
+
+???
+
+So, let's tie this back to our aim today of fitting multiple regression models.
+
+- Your ethnicity regression included three variables and that makes it a multiple regression!
+
+&lt;br&gt;
+
+One important takeaway is to remember that you can't interpret any of the coefficients in the model without making assumptions about the others.
+
+- We can only interpret each coefficient if we assume the others do not apply (e.g. a respondent is either "White", "hispanic", "Black" or "Other").
+
+### Make sense?
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+.size20[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;206.76&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;td&gt;235.79&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1811)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-35-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+Combined with our work in session 2, we now have data showing us that both gender and education explain yearly earnings. 
+- Both models appear to explain some of the key outcome. 
+
+- The question is how do we build a model to control for both?
+
+&lt;br&gt;
+
+### Any ideas how we could do this with a visualization? 
+### - Perhaps a way to modify the scatterplot to account for the gender of the respondent?
+
+- (SLIDE)
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**What explains the variation in yearly earnings?**]]]
+
+&lt;br&gt;
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+???
+
+We can add a third variable to our scatter plot, but let's be honest these are a pain to make and they aren't very easy to disentangle. 
+
+&lt;br&gt;
+
+*Demo if needed:* 
+- Sort data by categorical var
+- split into two tables
+- highlight one table and insert scatter plot
+- Add series; second table
+
+&lt;br&gt;
+
+SLIDE: Facet wrap...
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**What explains the variation in yearly earnings?**]]]
+
+&lt;br&gt;
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-37-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Even if we separate the plots there is still far too much going on here for us to eyeball any difference in the relationship. 
+
+- What we want to know is to what degree are yearly earnings influenced by gender and education simultaneously!
+
+&lt;br&gt;
+
+SLIDE: Practice...
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+.size35[.center[.textblack[**Multiple Linear Regression**]]]
+]
+
+.right-column[
+
+&lt;br&gt;
+
+.size40[
+Regress earnk2021 on male AND education
+
+- Make sure to remove missing data!
+
+- Include both predictors (male and education) in the 'X' of the regression selection window
+]]
+
+???
+
+Everybody now regress earnk2021 on male and education
+
+- Note: Both 'X' columns must be side-by-side
+
+
+---
+
+class: middle
+
+.size25[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get the results here from Model 3?
+
+&lt;br&gt;
+
+### What do we learn from our new model? 
+- (Doubled the R2)
+- (Coefficients stable)
+
+&lt;br&gt;
+
+SLIDE: Let's evaluate this using the five steps from the textbook
+
+
+
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+
+&lt;br&gt;
+
+.center[.size45[.content-box-white[**Evaluation Step 1**]]]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[.size45[.content-box-white[**Is it logical?**]]]
+
+]
+
+.pull-right[
+.size20[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+
+&lt;br&gt;
+
+.center[.size45[.content-box-white[**Evaluation Step 2**]]]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[.size45[.content-box-white[**Is it significant?**]]]
+
+]
+
+.pull-right[
+.size20[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+
+
+---
+
+class: middle
+
+.center[.size35[.content-box-blue[**Step 3: Coefficient of Determination (R&lt;sup&gt;2&lt;/sup&gt;)**]]]
+
+.size20[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;206.76&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;td&gt;235.79&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1811)&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+???
+
+Discuss
+
+&lt;br&gt;
+
+Everybody make a residuals plot for this model
+
+
+
+---
+
+class: middle, slideblue
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-42-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Get this?
+
+&lt;br&gt;
+
+### Any concerns with this residual plot?
+
+&lt;br&gt;
+
+SLIDE: Evaluation step 5 is to check for multicollinearity.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Step 5: Evidence of Multicollinearity?**]]]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size45[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;font-weight: bold;background-color: lightgrey !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Education &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: lightgrey !important;"&gt; Male &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 5em; background-color: #ece9e8 !important;"&gt; Education &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 1.00 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.center[.size35[
+.content-box-white['Data' ribbon &amp;#8594; 'Data Analysis' &amp;#8594; 'Correlation']
+]]
+
+???
+
+Everybody make a correlation table for our two predictors using the data analysis tools in Excel
+
+&lt;br&gt;
+
+### Based on your reading of the book, what is correlation?
+- (SLIDE)
+
+
+---
+
+background-image: url('libs/Images/Session3-multicollinearity0.png')
+background-size: 100%
+background-position: center
+
+???
+
+&lt;br&gt;
+
+SLIDE: more basics on correlation
+
+
+---
+
+background-image: url('libs/Images/Session3-multicollinearity1.png')
+background-size: 100%
+background-position: center
+
+???
+
+Size of correlation coefficients.
+
+&lt;br&gt;
+
+### Per the book, what happens if your predictors are HIGHLY correlated (&gt; .7)? 
+- OLS can't differentiate the variation and can't assign coefficients precisely.
+
+&lt;br&gt;
+
+SLIDE: Applied to our example...
+
+
+
+---
+
+class: slideblue, middle
+
+.center[.size45[.content-box-white[**Step 5: Evidence of Multicollinearity?**]]]
+
+&lt;br&gt;
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Applied to our example (apologies for a correlation with a dummy variable). 
+
+- They correlate at 0.04, a VERY small correlation
+
+- Key here is observing that both distributions are VERY similar regardless of gender. 
+
+- This means knowing the respondent's gender doesn't tell us anything about their level of education. 
+
+So, keep both!
+
+&lt;br&gt;
+
+### Make sense?
+
+
+
+---
+
+class: slideblue
+
+.size20[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+
+???
+
+Ok, we have a pretty good fit, but how do we interpret this model?
+
+- We interpret a multiple regression very similarly to how we did it for the simple versions
+
+- Think in terms of the formula for a line
+
+&lt;br&gt;
+
+The key here is the idea of ceteris paribus (with other conditions remaining the same). 
+
+- We can't interpret any coefficient WITHOUT making an assumption about the others!
+
+&lt;br&gt;
+
+So, if I ask you what is the predicted earnings for a male on average based on this model? 
+
+### What would you have to ask me first?
+- (Depends on the level of education)
+
+&lt;br&gt;
+
+You'll remember from last session that we built a marginal effects plot to examine the predictions of a simple OLS model.
+
+SLIDE: Let's do the same now for this multiple regression.
+
+
+
+
+---
+
+class: slideblue
+
+.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+
+&lt;br&gt;
+
+.size55[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Education &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Male &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Earnings &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+Everybody calculate point estimates for our model across these levels of education, only for the males.
+
+
+
+---
+
+class: slideblue
+
+.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+
+&lt;br&gt;
+
+.size55[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Education &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Male &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Earnings &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -6.4k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 15k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 36.4k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 57.8k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 79.2k &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Results?
+
+
+
+---
+
+class: slideblue
+
+.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+
+&lt;br&gt;
+
+.size55[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Education &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Male &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Earnings &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+Repeat for females
+
+
+
+---
+
+class: slideblue
+
+.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+
+&lt;br&gt;
+
+.size55[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Education &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Male &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Earnings &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -32.9k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -11.5k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 9.9k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 31.3k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 52.7k &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Results?
+
+
+
+
+---
+
+class: slideblue
+
+.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+
+&lt;br&gt;
+
+.size55[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Education &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Male &lt;/th&gt;
+   &lt;th style="text-align:center;font-weight: bold;background-color: #f8deaa !important;"&gt; Female &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -6.4k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -32.9k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 15k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -11.5k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 36.4k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 9.9k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 57.8k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 31.3k &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 79.2k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 52.7k &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+Now make your marginal effects plot with these two lines.
+
+
+
+---
+
+class: middle, center, slideblue
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-51-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Results?
+
+&lt;br&gt;
+
+### So, how does the marginal effects plot help us think about what a multiple regression produces?
+
+- Remember, regression on a dummy variable calculates the group means
+
+- Here we see that adding a dummy variable to a multiple regression shifts the intercept but NOT THE SLOPE of the line.
+
+&lt;br&gt;
+
+Now we need to see how adding numeric variables to a multiple regression shifts both the intercept AND the slope of the line.
+
+&lt;br&gt;
+
+SLIDE: Before we do that, let's talk strategy for designing a multiple regression model
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**One approach to building a "best" multiple**]]]
+
+.center[.size40[.content-box-white[**regression model**]]]
+
+.size40[
+1. Choose the "logical" predictors from your options
+
+2. Evaluate a simple OLS regression for each
+
+3. Fit a multiple regression with the "best" of those
+
+4. Evaluate the model using our five steps
+
+5. Consider tweaks to improve model fit
+]
+
+???
+
+Process of building a "useful" multiple regression
+
+- 5 steps to consider; everybody write these down.
+
+&lt;br&gt;
+
+### Any questions on these?
+
+
+
+
+---
+
+class: middle, slideblue
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-52-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+.size40[
+**Predictors to Consider**
+- Height, age, education, exercise and male
+]
+
+???
+
+Practice (small groups?): Let's now try all of this out.
+
+- Here we see a histogram of earnings in 2021 dollars. 
+
+- Your job is to build the "best" model of this outcome using the variables in Ross (1990).
+
+- Predictors to Consider: Height, age, education, exercise and male
+
+- Make sure your model can be defended using the textbook steps
+
+&lt;br&gt;
+
+SLIDE: Simple OLS results
+
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+.size15[
+
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="5"&gt;Earnings (Thousands 2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;height&lt;/td&gt;&lt;td&gt;3.08&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.25)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;age&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.06)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;exercise&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;1.88&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.42)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;male&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-162.54&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;33.17&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;36.69&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(16.46)&lt;/td&gt;&lt;td&gt;(2.64)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;td&gt;(1.62)&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="5" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-54-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### Results?
+
+&lt;br&gt;
+
+*Present and discuss each*
+
+### Which variables did you pick and why?
+
+&lt;br&gt;
+
+*Class selects a single "best" model and you recreate it too.*
+
+### Walk me through the five evaluation steps.
+
+&lt;br&gt;
+
+Our textbook has given us five steps for evaluating a regression model but now that we have more practice I want to take a sec to unpack these criteria some more
+
+- SLIDE: Mistakes to avoid
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Common Regression Mistakes**]]] 
+
+.center[.size40[.content-box-white[**(Wheelan ch12)**]]]
+
+&lt;br&gt;
+
+.size40[
+1. Linear regression on nonlinear relationships
+2. Correlation does not equal causation
+3. Reverse causality
+4. Omitted variable bias (too few variables)
+5. Highly correlated explanatory variables
+6. Extrapolating beyond the data
+7. Data mining (too many variables)
+]
+
+???
+
+Here are seven common regression mistakes from a stats book by Wheelan. 
+
+- Think of these like pieces of advice for building your model.
+
+&lt;br&gt;
+
+### Which of these do we cover with our five textbook evaluation steps? 
+- (SLIDE)
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Common Regression Mistakes (Wheelan ch12)**]]] 
+&lt;br&gt;
+
+.size40[
+1. .textred[Linear regression on nonlinear relationships]
+2. .textblue[Correlation does not equal causation]
+3. .textblue[Reverse causality]
+4. .textblue[Omitted variable bias (too few variables)]
+5. .textwhite[Highly correlated explanatory variables]
+6. .textorange[Extrapolating beyond the data]
+7. .textblue[Data mining (too many variables)]
+
+.center[**Textbook Evaluation Steps: .textblue[1], .textorange[2], .textgreen[3], .textred[4], .textwhite[5]**
+]]
+
+???
+
+Here's my stab at showing the overlap between Wheelan's advice and our textbook steps.
+
+### What are our takeaway lessons about model building from this?
+- What I want you to see here is how much of building a "best" model depends on you clearly making an argument that what you've built avoids these problems.
+
+- Big idea here: Avoiding 4 out of the 7 mistakes depends on the quality of your argument NOT something you can "test" with data!
+
+&lt;br&gt;
+
+### Why doesn't the R^2 show up on Wheelan's list?
+- R^2 is mostly relevant when trying to build a model that makes highly accurate predictions overall
+
+- It's not very important at all when trying to calculate a precise estimate of any single coefficient in the model.
+
+&lt;br&gt;
+
+Let's now create a marginal effects plot for one of the predictors in our "best" model?
+
+### Which variable should we focus on?
+
+*Make the marginal effects plot*
+
+### Takeaway lessons from the marginal effects plot?
+
+&lt;br&gt;
+
+### Questions on multiple regression?
+
+
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size45[**For Next Class:** What is the "best" model of bachelor's degree completion in the  Session 1 data?]]
+
+.size40[
+- Outcome:
+    - Bachelors' Degrees
+]
+
+.size40[
+- Predictors to consider:
+    - GDP (Rate), Homeownership, Minimum wage, State Tax Rate on Wages, Unemployment
+
+]
+
+???
+
+### Questions on the assignment?
+
+Let's get to it!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

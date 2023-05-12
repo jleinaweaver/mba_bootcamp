@@ -1,0 +1,2710 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Session1-Basics.knit</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="extra.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: middle, slideblue
+
+.size70[.content-box-white[**Today's Agenda**]]
+
+&lt;br&gt;
+
+.size50[
+1. Organizing Data
+2. Univariate Analyses
+3. Bivariate Analyses
+]
+
+&lt;br&gt;
+
+.center[.size40[
+  Justin Leinaweaver (Summer 2023)
+]]
+
+???
+
+## Prep for Class
+1. Upload data and variable description document for today
+
+2. Bring graph paper and rulers
+
+&lt;br&gt;
+
+Welcome everybody!
+
+- Course Description: This intensive course is designed to help students learn essential aspects of applied data analysis (e.g. visualization, descriptive statistics and modeling) using Excel. 
+
+&lt;br&gt;
+
+### What brought you to the MBA program? Backgrounds?
+
+&lt;br&gt;
+
+### What is your experience with Excel? How comfortable are you reviewing, analyzing and visualizing data in Excel?
+
+&lt;br&gt;
+
+### What is your experience with applied statistics?
+
+- (SLIDE: What would you do to summarize a vector of data?) 
+
+
+
+
+---
+
+class: center, middle, slideblue
+
+.code90[
+
+```
+  [1] 101.330000 121.596000  60.798000  50.665000 101.330000 125.649200 103.356600  18.239400
+  [9]  58.771400  64.851200   4.053200  70.931000  54.718200  13.233698   0.000000  60.798000
+ [17]  24.319200  30.399000  24.319200  40.532000   0.000000  50.665000  44.585200  50.665000
+ [25]  40.532000  34.452200  81.064000  89.170400   0.000000  14.186200 107.409800  10.133000
+ [33]  10.133000  28.372400  91.197000  11.146300  81.064000  68.904400  10.133000  20.266000
+ [41]   0.000000  54.718200 125.649200  30.399000   0.000000 101.330000   0.000000  83.090600
+ [49]   0.000000  30.399000  50.665000  50.665000 151.995000  54.718200  24.319200  81.064000
+ [57]  15.199500  50.665000  60.798000  42.558600  54.718200  91.197000   6.079800  50.665000
+ [65]  48.638400  64.851200  20.266000   0.000000  22.292600  37.897420  40.532000   7.093100
+ [73]  26.345800  50.665000  42.558600  68.904400  10.133000  12.159600  34.452200  70.931000
+ [81]   8.106400  10.133000  28.372400  20.266000  50.665000   0.000000 176.314200  32.425600
+ [89]   0.000000  30.399000   0.000000  32.425600  50.665000  33.438900  30.399000   8.106400
+ [97]   7.782144  10.133000  44.585200   0.405320  52.691600   5.066500  34.452200  50.665000
+[105]  16.212800  50.665000   0.000000  24.319200  20.266000  10.133000 202.660000  20.266000
+[113]   0.000000  30.399000  91.197000  30.399000   4.863840  60.798000  60.798000  20.266000
+[121]  10.133000  24.319200  40.532000  40.532000  40.532000  50.665000  10.133000   0.000000
+[129]  50.665000   2.431920  10.133000   1.418620  40.532000  20.266000  60.798000  50.665000
+[137]  81.064000  50.665000  91.197000  20.266000 121.596000  91.197000   0.000000  36.478800
+[145]  30.399000 101.330000  32.506664  30.399000  20.266000  66.877800  36.478800  30.399000
+[153]  42.558600  42.558600  74.984200  77.010800  34.452200   0.000000   0.000000  30.399000
+[161]  64.851200  55.731500  30.399000  33.438900   0.000000   0.000000  50.665000  54.718200
+[169]  10.133000 141.862000  10.133000  10.133000 125.649200  30.399000  40.532000   8.106400
+```
+]
+
+**And 1,639 more responses...**
+
+???
+
+Here we see the results of a 1990 survey of Americans that asked them to report their yearly earnings 
+- Survey was a nationally representative sample of 1,800 people,
+- Incomes adjusted for inflation to 2021 dollars and shown in thousands of dollars
+
+Let's say you work for me and I gave you this list of data points to analyze.
+
+### What could you do to "analyze" this data for me? What could you tell me about incomes in the USA?
+
+&lt;br&gt;
+
+### The Middle: How do we identify the "middle" of the data and when is that summary useful?
+
+&lt;br&gt;
+
+### The Range: How do we identify the "range" of the data and when is that summary useful?
+
+&lt;br&gt;
+
+### The Variation: How do we identify the "variation" of the data and when is that summary useful?
+
+
+---
+
+class: middle, slideblue
+
+.pull-left[
+.size35[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;The Middle&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Mean &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Median &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="3"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;The Range&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Minimum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Maximum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 405 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Range &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 405 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="1"&gt;&lt;td colspan="2" style="border-bottom: 1px solid;"&gt;&lt;strong&gt;The Variation&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;padding-left: 2em;" indentlevel="1"&gt; Standard Deviation &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]]
+
+.pull-right[
+.code60[
+
+```
+  [1] 101.330000 121.596000  60.798000  50.665000 101.330000 125.649200
+  [7] 103.356600  18.239400  58.771400  64.851200   4.053200  70.931000
+ [13]  54.718200  13.233698   0.000000  60.798000  24.319200  30.399000
+ [19]  24.319200  40.532000   0.000000  50.665000  44.585200  50.665000
+ [25]  40.532000  34.452200  81.064000  89.170400   0.000000  14.186200
+ [31] 107.409800  10.133000  10.133000  28.372400  91.197000  11.146300
+ [37]  81.064000  68.904400  10.133000  20.266000   0.000000  54.718200
+ [43] 125.649200  30.399000   0.000000 101.330000   0.000000  83.090600
+ [49]   0.000000  30.399000  50.665000  50.665000 151.995000  54.718200
+ [55]  24.319200  81.064000  15.199500  50.665000  60.798000  42.558600
+ [61]  54.718200  91.197000   6.079800  50.665000  48.638400  64.851200
+ [67]  20.266000   0.000000  22.292600  37.897420  40.532000   7.093100
+ [73]  26.345800  50.665000  42.558600  68.904400  10.133000  12.159600
+ [79]  34.452200  70.931000   8.106400  10.133000  28.372400  20.266000
+ [85]  50.665000   0.000000 176.314200  32.425600   0.000000  30.399000
+ [91]   0.000000  32.425600  50.665000  33.438900  30.399000   8.106400
+ [97]   7.782144  10.133000  44.585200   0.405320  52.691600   5.066500
+[103]  34.452200  50.665000  16.212800  50.665000   0.000000  24.319200
+[109]  20.266000  10.133000 202.660000  20.266000   0.000000  30.399000
+[115]  91.197000  30.399000   4.863840  60.798000  60.798000  20.266000
+[121]  10.133000  24.319200  40.532000  40.532000  40.532000  50.665000
+[127]  10.133000   0.000000  50.665000   2.431920  10.133000   1.418620
+[133]  40.532000  20.266000  60.798000  50.665000  81.064000  50.665000
+[139]  91.197000  20.266000 121.596000  91.197000   0.000000  36.478800
+[145]  30.399000 101.330000  32.506664  30.399000  20.266000  66.877800
+[151]  36.478800  30.399000  42.558600  42.558600  74.984200  77.010800
+[157]  34.452200   0.000000   0.000000  30.399000  64.851200  55.731500
+[163]  30.399000  33.438900   0.000000   0.000000  50.665000  54.718200
+[169]  10.133000 141.862000  10.133000  10.133000 125.649200  30.399000
+[175]  40.532000   8.106400 151.995000 121.596000  10.133000  60.798000
+[181] 141.862000  10.133000 101.330000  89.170400  81.064000  60.798000
+[187]  30.399000  70.931000   0.000000  20.266000  46.611800   0.000000
+[193]  91.197000  30.399000   8.106400  34.452200  60.798000  55.731500
+[199]  11.527301  36.478800  70.931000  91.197000  87.143800  64.851200
+```
+]]
+
+
+???
+
+### So, for what specific situations could you use the summary data?
+
+### And, in what situations would you prefer having all 1,815 responses?
+
+*Force this discussion*
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size65[.content-box-white[**Defining Statistics: Level 1**]]
+
+&lt;br&gt;
+
+.size50[
+Statistics is a set of tools we use to summarize data
+ 
+Summarize: "give a brief statement of the main points of (something)" (Oxford Dictionary).
+]
+
+???
+
+Leads us to our first definition of statistics
+
+- In our example we used descriptive statistics like the mean, median and standard deviation to summarize our data.
+
+&lt;br&gt;
+
+For many purposes the summaries of the data are far more useful than the list of data points.
+
+- How are incomes distributed in the US?
+
+- What proportion of Americans live in poverty?
+
+- etc.
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size65[.content-box-white[**Defining Statistics: Level 2**]]
+
+&lt;br&gt;
+
+.size50[
+"The practice or science of collecting and analyzing numerical data in large quantities, **especially for the purpose of inferring proportions in a whole from those in a representative sample**" (Oxford Dictionary).
+]
+
+???
+
+Defining statistics (level 2) is using summaries of samples to learn about the wider population. Small data to tell us about the whole world.
+
+&lt;br&gt;
+
+The survey data we were discussing was designed to be "nationally representative."
+
+- This means the researchers tried to pick a sample whose descriptive statistics would come close, or match, the wider population.
+
+&lt;br&gt;
+
+My aim for this week is to get you doing applied statistical analyses both to learn how to:
+
+- Extract useful analyses from large datasets, and
+
+- Use sample statistics to learn about a wider population.
+
+
+
+
+---
+
+class: top, center, slideblue
+
+.size55[.content-box-white[**Economic Data on the US States**]]
+
+&lt;br&gt;
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; state &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; abbrev &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; gdp_millions &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; gdp_rate &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; gdp_category &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; min_wage &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; unemployment &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Alabama &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AL &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 221735.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Medium &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Alaska &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AK &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54734.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9.84 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Arizona &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AZ &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 348297.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Medium &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Arkansas &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 128418.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; California &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; CA &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997732.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11.00 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Colorado &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; CO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 371749.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.20 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Connecticut &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; CT &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 275726.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.03 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Medium &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.10 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Delaware &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; DE &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 73481.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.25 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Florida &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; FL &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1039236.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.25 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Georgia &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; GA &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 592153.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Hawaii &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HI &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 93797.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.10 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+???
+
+Introducing today's dataset
+
+- Purpose: Exploring the economic characteristics of the American states
+
+- Sourcing: Primarily from the Federal Reserve Bank in St Louis and a few other sources
+
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-Tidy_Data.png')
+background-size: 100%
+background-position: center
+
+???
+
+Organizing Data 
+
+- Before you begin any analysis you need to clean and organize the data. 
+
+- Three rules of tidy data.
+
+
+
+---
+
+class: top, center, slideblue
+
+.size55[.content-box-white[**Economic Data on the US States**]]
+
+&lt;br&gt;
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; state &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; abbrev &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; gdp_millions &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; gdp_rate &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; gdp_category &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; min_wage &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; unemployment &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Alabama &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AL &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 221735.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Medium &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Alaska &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AK &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54734.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9.84 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Arizona &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AZ &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 348297.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Medium &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Arkansas &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 128418.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.50 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; California &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; CA &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997732.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11.00 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Colorado &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; CO &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 371749.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.20 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Connecticut &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; CT &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 275726.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.03 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Medium &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.10 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Delaware &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; DE &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 73481.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.25 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Florida &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; FL &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1039236.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.25 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Georgia &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; GA &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 592153.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; High &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.15 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; Hawaii &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; HI &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 93797.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; Low &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.10 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+???
+
+### Why specifically is this a "tidy" dataset?
+
+&lt;br&gt;
+
+Time to explore.
+
+Open up the codebook document on Canvas and use it to make sure you understand what each variable represents.
+
+- What is it? Where did it come from? What units are they measured in?
+
+&lt;br&gt;
+
+Now take a few minutes to explore the data itself
+
+### Which states are doing the "best" and which the "worst"? Why?
+- How did you decide which variables were most important?
+
+&lt;br&gt;
+
+### Any data challenge your preconceived notions about the economics of the states?
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+
+.center[
+.textblack[
+.size35[
+**Univariate Analyses**
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+Variable type determines analysis tool
+]]]]
+
+.right-column[
+
+&lt;br&gt;
+
+.size50[
+- Categorical Variables
+    - Nominal
+    - Ordinal
+]
+
+.size50[
+- Numerical Variables
+    - Interval
+    - Ratio
+]
+]
+
+???
+
+Univariate Analyses 
+- Describing / summarizing individual variables
+
+- Important Lesson: Variable Types Determine the Tools we Need
+
+&lt;br&gt;
+
+### Questions on these four types of variable? Everybody clear on what each represents?
+- (SLIDE)
+
+
+
+
+---
+
+background-image: url('libs/Images/background-columns.png')
+background-size: 100%
+background-position: center
+
+.left-column[
+
+.center[
+.textblack[
+.size35[
+**Univariate Analyses**
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+Variable type determines analysis tool
+]]]]
+
+.right-column[
+
+&lt;br&gt;
+
+.size45[
+- Categorical Variables
+    - Nominal (named items)
+    - Ordinal (items in order)
+
+]
+
+.size45[
+- Numerical Variables
+    - Interval (Differences matter)
+    - Ratio (Zero matters)
+]]
+
+???
+
+### Questions on this?
+
+&lt;br&gt;
+
+SLIDE: Let's start our work on univariate analyses focusing on categorical variables.
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate3.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Make sense?
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate4.png')
+background-size: 100%
+background-position: center
+
+???
+
+Let's practice these techniques using GDP category.
+
+Everybody create a new sheet and copy over state, year and gdp_category variables.
+
+&lt;br&gt;
+
+### Has anybody used pivot tables before?
+
+- A very handy tool but can be a little clunky to learn the ins and outs of using them.
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate5.png')
+background-size: 100%
+background-position: center
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate6.png')
+background-size: 100%
+background-position: center
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate7.png')
+background-size: 100%
+background-position: center
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate8.png')
+background-size: 100%
+background-position: center
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate9.png')
+background-size: 100%
+background-position: center
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate10.png')
+background-size: 100%
+background-position: center
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate11.png')
+background-size: 100%
+background-position: center
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate12.png')
+background-size: 100%
+background-position: center
+
+???
+
+So, this is the table version of our summary.
+
+- Always make sure to polish your table for presentation (e.g. remove blanks and put the categories in a logical order)
+
+&lt;br&gt;
+
+### How could we visualize the results of this table? What kind of chart would we need?
+- (Bar plot!)
+
+&lt;br&gt;
+
+I know this might seem silly, but I'm going to ask each of you to take a piece of paper and draw this bar plot by hand.
+
+- There is really no better way that I've found for helping you develop an intuitive understanding of each visualization than by making a couple by hand.
+
+- Letting Excel do it just doesn't accomplish the same learning ends.
+
+Ok, Draw it!
+
+&lt;br&gt;
+
+SLIDE: Now, let's check this in Excel
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate13.png')
+background-size: 100%
+background-position: center
+
+???
+
+*Steps on slide*
+
+&lt;br&gt;
+
+Let's talk bar chart design.
+
+- x-axis should increase left-to-right (if a logical order exists)
+
+- Excel y-axis defaults can be TERRIBLE.
+
+&lt;br&gt;
+
+SLIDE: Let's talk the y-axis
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate14a.png')
+background-size: 100%
+background-position: center
+
+???
+
+### What is wrong with this bar chart? 
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate15.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Why is it important to start all bar charts at zero?
+- The meaning of each bar is represented by its height and height begins at zero (ratio variable)
+- Any value to start other than zero produces bars that do not correspond to the value.
+
+### Make sense?
+
+&lt;br&gt;
+
+### Does this rule hold for all charts?
+- (Nope!)
+    - Only for those that are ratio variables, AND
+    - Where the visual representation depends on seeing the entirety of the data to carry the right meaning
+    
+- In other words, feel free to zoom in your line plots (within reason)!
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate16.png')
+background-size: 100%
+background-position: center
+
+???
+
+It BLOWS my damn mind that Excel zooms in its bar charts.
+
+- This is bafflingly bad practice.
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate17.png')
+background-size: 100%
+background-position: center
+
+???
+
+Good opportunity to talk "best practices"!
+
+&lt;br&gt;
+
+### Questions?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[
+.size55[.content-box-white[**Practice Univariate Analysis of**]]
+
+.size55[.content-box-white[**a Categorical Variable**]]
+]
+
+&lt;br&gt;
+
+.size50[
+1. Pivot table: Count the levels of income_tax
+
+2. Insert a horizontal bar plot and polish the visualization
+]
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate18.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Everybody get these results?
+
+&lt;br&gt;
+
+### Conclusions we can draw from this?
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate3.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Questions on visualizing categorical variables?
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate19.png')
+background-size: 100%
+background-position: center
+
+???
+
+Let's switch to working with our numerical variables.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[
+.size35[.content-box-white[**Analyzing Numerical Variables (Johnson 2012)**]]
+]
+
+.size40[
+- Measures of Central Tendency
+    - Mean
+    - Median
+]
+
+.size40[
+- Deviations from Central Tendency
+    - Standard deviation
+]
+
+.size40[
+- Measures of Variability
+    - Range = Maximum - Minimum
+    - IQR = 75th - 25th percentile
+]
+
+???
+
+### Questions on these summary statistics?
+- Measures of central tendency: Mean, Median, IQR (25th and 75th percentile)
+- Measures of spread: SD, Range (minimum, maximum)
+
+&lt;br&gt;
+
+SLIDE: Demonstrate average function
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate20.png')
+background-size: 100%
+background-position: center
+
+???
+
+*Average function*
+
+&lt;br&gt;
+
+SLIDE: Rescale GDP to billions and calculate
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate21.png')
+background-size: 100%
+background-position: center
+
+
+
+---
+
+class: middle, size40
+
+Statistic|Function
+------|-------
+Mean|= AVERAGE
+Median|= MEDIAN
+Standard Deviation|= STDEV.S
+Minimum|= MIN
+Maximum|= MAX
+25th Percentile|= QUARTILE.EXC(, 1)
+75th Percentile|= QUARTILE.EXC(, 3)
+
+???
+
+List of functions for class to apply to GDP billions
+
+
+
+---
+
+class: middle, slideblue
+
+.center[
+.size35[.content-box-white[**Practice: Descriptive stats for GDP (billions)**]]
+]
+
+.size40[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: #ece9e8 !important;"&gt; Variable &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;background-color: #ece9e8 !important;"&gt; gdp_billions &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mean &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 406.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Median &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 236.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; StdDev &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 526.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Minimum &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Maximum &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25th Percentile &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 95 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 75th Percentile &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 531.4 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### What do we learn from this analysis fo state GDP? 
+
+### - Key takeaways?
+
+
+
+---
+
+class: slideblue
+
+.center[
+.size35[.content-box-white[**Univariate Analyses: Numerical Variables**]]
+]
+
+.pull-left[
+.size40[
+- min_wage
+
+- unemployment
+
+- population
+
+- bachelors
+
+- homeowner_rate
+
+- manufacturing
+]]
+
+.pull-right[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size20[
+
+Statistic|Function
+------|-------
+Mean|= AVERAGE
+Median|= MEDIAN
+Standard Deviation|= STDEV.S
+Minimum|= MIN
+Maximum|= MAX
+25th Percentile|= QUARTILE.EXC(, 1)
+75th Percentile|= QUARTILE.EXC(, 3)
+
+]]
+
+???
+
+Let's practice!
+
+Everybody calculate these so we can think through what these represent.
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size35[.content-box-white[**Practice: Descriptive Statistics**]]
+
+&lt;br&gt;
+
+.size30[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;background-color: #ece9e8 !important;"&gt; Variable &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; StdDev &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Min &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; pct25 &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Median &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; pct75 &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Max &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; bachelors &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 31.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 34.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; homeowner_rate &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 66.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 51.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 65 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 67.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 69.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 74.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; manufacturing &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 253.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 256.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 59 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 167.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 343.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1325.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; min_wage &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; population &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6519.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7355.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 577.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1835 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4560.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7432.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39461.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; unemployment &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.6 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+### Everybody get these?
+
+
+
+---
+
+class: middle, slideblue
+
+.size25[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;background-color: #ece9e8 !important;"&gt; Variable &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Mean &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; StdDev &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Min &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; pct25 &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Median &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; pct75 &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; Max &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; bachelors &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 31.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 34.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 44.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; homeowner_rate &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 66.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 51.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 65 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 67.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 69.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 74.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; manufacturing &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 253.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 256.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 59 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 167.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 343.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1325.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; min_wage &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; population &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6519.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7355.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 577.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1835 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4560.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7432.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39461.6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; unemployment &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6.6 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.center[
+.size35[
+Identify the **TWO** variables with the **LEAST** variation across the states.
+
+Identify the **TWO** variables with the **MOST** variation across the states.
+]]
+
+???
+
+### Ok, two questions, what do you think?
+- *DISCUSS*
+
+&lt;br&gt;
+
+SLIDE: Let's now connect our descriptive stats to visualizing the distribution
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate24.png')
+background-size: 100%
+background-position: center
+
+???
+
+Two primary visualization options for numerical variables.
+
+- Both are linked and both have different benefits.
+
+&lt;br&gt;
+
+I think it is a super useful exercise to make these two things by hand.
+
+- Everybody grab some paper and a ruler.
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-univariate25.png')
+background-size: 100%
+background-position: center
+
+???
+
+Let's start with the box plot.
+
+- Use the descriptive stats to draw the distribution of GDP by hand
+
+&lt;br&gt;
+
+SLIDE x 9: Results
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-12-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-13-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-14-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-15-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-17-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### What is the takeaway of this plot?
+
+### - What do we learn about the distribution of states by the size of their ecocomies?
+
+### - What do we learn from these outliers?
+
+- (Most US states have similarly sized economies with three extreme outliers)
+
+
+
+---
+
+background-image: url('libs/Images/Session1-Excel_boxplot1.png')
+background-size: 100%
+background-position: center
+
+???
+
+Excel makes it easy to make a basic box plot, but tweaks are pretty tough.
+
+- Highlight the variable column, insert, box plot (under summaries plots)
+
+&lt;br&gt;
+
+SLIDE: Result
+
+
+---
+
+background-image: url('libs/Images/Session1-Excel_boxplot2.png')
+background-size: 100%
+background-position: center
+
+???
+
+I've tweaked a few aspects just to polish the plot a bit.
+
+### Questions on using Excel to make a box plot?
+
+
+
+---
+
+background-image: url('libs/Images/Session1-Excel_boxplot3.png')
+background-size: 100%
+background-position: center
+
+???
+
+Now we need to make a histogram.
+
+- The histogram allows us to visualize an approximation of the whole distribution rather than just the middle 50%.
+
+&lt;br&gt;
+
+The technique for building a histogram looks a lot like making a bar plot.
+
+### Remind me, how do we make a bar chart by hand?
+- Count the categories in the variable, e.g. make a table
+- Draw bars the height of each value
+
+&lt;br&gt;
+
+Let's try this process using GDP in billions of dollars.
+
+Everybody start by making a pivot table to count the values of GDP Billions.
+
+(SLIDE)
+
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size40[.content-box-white[**Building a Histogram**]]
+
+&lt;br&gt;
+
+.size21[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 52 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 56.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 73.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 84.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 93.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 114.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 128.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 168.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 169.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 178.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 189.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 202.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 208.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 221.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 233.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 239.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 257.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 275.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 318.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 336.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 348.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 364.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 366.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 368.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 371.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 412.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 527.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 532.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 563.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 565.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 569.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 592.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 622 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 675.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 783.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 865.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1039.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1668.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1802.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+???
+
+Here's my results of making a table of GDP.
+
+### What would we get if we tried to draw this as a bar plot?
+
+(SLIDE)
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-21-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+50 bars of height 1
+
+- Not really a distribution, but a series of 50 lines
+
+More like a method for showing the numbers on a number line but not a good summary of the data.
+
+&lt;br&gt;
+
+SLIDE: Let's try the histogram approach to summarizing this numerical variable.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Building a Histogram**]]]
+
+&lt;br&gt;
+
+.size21[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 39.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 50.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 52 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 56.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 60.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 64.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 73.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 77.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 84.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 93.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 100.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 114.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 128.4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 168.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 169.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 178.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 189.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 202.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 208.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 221.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 233.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 239.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 257.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 275.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 318.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 336.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 348.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 364.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 366.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 368.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 371.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; GDP &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 412.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 527.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 532.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 563.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 565.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 569.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 592.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 622 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 675.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 783.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 865.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1039.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1668.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1802.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; n &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1.0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+&lt;br&gt;
+
+.center[
+.size40[**Create "bins" of $500 (e.g. 0-500, 501-1,000, etc.), remake the table and make a new bar chart by hand.**]
+]
+
+???
+
+So, let's try this table approach again but instead of individual values let's create bins!
+
+- Create bins of $500 billion, remake the table and make a new bar chart by hand.
+
+&lt;br&gt;
+
+SLIDE: result
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody make something that looks like this?
+
+&lt;br&gt;
+
+This is the concept of a histogram.
+
+- It is a bar plot of a numeric variable that first groups the numeric variable into bins.
+
+&lt;br&gt;
+
+Everybody now try making the histogram (not using the grouped data) in Excel.
+
+- Highlight the gdp_billions column and insert a histogram
+
+&lt;br&gt;
+
+SLIDE: Let's now compare and contrast approaches
+
+
+
+---
+
+class: slideblue
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size30[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: #ece9e8 !important;"&gt; Variable &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;background-color: #ece9e8 !important;"&gt; gdp_billions &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mean &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 406.5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; StdDev &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 526.7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Minimum &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 33.3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25th Percentile &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 95 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Median &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 236.9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 75th Percentile &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 531.4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Maximum &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2997.7 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+]
+
+.pull-right[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-27-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+### Is everybody clear on how to make everything on this slide?
+
+&lt;br&gt;
+
+Ok, each of these summary approaches offer different costs and benefits.
+
+### In what situations should we prefer each of these over the other two?
+
+### - Give me case examples, e.g. writing a report for a specific audience, where each approach would be "best."
+
+&lt;br&gt;
+
+Ok, let's practice all of these again.
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size55[**Univariate Analyses: GDP (rate)**]]
+
+.size45[
+1. Use Excel to calculate the descriptive stats
+    - Mean, StdDev, Minimum, 25th pct, Median, 75th pct, Maximum
+
+2. By Hand: Make a box plot
+
+3. By Hand: Make a histogram with 7 bins (each .01 wide)
+]
+
+???
+
+Using Excel calculate the descriptive stats, make a box plot and a histogram of GDP rate.
+
+
+
+
+---
+
+class: slideblue
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size30[
+&lt;table&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;background-color: #ece9e8 !important;"&gt; Variable &lt;/td&gt;
+   &lt;td style="text-align:center;font-weight: bold;background-color: #ece9e8 !important;"&gt; gdp_rate &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mean &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.051 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; StdDev &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.012 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Minimum &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.028 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 25th Percentile &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Median &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.047 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 75th Percentile &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.058 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Maximum &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0.082 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+]
+
+.pull-right[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-30-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+]
+
+???
+
+### Everybody get these results?
+
+### Lessons on GDP rate?
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-32-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-33-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+Thinking about "bins" in a histogram.
+
+- Format x-axis and test out different numbers of bins.
+
+&lt;br&gt;
+
+### How do we choose between the different bins options?
+
+- There are some formulas that exist, but...
+
+- I'll advise you to test a few options while trying to show the shape of the distribution in a continuous fashion (e.g. not too many big gaps).
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size65[.content-box-white[**Univariate Analyses**]]]
+
+&lt;br&gt;
+
+.size50[
+1. Descriptive Statistics
+
+2. Bar plots (categorical variables)
+
+3. Box plots (numeric variables)
+
+4. Histograms (numeric variables)
+]
+
+???
+
+### Any questions on our univariate approaches either interpreting them or making them in Excel?
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size65[.content-box-white[**Bivariate Analyses**]]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size65[Analyzing pairs of variables for associations / relationships]
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+&lt;br&gt;
+
+.size40[.content-box-white[Remember: Variable type dictates tool selection]]
+
+???
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Bivariate Visualizations: Categorical x Categorical**]]]
+
+&lt;br&gt;
+
+???
+
+Let's start our bivariate work in the same way we started the univariate.
+
+- Focusing on categorical variables only
+
+- Making a table
+
+- Then converting the table to a bar chart.
+
+&lt;br&gt;
+
+SLIDE: Steps to perform
+
+--
+
+.size45[
+1. Pivot table: Count gdp_category levels (rows) by the levels of income_tax (columns)
+
+2. Plot 1: Insert a clustered column bar chart
+
+3. Plot 2: Insert a stacked column bar chart
+]
+
+???
+
+&lt;br&gt;
+
+Ok, let's try this!
+
+- Give it a shot in Excel.
+
+
+
+
+
+---
+
+background-image: url('libs/Images/Session1-Excel_stacked_bars.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+We typically refer to tables that present a relationship between multiple variables a cross-tab (e.g. cross-tabulation).
+
+&lt;br&gt;
+
+### What do we learn about this possible relationship?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Bivariate Visualizations: Categorical x Categorical**]]]
+
+&lt;br&gt;
+
+.size45[
+1. Pivot table: Count pop_category (rows) levels by the manufacturing_category (columns)
+
+2. Plot 1: Insert a clustered column bar chart
+
+3. Plot 2: Insert a stacked column bar chart
+]
+
+???
+
+Try it again.
+
+- Practice by looking for a relationship between population and manufacturing employment.
+
+
+
+---
+
+background-image: url('libs/Images/Session1-Excel_stacked_bars2.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Everybody get these?
+
+&lt;br&gt;
+
+### What do we learn about this possible relationship?
+
+&lt;br&gt;
+
+So, the relationship between two categorical variables can be analyzed using a cross-tab or various two variable bar charts.
+
+- Stacked, clustered, proportional, etc.
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size35[.content-box-white[**Bivariate Analyses: Numerical x Categorical**]]
+
+&lt;br&gt;
+
+.size60[
+Example:
+
+Analyze the size of state economies by the size of their populations
+]
+
+???
+
+In our second set of bivariate analyses we move to situations where you'd like to investigate the relationship between a numeric and a categorical variable.
+
+*Example*
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Bivariate Analyses: Numerical x Categorical**]]]
+
+.size45[
+1. Convert GDP into billions of USD
+
+2. Pivot table: Calculate values for GDP (billions) by the levels of pop_category
+    - Minimum
+    - Maximum
+    - Mean
+    - Std Deviation
+]
+
+???
+
+
+
+---
+
+background-image: url('libs/Images/Session1-crosstab2.png')
+background-size: 100%
+background-position: center
+
+???
+
+### Ok, what do we learn from this cross-tab?
+
+### - Notable conclusions we can draw?
+
+&lt;br&gt;
+
+SLIDE: Let's now visualize these results with three box plots
+
+
+---
+
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Bivariate Analyses: Numerical x Categorical**]]]
+
+&lt;br&gt;
+
+.size45[
+**Box Plots**
+1. Sort the data by the categorical variable
+
+2. Make new columns for each level of the categories
+
+3. Highlight new columns and insert box plot
+]
+
+???
+
+In the univariate section we made box plots by highlighting a single column.
+
+For box plots with multiple boxes we have to make a new column for each box we want on the plot
+
+- SLIDE: Example
+
+
+
+---
+
+background-image: url('libs/Images/Session1-box_plots2.png')
+background-size: 100%
+background-position: center
+
+???
+
+Once you have separate columns for each box you want to make, highlight the columns and insert a box chart.
+
+- Note: it will put the boxes in this order (the order of the columns).
+
+&lt;br&gt;
+
+Everybody do this and insert the box plot.
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-35-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### What do we learn about this possible relationship?
+
+### - Is this more useful than the cross-tabs? Why or why not?
+
+&lt;br&gt;
+
+SLIDE: Let's practice
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size35[.content-box-white[**Bivariate Analyses: Numerical x Categorical**]]
+
+&lt;br&gt;
+
+.size60[
+Do states with bigger economies (gdp_category) pay higher minimum wages?
+]
+
+???
+
+Everybody make a box plot to help us answer this question.
+
+(SLIDE)
+
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-36-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### What do we learn about this possible relationship? How does this help us answer our question?
+
+&lt;br&gt;
+
+### Any questions on our techniques for performing a bivariate analysis on one numeric and one categorical variable?
+
+
+
+
+---
+
+class: middle, center, slideblue
+
+.size35[.content-box-white[**Bivariate Analyses: Numerical x Numerical**]]
+
+&lt;br&gt;
+
+.size60[
+Do states with bigger populations have higher levels of employment in manufacturing?
+]
+
+???
+
+Now we move to our final set of bivariate analyses.
+
+- Approaches for studying the relationship between two numerical variables.
+
+
+
+---
+
+background-image: url('libs/Images/Session1-scatter1.png')
+background-size: 100%
+background-position: center
+
+???
+
+
+
+---
+
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-37-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+### Everybody get this?
+
+&lt;br&gt;
+
+### How does this answer our question?
+- Employment in manufacturing correlates with the size of the population
+
+&lt;br&gt;
+
+SLIDE: Let's practice!
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Bivariate Analyses: Numerical x Numerical**]]]
+
+&lt;br&gt;
+
+.size50[
+Make and analyze the following four scatter plots:
+- GDP (billions) x Unemployment
+- GDP (billions) x Bachelors' Degrees
+- GDP (rate) x Unemployment
+- GDP (rate) x Bachelors' Degrees
+]
+
+???
+
+### Any evidence of relationships here?
+
+
+
+---
+
+class: slideblue, middle
+
+.center[.size35[.content-box-white[**Explaining GDP (Billions USD)**]]]
+
+.pull-left[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-38-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-39-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+
+
+---
+
+class: slideblue, middle
+
+.center[.size35[.content-box-white[**Explaining GDP (Rate)**]]]
+
+.pull-left[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-40-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="Session1-Basics_files/figure-html/unnamed-chunk-41-1.png" width="98%" style="display: block; margin: auto;" /&gt;
+]
+
+???
+
+
+---
+
+class: middle, slideblue
+
+.size35[.content-box-white[**Session 1: Descriptive Statistics and Visualizations**]]
+
+.size35[
+3) Matching our Tools to the Type of Variable
+
+- **Categorical**: Tables of counts and bar plots
+
+- **Numerical**: Descriptive stats, box plots and histograms
+
+- **Cat x Cat**: Pivot tables, side-by-side and stacked bar plots
+
+- **Cat x Num**: Pivot tables and box plots
+
+- **Num x Num**: Scatter plots
+]
+
+???
+
+### Any questions on the meaning of these tools?
+
+### Or how to make them in Excel?
+
+
+
+
+
+
+
+
+---
+
+class: slideblue, middle
+
+.center[.size55[.content-box-white[**For Tomorrow**]]]
+
+.size40[
+1. Read Wilson, Keating and Beal-Hodges ch 2-5
+
+2. For any statistical concepts from today that remain unclear, re-read the relevant sections of Johnson (2012) and be ready to ask about it tomorrow.
+
+3. Make sure you are comfortable using Excel to perform the analyses we explored today.
+]
+
+???
+
+SLIDE: Assignment for tomorrow:
+- Read Wilson, Keating and Beal-Hodges ch 2-5
+- For any statistical concepts from today that remain unclear, re-read the relevant sections of Johnson (2012) and be ready to ask about it tomorrow.
+- Make sure you are comfortable using Excel to perform the analyses we explored today.
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
