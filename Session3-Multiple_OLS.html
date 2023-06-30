@@ -15,18 +15,21 @@
 
 
 
-class: middle, slideblue
+background-image: url('libs/Images/01-statistics-background_v1.png')
+background-size: 100%
+background-position: center
+class: middle
 
 .size65[.content-box-white[**Today's Agenda**]]
 
-.size45[
+&lt;br&gt;
+
+.size50[
 Multiple OLS Regression Modeling
 1. Fitting the models
 2. Interpreting the models
 3. Evaluating the models
 ]
-
-&lt;br&gt;
 
 .center[.size40[
   Justin Leinaweaver (Summer 2023)
@@ -139,7 +142,7 @@ class: slideblue
 
 &lt;br&gt;
 
-SLIDE: Making predictions
+**SLIDE**: Making predictions
 
 
 
@@ -191,7 +194,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-SLIDE: This table also represents a useful process for visualizing much more complicated models (e.g. the multiple regression models from today)
+**SLIDE**: This table also represents a useful process for visualizing much more complicated models (e.g. the multiple regression models from today)
 
 
 
@@ -200,11 +203,13 @@ SLIDE: This table also represents a useful process for visualizing much more com
 
 class: middle, slideblue
 
-.center[.size55[**A Marginal Effects Plot**]]
+.center[.size55[.content-box-white[**A Marginal Effects Plot**]]]
 
 &lt;br&gt;
 
 .pull-left[
+
+&lt;br&gt;
 
 .size30[
 &lt;table&gt;
@@ -301,7 +306,7 @@ Key 2: Once we produce estimates for all these coefficients (the Xs) we can't in
 
 &lt;br&gt;
 
-SLIDE: Let's build up to building a multiple regression using the Ross (1990) data
+**SLIDE**: Let's build up to building a multiple regression using the Ross (1990) data
 - Session 2 data
 
 
@@ -371,7 +376,7 @@ background-position: center
 
 .center[
 .size40[
-Calculate the mean earnk2021 for each gender:
+Calculate the mean earnk_adj for each gender:
 
 Pivot table
 
@@ -418,11 +423,11 @@ background-position: center
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 37.22 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 69.41 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -461,7 +466,7 @@ background-position: center
 
 .center[
 .size65[
-Make a box plot of earnk2021 with separate boxes for each gender
+Make a box plot of earnk_adj with separate boxes for each gender
 ]]]
 
 
@@ -488,11 +493,11 @@ background-position: center
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 37.22 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 69.41 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -511,7 +516,7 @@ background-position: center
 
 &lt;br&gt;
 
-SLIDE: Also worth zooming in on the IQR
+**SLIDE**: Also worth zooming in on the IQR
 
 
 
@@ -537,11 +542,11 @@ background-position: center
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 37.22 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 69.41 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -579,7 +584,7 @@ background-position: center
 
 .center[
 .size65[
-Regress earnk2021 on gender using OLS
+Regress earnk_adj on gender using OLS
 ]]]
 
 ???
@@ -588,7 +593,7 @@ Thanks to regression we now have the basic tools to check the "statistical signi
 
 &lt;br&gt;
 
-SLIDE: Unfortunately, Excel cannot fit an OLS to categorical variables...
+**SLIDE**: Unfortunately, Excel cannot fit an OLS to categorical variables...
 
 
 
@@ -623,7 +628,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-&lt;img src="libs/Images/Session3-convert_vars1.png" width="60%" /&gt;
+&lt;img src="libs/Images/Session3-convert_vars1_v2.png" width="50%" /&gt;
 
 ???
 
@@ -639,7 +644,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-&lt;img src="libs/Images/Session3-convert_vars2.png" width="60%" /&gt;
+&lt;img src="libs/Images/Session3-convert_vars2_v2.png" width="50%" /&gt;
 
 ???
 
@@ -657,7 +662,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-&lt;img src="libs/Images/Session3-convert_vars3.png" width="60%" /&gt;
+&lt;img src="libs/Images/Session3-convert_vars3_v2.png" width="50%" /&gt;
 
 ???
 
@@ -688,7 +693,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-&lt;img src="libs/Images/Session3-convert_vars5.png" width="100%" /&gt;
+&lt;img src="libs/Images/Session3-convert_vars5_v2.png" width="100%" /&gt;
 ]
 
 .pull-right[
@@ -715,7 +720,7 @@ class: middle, center, slideblue
 &lt;br&gt;
 
 .pull-left[
-&lt;img src="libs/Images/Session3-convert_vars5.png" width="100%" /&gt;
+&lt;img src="libs/Images/Session3-convert_vars5_v2.png" width="100%" /&gt;
 ]
 
 .pull-right[
@@ -724,45 +729,45 @@ class: middle, center, slideblue
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; earnk2021 &lt;/th&gt;
+   &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; earnk_adj &lt;/th&gt;
    &lt;th style="text-align:center;background-color: #ece9e8 !important;"&gt; male &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 101.33 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 117.42 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 121.60 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 140.90 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 60.80 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 70.45 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 50.67 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 58.71 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 101.33 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 117.42 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 125.65 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 145.59 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 103.36 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 119.76 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 18.24 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.13 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:center;"&gt; 58.77 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 68.10 &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
@@ -791,7 +796,7 @@ Why do we delete one of the dummies?
 
 &lt;br&gt;
 
-SLIDE: Results
+**SLIDE**: Results
 
 
 
@@ -804,16 +809,16 @@ class: middle, center, slideblue
 .pull-left[
 .size25[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;32.19&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.24)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;37.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.36)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;46.08 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]]
@@ -830,11 +835,11 @@ class: middle, center, slideblue
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 37.22 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 69.41 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -855,7 +860,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-SLIDE: Try writing the regression as the formula for a line...
+**SLIDE**: Try writing the regression as the formula for a line...
 
 
 
@@ -867,16 +872,16 @@ class: middle, center, slideblue
 .pull-left[
 .size25[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;32.19&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.24)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;37.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.36)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;46.08 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]]
@@ -893,11 +898,11 @@ class: middle, center, slideblue
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 37.22 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 69.41 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -908,7 +913,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-.center[.size35[**Earnings = 32.12 + 27.78 * Male**]]
+.center[.size35[**Earnings = 37.22 + 32.19 * Male**]]
 
 ???
 
@@ -920,7 +925,7 @@ class: middle, center, slideblue
 
 ### What about a male respondent?
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -932,16 +937,16 @@ class: middle, center, slideblue
 .pull-left[
 .size20[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;32.19&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.24)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;37.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.36)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;46.08 (df = 1813)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;206.76&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
@@ -959,11 +964,11 @@ class: middle, center, slideblue
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Female &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 32.12 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 37.22 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; Male &lt;/td&gt;
-   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 59.90 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 5em; background-color: #ece9e8 !important;"&gt; 69.41 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -975,9 +980,9 @@ class: middle, center, slideblue
 &lt;br&gt;
 
 .center[.size30[
-**Earnings** = 32.12 + 27.78 * 0 = 32.1
+**Earnings** = 37.22 + 32.19 * 0 = 37.22
 
-**Earnings** = 32.12 + 27.78 * 1 = 59.9
+**Earnings** = 37.22 + 32.19 = 69.41
 ]]
 
 ???
@@ -1000,7 +1005,7 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-SLIDE: Let's practice this exercise and move us towards multiple regression.
+**SLIDE**: Let's practice this exercise and move us towards multiple regression.
 - e.g. regression on more than one predictor
 
 
@@ -1064,19 +1069,19 @@ class: middle, center, slideblue
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; Black &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 34.7 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 40.2 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; Hispanic &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 32.0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 37.1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; Other &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 42.9 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 49.7 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; White &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 44.1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 51.1 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1096,23 +1101,48 @@ class: middle, center, slideblue
 
 &lt;br&gt;
 
-SLIDE: Ok, now make your dummy variables and fit the regression.
+**SLIDE**: Ok, now make your dummy variables and fit the regression.
 
 
 
 ---
 
-background-image: url('libs/Images/Session3-convert_categories2.png')
-background-size: 100%
-background-position: center
+class: middle, slideblue
 
-???
-
-Since "White" is the highest group mean, let's set it as the baseline and run the regression.
+.center[.size40[**Rule: Make dummies for all except one level of the categorical variable**]]
 
 &lt;br&gt;
 
-SLIDE: Results
+&lt;img src="libs/Images/Session3-convert_categories2_v2.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Same logic as before but now we are converting a categorical variable with four levels to three dummy variables.
+
+- Since "White" is the highest group mean, let's set it as the baseline
+
+- Sort the data and code the dummies
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[**Rule: Make dummies for all except one level of the categorical variable**]]
+
+&lt;br&gt;
+
+&lt;img src="libs/Images/Session3-convert_vars2_v3.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+???
+
+Now we run the regression on the three dummy variables as our X values.
+
+&lt;br&gt;
+
+**SLIDE**: Results
 
 
 
@@ -1139,19 +1169,19 @@ class: middle, slideblue
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; Black &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 34.7 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 40.2 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; Hispanic &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 32.0 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 37.1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; Other &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 42.9 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 49.7 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;width: 8em; "&gt; White &lt;/td&gt;
-   &lt;td style="text-align:center;width: 8em; "&gt; 44.1 &lt;/td&gt;
+   &lt;td style="text-align:center;width: 8em; "&gt; 51.1 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1160,27 +1190,28 @@ class: middle, slideblue
 .pull-right[
 .size23[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Black&lt;/td&gt;&lt;td&gt;-9.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(3.30)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Black&lt;/td&gt;&lt;td&gt;-10.83&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(3.82)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Hispanic&lt;/td&gt;&lt;td&gt;-12.07&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.24)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Hispanic&lt;/td&gt;&lt;td&gt;-13.99&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.92)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Other&lt;/td&gt;&lt;td&gt;-1.18&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(6.87)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Other&lt;/td&gt;&lt;td&gt;-1.36&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(7.96)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;44.08&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.08)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;51.07&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.25)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]]
 
-.center[.size30[
-.content-box-white[Earnings = 44.08 - 9.34(Black) - 12.07(Hispanic) - 1.18(Other)]
-]]
+.center[.size35[
+.content-box-white[
+Earnings = 51.1 + -10.8(Black) + -14(Hispanic) + -1.4(Other)
+]]]
 
 ???
 
@@ -1202,7 +1233,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-SLIDE: Connect this back to multiple regression
+**SLIDE**: Connect this back to multiple regression
 
 
 
@@ -1245,29 +1276,29 @@ class: middle, slideblue
 .pull-left[
 .size20[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="2"&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;32.19&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.24)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;6.46&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.42)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;37.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-36.31&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.36)&lt;/td&gt;&lt;td&gt;(5.67)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;46.08 (df = 1813)&lt;/td&gt;&lt;td&gt;45.77 (df = 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;206.76&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;td&gt;235.79&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1811)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="3" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="2" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]]
 
 .pull-right[
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-35-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-37-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1282,7 +1313,7 @@ Combined with our work in session 2, we now have data showing us that both gende
 ### Any ideas how we could do this with a visualization? 
 ### - Perhaps a way to modify the scatterplot to account for the gender of the respondent?
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -1294,7 +1325,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-36-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-38-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1310,7 +1341,7 @@ We can add a third variable to our scatter plot, but let's be honest these are a
 
 &lt;br&gt;
 
-SLIDE: Facet wrap...
+**SLIDE**: Facet wrap...
 
 
 
@@ -1322,7 +1353,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-37-1.png" width="87%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-39-1.png" width="87%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1332,7 +1363,7 @@ Even if we separate the plots there is still far too much going on here for us t
 
 &lt;br&gt;
 
-SLIDE: Practice...
+**SLIDE**: Practice...
 
 
 
@@ -1351,7 +1382,7 @@ background-position: center
 &lt;br&gt;
 
 .size40[
-Regress earnk2021 on male AND education
+Regress earnk_adj on male AND education
 
 - Make sure to remove missing data!
 
@@ -1360,7 +1391,7 @@ Regress earnk2021 on male AND education
 
 ???
 
-Everybody now regress earnk2021 on male and education
+Everybody now regress earnk_adj on male and education
 
 - Note: Both 'X' columns must be side-by-side
 
@@ -1371,16 +1402,16 @@ class: middle
 
 .size25[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;32.19&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;30.74&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.24)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(2.11)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;6.46&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;6.20&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.42)&lt;/td&gt;&lt;td&gt;(0.40)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;37.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-36.31&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-44.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.36)&lt;/td&gt;&lt;td&gt;(5.67)&lt;/td&gt;&lt;td&gt;(5.39)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
@@ -1400,7 +1431,7 @@ class: middle
 
 &lt;br&gt;
 
-SLIDE: Let's evaluate this using the five steps from the textbook
+**SLIDE**: Let's evaluate this using the five steps from the textbook
 
 
 
@@ -1430,19 +1461,19 @@ class: middle, slideblue
 .pull-right[
 .size20[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;30.74&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.11)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;6.20&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.40)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-44.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(5.39)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;43.31 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
@@ -1474,19 +1505,19 @@ class: middle, slideblue
 .pull-right[
 .size20[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;30.74&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.11)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;6.20&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.40)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-44.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(5.39)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;43.31 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
@@ -1502,20 +1533,20 @@ class: middle
 
 .size20[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="3"&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;32.19&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;30.74&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.24)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(2.11)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;6.46&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;6.20&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.42)&lt;/td&gt;&lt;td&gt;(0.40)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;37.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-36.31&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-44.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.36)&lt;/td&gt;&lt;td&gt;(5.67)&lt;/td&gt;&lt;td&gt;(5.39)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;39.77 (df = 1813)&lt;/td&gt;&lt;td&gt;39.50 (df = 1811)&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;46.08 (df = 1813)&lt;/td&gt;&lt;td&gt;45.77 (df = 1811)&lt;/td&gt;&lt;td&gt;43.31 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;206.76&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1813)&lt;/td&gt;&lt;td&gt;235.79&lt;sup&gt;*&lt;/sup&gt; (df = 1; 1811)&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="4" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td colspan="3" style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
@@ -1535,7 +1566,7 @@ Everybody make a residuals plot for this model
 
 class: middle, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-42-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1547,7 +1578,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-SLIDE: Evaluation step 5 is to check for multicollinearity.
+**SLIDE**: Evaluation step 5 is to check for multicollinearity.
 
 
 
@@ -1600,7 +1631,7 @@ Everybody make a correlation table for our two predictors using the data analysi
 &lt;br&gt;
 
 ### Based on your reading of the book, what is correlation?
-- (SLIDE)
+- (**SLIDE**)
 
 
 ---
@@ -1613,7 +1644,7 @@ background-position: center
 
 &lt;br&gt;
 
-SLIDE: more basics on correlation
+**SLIDE**: more basics on correlation
 
 
 ---
@@ -1633,7 +1664,7 @@ Size of correlation coefficients.
 
 &lt;br&gt;
 
-SLIDE: Applied to our example...
+**SLIDE**: Applied to our example...
 
 
 
@@ -1645,7 +1676,7 @@ class: slideblue, middle
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-44-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-46-1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -1671,25 +1702,25 @@ class: slideblue
 
 .size20[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2021 USD)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;26.53&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1.82)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;Earnings (2023 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Male&lt;/td&gt;&lt;td&gt;30.74&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(2.11)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;5.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.34)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Education&lt;/td&gt;&lt;td&gt;6.20&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.40)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-38.28&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(4.65)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-44.35&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(5.39)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.21&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;37.38 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Residual Std. Error&lt;/td&gt;&lt;td&gt;43.31 (df = 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;F Statistic&lt;/td&gt;&lt;td&gt;238.09&lt;sup&gt;*&lt;/sup&gt; (df = 2; 1810)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="2" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;em&gt;Note:&lt;/em&gt;&lt;/td&gt;&lt;td style="text-align:right"&gt;*p &lt; 0.05&lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 ]
 
-.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+.center[.size35[.content-box-white[Earnings = -44.35 + 30.74 (Male) + 6.2 (Education)]]]
 
 ???
 
@@ -1716,7 +1747,7 @@ So, if I ask you what is the predicted earnings for a male on average based on t
 
 You'll remember from last session that we built a marginal effects plot to examine the predictions of a simple OLS model.
 
-SLIDE: Let's do the same now for this multiple regression.
+**SLIDE**: Let's do the same now for this multiple regression.
 
 
 
@@ -1725,7 +1756,7 @@ SLIDE: Let's do the same now for this multiple regression.
 
 class: slideblue
 
-.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+.center[.size35[.content-box-white[Earnings = -44.35 + 30.74 (Male) + 6.2 (Education)]]]
 
 &lt;br&gt;
 
@@ -1778,7 +1809,7 @@ Everybody calculate point estimates for our model across these levels of educati
 
 class: slideblue
 
-.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+.center[.size35[.content-box-white[Earnings = -44.35 + 30.74 (Male) + 6.2 (Education)]]]
 
 &lt;br&gt;
 
@@ -1795,27 +1826,27 @@ class: slideblue
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; -6.4k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -7.4k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 15k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 17.4k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 36.4k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 42.2k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 57.8k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 67k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 79.2k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 91.8k &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1831,7 +1862,7 @@ class: slideblue
 
 class: slideblue
 
-.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+.center[.size35[.content-box-white[Earnings = -44.35 + 30.74 (Male) + 6.2 (Education)]]]
 
 &lt;br&gt;
 
@@ -1884,7 +1915,7 @@ Repeat for females
 
 class: slideblue
 
-.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+.center[.size35[.content-box-white[Earnings = -44.35 + 30.74 (Male) + 6.2 (Education)]]]
 
 &lt;br&gt;
 
@@ -1901,27 +1932,27 @@ class: slideblue
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; -32.9k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -38.2k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; -11.5k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -13.3k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 9.9k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 11.5k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 31.3k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 36.3k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
    &lt;td style="text-align:center;width: 6em; "&gt; 0 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 52.7k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 61.1k &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1938,7 +1969,7 @@ class: slideblue
 
 class: slideblue
 
-.center[.size35[.content-box-white[Earnings = -38.28 + 5.35 (Education) + 26.53 (Male)]]]
+.center[.size35[.content-box-white[Earnings = -44.35 + 30.74 (Male) + 6.2 (Education)]]]
 
 &lt;br&gt;
 
@@ -1954,28 +1985,28 @@ class: slideblue
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; -6.4k &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; -32.9k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -7.4k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -38.2k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 15k &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; -11.5k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 17.4k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; -13.3k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 9 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 36.4k &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 9.9k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 42.2k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 11.5k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 57.8k &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 31.3k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 67k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 36.3k &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;width: 6em; background-color: #f8deaa !important;"&gt; 17 &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 79.2k &lt;/td&gt;
-   &lt;td style="text-align:center;width: 6em; "&gt; 52.7k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 91.8k &lt;/td&gt;
+   &lt;td style="text-align:center;width: 6em; "&gt; 61.1k &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1991,7 +2022,7 @@ Now make your marginal effects plot with these two lines.
 
 class: middle, center, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-51-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-53-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2011,7 +2042,7 @@ Now we need to see how adding numeric variables to a multiple regression shifts 
 
 &lt;br&gt;
 
-SLIDE: Before we do that, let's talk strategy for designing a multiple regression model
+**SLIDE**: Before we do that, let's talk strategy for designing a multiple regression model
 
 
 
@@ -2052,7 +2083,7 @@ Process of building a "useful" multiple regression
 
 class: middle, slideblue
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-52-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-54-1.png" width="65%" style="display: block; margin: auto;" /&gt;
 
 .size40[
 **Predictors to Consider**
@@ -2073,7 +2104,7 @@ Practice (small groups?): Let's now try all of this out.
 
 &lt;br&gt;
 
-SLIDE: Simple OLS results
+**SLIDE**: Simple OLS results
 
 
 
@@ -2084,25 +2115,25 @@ class: middle, slideblue
 .pull-left[
 .size15[
 
-&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="5"&gt;Earnings (Thousands 2021 USD)&lt;/td&gt;&lt;/tr&gt;
+&lt;table style="text-align:center"&gt;&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td colspan="5"&gt;Earnings (Thousands 2023 USD)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(1)&lt;/td&gt;&lt;td&gt;(2)&lt;/td&gt;&lt;td&gt;(3)&lt;/td&gt;&lt;td&gt;(4)&lt;/td&gt;&lt;td&gt;(5)&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;height&lt;/td&gt;&lt;td&gt;3.08&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.25)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;height&lt;/td&gt;&lt;td&gt;3.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(0.29)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;age&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.06)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;age&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;0.25&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.07)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;5.57&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.36)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;education&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;6.46&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.42)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;exercise&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;1.88&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.42)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;exercise&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;2.18&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(0.49)&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;male&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;27.78&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(1.93)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;male&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;32.19&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;(2.24)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-162.54&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;33.17&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-31.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;36.69&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;32.12&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(16.46)&lt;/td&gt;&lt;td&gt;(2.64)&lt;/td&gt;&lt;td&gt;(4.89)&lt;/td&gt;&lt;td&gt;(1.62)&lt;/td&gt;&lt;td&gt;(1.18)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;Constant&lt;/td&gt;&lt;td&gt;-188.34&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;38.44&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;-36.31&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;42.51&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;37.22&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;(19.08)&lt;/td&gt;&lt;td&gt;(3.06)&lt;/td&gt;&lt;td&gt;(5.67)&lt;/td&gt;&lt;td&gt;(1.88)&lt;/td&gt;&lt;td&gt;(1.36)&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td colspan="6" style="border-bottom: 1px solid black"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="text-align:left"&gt;Observations&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,813&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;td&gt;1,815&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td style="text-align:left"&gt;Adjusted R&lt;sup&gt;2&lt;/sup&gt;&lt;/td&gt;&lt;td&gt;0.08&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.11&lt;/td&gt;&lt;td&gt;0.01&lt;/td&gt;&lt;td&gt;0.10&lt;/td&gt;&lt;/tr&gt;
@@ -2118,7 +2149,7 @@ class: middle, slideblue
 
 &lt;br&gt;
 
-&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-54-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session3-Multiple_OLS_files/figure-html/unnamed-chunk-56-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2141,7 +2172,7 @@ class: middle, slideblue
 
 Our textbook has given us five steps for evaluating a regression model but now that we have more practice I want to take a sec to unpack these criteria some more
 
-- SLIDE: Mistakes to avoid
+- **SLIDE**: Mistakes to avoid
 
 
 
@@ -2175,7 +2206,7 @@ Here are seven common regression mistakes from a stats book by Wheelan.
 &lt;br&gt;
 
 ### Which of these do we cover with our five textbook evaluation steps? 
-- (SLIDE)
+- (**SLIDE**)
 
 
 

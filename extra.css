@@ -65,6 +65,11 @@ th, td { padding: 5px; }
 .code90 .remark-code { font-size: 90% !important; }
 .code85 .remark-code { font-size: 85% !important; }
 .code80 .remark-code { font-size: 80% !important; }
+.code70 .remark-code { font-size: 70% !important; }
+.code60 .remark-code { font-size: 60% !important; }
+.code50 .remark-code { font-size: 50% !important; }
+.code40 .remark-code { font-size: 40% !important; }
+.code30 .remark-code { font-size: 30% !important; }
 
 /* Color Text */
 .textgrey { color: grey; }

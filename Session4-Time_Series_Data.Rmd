@@ -31,7 +31,11 @@ knitr::opts_chunk$set(echo = FALSE,
 
 ```
 
-class: middle, slideblue
+
+background-image: url('libs/Images/01-statistics-background_v1.png')
+background-size: 100%
+background-position: center
+class: middle
 
 .size65[.content-box-white[**Today's Agenda**]]
 
@@ -46,7 +50,7 @@ Analyzing Time Series Data
 <br>
 
 .center[.size40[
-  Justin Leinaweaver (Summer 2022)
+  Justin Leinaweaver (Summer 2023)
 ]]
 
 ???
@@ -66,9 +70,9 @@ Welcome back!
 
 class: middle, slideblue
 
-.center[.size35[.content-box-white[**What is the "best" model of bachelor's degree**]]]
+.center[.size50[.content-box-white[**What is the "best" model of bachelor's degree**]]]
 
-.center[.size35[.content-box-white[**completion in the  Session 1 data?**]]]
+.center[.size50[.content-box-white[**completion in the  Session 1 data?**]]]
 
 <br>
 
@@ -99,7 +103,7 @@ class: full
 .size16[
 ```{r, results='asis'}
 ## Assignment for Today: Model bachelors degrees
-d <- read_excel("../Data_for_Class/Session1/MBA_Session1-Data.xlsx", na = "NA") |>
+d <- read_excel("../Data_for_Class/Session1/Financial_Data_US_States-2018.xlsx", na = "NA") |>
   mutate(
     gdp_billions = gdp_millions / 1000
   )
@@ -130,7 +134,7 @@ Simple OLS results.
 
 <br>
 
-SLIDE: My choices based on logic, significance and R2
+**SLIDE**: My choices based on logic, significance and R2
 
 
 
@@ -171,7 +175,7 @@ Results compared to the simple models
 
 <br>
 
-SLIDE: Ok, let's check our evaluation steps
+**SLIDE**: Ok, let's check our evaluation steps
 
 
 
@@ -223,7 +227,7 @@ d |>
 
 ### Remind me, how do we communicate the results from a multiple regression model using a visualization?
 
-(SLIDE: Marginal effects plots!)
+(**SLIDE**: Marginal effects plots!)
 
 
 
@@ -304,7 +308,7 @@ tibble(
 
 <br>
 
-SLIDE: Now, remember, we have actually estimated this relationship twice. Once using a simple and once using a multiple regression.
+**SLIDE**: Now, remember, we have actually estimated this relationship twice. Once using a simple and once using a multiple regression.
 
 
 
@@ -359,158 +363,6 @@ Here is a visualization of both the simple OLS results as compared to the multip
 <br>
 
 ### As an aside, can we see here why this kind of visualization, a marginal effects plot, can be used to compare multiple models in a much more intuitive way?
-
-### How could you replicate this plot?
-
-Try it!
-
-
-
-
----
-
-class: middle, center
-
-.pull-left[
-```{r, results='asis'}
-stargazer(res1c, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
-```
-]
-
-.pull-right[
-
-<br>
-
-.size50[
-Make a marginal effects plot for minimum wage with both lines (simple and multiple results)
-]]
-
-???
-
-Let's practice it again!
-
-Remember to set homeowner rate and unemployment at their mean values in the sample.
-
-
-
-
----
-
-class: middle, center
-
-.pull-left[
-```{r, results='asis'}
-stargazer(res1c, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
-```
-]
-
-.pull-right[
-
-<br>
-
-<br>
-
-```{r, fig.align='center', fig.retina=3, out.width='98%', fig.width=4, fig.asp=0.85, cache=TRUE}
-tibble(
-  homeowner_rate = mean(d$homeowner_rate),
-  min_wage = 0:12,
-  unemployment = mean(d$unemployment)
-) |>
-  add_predictions(res1c, var = "Simple OLS") |>
-  add_predictions(res1f, var = "Multiple OLS") |>
-  pivot_longer(cols = c("Multiple OLS", "Simple OLS"), names_to = "Model", values_to = "Values") |>
-  ggplot(aes(x = min_wage, y = Values, color = Model)) +
-  geom_line(size = 1.4) +
-  theme_bw() +
-  labs(x = "Minimum Wage (USD)", y = "Predicted Bachelors Degrees (%)") +
-  coord_cartesian(ylim = c(15, 40)) +
-  scale_color_manual(values = c("blue", "pink")) +
-  scale_x_continuous(breaks = seq(0, 12, 1)) +
-  theme(legend.position = c(.8, .3))
-```
-]
-
-???
-
-### Did everybody get these?
-
-<br>
-
-### What do we learn from this?
-
-Looks like some of the homeownership effect is being captured by minimum wage.
-
-
-
-
----
-
-class: middle, center
-
-.pull-left[
-```{r, results='asis'}
-stargazer(res1e, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
-```
-]
-
-.pull-right[
-
-<br>
-
-.size50[
-Make a marginal effects plot for unemployment with only the multiple regression results
-]]
-
-???
-
-Last time, but we only need the one line.
-
-- What should be clear here is that the coefficients are practically the same in both models.
-
-
-
-
----
-
-class: middle, center
-
-.pull-left[
-```{r, results='asis'}
-stargazer(res1e, res1f, omit.stat = c("rsq", "ser"), star.cutoffs = .05, notes = "*p<0.05", notes.append = FALSE, digits = 2, dep.var.caption = "", dep.var.labels = "Bachelors' Degrees (%)", type = "html") #, covariate.labels = c("Homeownership", "Minimum Wage", "Unemployment"))
-```
-]
-
-.pull-right[
-
-<br>
-
-<br>
-
-```{r, fig.align='center', fig.retina=3, out.width='98%', fig.width=4, fig.asp=0.85, cache=TRUE}
-tibble(
-  homeowner_rate = mean(d$homeowner_rate),
-  min_wage = mean(d$min_wage),
-  unemployment = 1:7
-) |>
-  add_predictions(res1e, var = "Simple OLS") |>
-  add_predictions(res1f, var = "Multiple OLS") |>
-  pivot_longer(cols = c("Multiple OLS", "Simple OLS"), names_to = "Model", values_to = "Values") |>
-  ggplot(aes(x = unemployment, y = Values, color = Model)) +
-  geom_line(size = 1.4) +
-  theme_bw() +
-  labs(x = "Unemployment (%)", y = "Predicted Bachelors Degrees (%)") +
-  coord_cartesian(ylim = c(15, 40)) +
-  scale_color_manual(values = c("blue", "pink")) +
-  scale_x_continuous(breaks = seq(1, 7, 1)) +
-  theme(legend.position = c(.2, .3))
-```
-]
-
-???
-
-### What do we learn from the effect of unemployment per the model?
-
-### - Any idea why the effect is fairly stable across the two models?
 
 
 
@@ -627,13 +479,11 @@ class: middle, slideblue
 ```{r, results='asis'}
 ## Missouri data 1998-2018
 ## Exploring GDP Rate of change in Missouri
-d <- read_excel("../Data_for_Class/Session4/MBA_Session4-Data.xlsx", sheet = "MO") |>
-  filter(abbrev == "MO") |>
-  rename(GDP_Rate = gdp_rate)
+d <- read_excel("../Data_for_Class/Session4/SU23-MBA_Session4-Data.xlsx", sheet = "MO", na = "NA")
 
 d |>
-  select(state:unemployment) |>
-  slice(1:9) |>
+  #select(state:unemployment) |>
+  slice_tail(n=9) |>
   kbl(format = "html", digits = 2, align = 'c') |>
   row_spec(row = 0, bold = TRUE, background = "lightgrey")
 ```
@@ -641,13 +491,13 @@ d |>
 
 ???
 
-Introduce new data: Dataset 1 for MO only, 1997-2018
+Introduce new data: Dataset 1 for MO only, 2006-2022
 
 ### CLASS: Explore the data: Any interesting observations?
 
 <br>
 
-### CLASS: Make a line plot of GDP Rate
+### CLASS: Make a line plot of the homeownership rate in MO
 
 
 
@@ -657,22 +507,21 @@ class: full
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=6, fig.asp=0.58, cache=TRUE}
 d %>%
-  ggplot(aes(x = year, y = GDP_Rate)) +
-  geom_line(size = 1.5) +
+  ggplot(aes(x = year, y = homeowner)) +
+  geom_line(linewidth = 1.5) +
   theme_bw() +
-  labs(x = "", y = "", title = "Rate of Change in GDP (Missouri)") +
-  #scale_x_continuous(breaks = seq(1998, 2018, 2)) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+  labs(x = "", y = "(%)", title = "Homeownership in Missouri") +
+  scale_x_continuous(breaks = seq(2006, 2022, 2))
 ```
 
 ???
 
 *DEMO if needed*
-- Highlight only GDP rate, insert line plot, select data, add horizontal labels by highlighting years (without label in row 1)
+- Highlight only homeowner, insert line plot, select data, add horizontal labels by highlighting years (without label in row 1)
 
 <br>
 
-### CLASS: Describe the line plot for me. How would you describe the change in GDP rate in MO since 1997?
+### CLASS: Describe the line plot for me. How would you describe the change in homeownership in MO since 2006?
 
 <br>
 
@@ -685,7 +534,9 @@ d %>%
 class: middle, slideblue
 
 .pull-left[
-.size45[**Random Variation Forecasting Tools**
+.size45[.content-box-white[**Random Variation**]
+
+.content-box-white[**Forecasting Tools**]
 
 1. Naive Forecasts
 
@@ -702,12 +553,11 @@ class: middle, slideblue
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.75, cache=TRUE}
 d %>%
-  ggplot(aes(x = year, y = GDP_Rate)) +
-  geom_line(size = 1.5) +
+  ggplot(aes(x = year, y = homeowner)) +
+  geom_line(linewidth = 1.5) +
   theme_bw() +
-  labs(x = "", y = "", title = "Rate of Change in GDP (Missouri)") +
-  #scale_x_continuous(breaks = seq(1998, 2018, 2)) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+  labs(x = "", y = "(%)", title = "Homeownership in Missouri") +
+  scale_x_continuous(breaks = seq(2006, 2022, 2))
 ```
 ]
 
@@ -746,7 +596,7 @@ Naive forecasts
 
 <br>
 
-- SLIDE: Here's how you do it.
+- **SLIDE**: Here's how you do it.
 
 
 
@@ -771,25 +621,23 @@ class: full
 
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=7.5, fig.asp=0.6, cache=TRUE}
 d2 <- d %>%
-  add_row(state = "Missouri", year = 2019, GDP_Rate = NA) %>% 
+  add_row(state = "MO", year = 2023, homeowner = NA) %>% 
   mutate(
-    Naive = lag(GDP_Rate, n = 1),
-    error = (GDP_Rate - Naive),
+    Naive = lag(homeowner, n = 1),
+    error = (homeowner - Naive),
     error2 = error^2
   ) 
 
 d2 %>%
-  pivot_longer(cols = c(GDP_Rate, Naive), names_to = "Variables", values_to = "Values") %>%
+  pivot_longer(cols = c(homeowner, Naive), names_to = "Variables", values_to = "Values") %>%
   ggplot(aes(x = year, y = Values, color = Variables)) +
   geom_line(size = 1.3) +
   theme_bw() +
-  labs(x = "", y = "", title = "Rate of Change in GDP (Missouri)", color = "") +
-  #scale_x_continuous(breaks = seq(1997, 2019, 2)) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,.07)) +
+  labs(x = "", y = "", title = "Homeownership Rates (Missouri)", color = "") +
+  scale_x_continuous(breaks = seq(2006, 2024, 2)) +
   scale_color_manual(values = c("black", "orange")) +
-  #theme(legend.position = "bottom") + #axis.text.x = element_text(angle = 35), 
-  annotate("text", x = 2020.5, y = .046, label = "4.6%", size = 5, color = "orange") +
-  theme(legend.position = c(0.8, 0.85))
+  theme(legend.position = c(0.2, 0.25)) +
+  annotate("text", x = 2024.5, y = d2$Naive[d2$year==2023], label = str_c(d2$Naive[d2$year==2023], "%"), size = 5, color = "orange")
 ```
 
 ???
@@ -798,7 +646,7 @@ d2 %>%
 
 <br>
 
-SLIDE: Now we need a method for measuring the "accuracy" of a forecast
+**SLIDE**: Now we need a method for measuring the "accuracy" of a forecast
 
 
 
@@ -817,7 +665,7 @@ background-position: center
 
 Class: Apply this to the naive forecast
 
-- SLIDE: How to do it
+- **SLIDE**: How to do it
 
 
 
@@ -834,7 +682,7 @@ CLASS: Apply to the naive forecast.
 
 ### What is the MSE?
 
-(SLIDE)
+(**SLIDE**)
 
 
 
@@ -842,15 +690,18 @@ CLASS: Apply to the naive forecast.
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=7.5, fig.asp=0.6, cache=TRUE}
 d2 %>%
-  pivot_longer(cols = c(GDP_Rate, Naive), names_to = "Variables", values_to = "Values") %>%
+  pivot_longer(cols = c(homeowner, Naive), names_to = "Variables", values_to = "Values") %>%
   ggplot(aes(x = year, y = Values, color = Variables)) +
   geom_line(size = 1.3) +
   theme_bw() +
-  labs(x = "", y = "Rate of Change in GDP (Missouri)", title = str_c("MSE =  ", prettyNum(mean(d2$error2, na.rm = T), scientific = TRUE, digits = 4)), color = "") +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,.07)) +
+  labs(x = "", y = "",
+       title = "Homeownership Rates (Missouri)",
+       subtitle = str_c("MSE =  ", round(mean(d2$error2, na.rm = T), 4)), 
+       color = "") +
+  scale_x_continuous(breaks = seq(2006, 2024, 2)) +
   scale_color_manual(values = c("black", "orange")) +
-  annotate("text", x = 2020.5, y = .046, label = "4.6%", size = 5, color = "orange") +
-  theme(legend.position = c(0.8, 0.85))
+  theme(legend.position = c(0.2, 0.25)) +
+  annotate("text", x = 2024.5, y = d2$Naive[d2$year==2023], label = str_c(d2$Naive[d2$year==2023], "%"), size = 5, color = "orange")
 ```
 
 ???
@@ -864,7 +715,7 @@ d2 %>%
 
 <br>
 
-SLIDE: Let's move to our second random variation tool, moving average
+**SLIDE**: Let's move to our second random variation tool, moving average
 
 
 
@@ -882,7 +733,7 @@ Discuss the intuition here.
 
 <br>
 
-SLIDE: How to do it...
+**SLIDE**: How to do it...
 
 
 
@@ -910,24 +761,27 @@ Everybody apply this to our trend, calculate the MSE, extend one year and visual
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=7.5, fig.asp=0.6, cache=TRUE}
 ## Calculate MA3 forecast and mse
-d2 <- d %>%
-  add_row(state = "Missouri", year = 2019, GDP_Rate = NA) %>% 
+d3 <- d %>%
+  add_row(state = "Missouri", year = 2023, homeowner = NA) %>% 
   mutate(
-    MA3 = (lag(GDP_Rate, n = 1) + lag(GDP_Rate, n = 2) + lag(GDP_Rate, n = 3)) / 3,
-    error = (GDP_Rate - MA3),
+    MA3 = (lag(homeowner, n = 1) + lag(homeowner, n = 2) + lag(homeowner, n = 3)) / 3,
+    error = (homeowner - MA3),
     error2 = error^2
   ) 
 
-d2 %>%
-  pivot_longer(cols = c(GDP_Rate, MA3), names_to = "Variables", values_to = "Values") %>%
+d3 %>%
+  pivot_longer(cols = c(homeowner, MA3), names_to = "Variables", values_to = "Values") %>%
   ggplot(aes(x = year, y = Values, color = Variables)) +
   geom_line(size = 1.3) +
   theme_bw() +
-  labs(x = "", y = "Rate of Change in GDP (Missouri)", title = str_c("MSE =  ", prettyNum(mean(d2$error2, na.rm = T), scientific = TRUE, digits = 4)), color = "") +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,.07)) +
+  labs(x = "", y = "",
+       title = "Homeownership Rates (Missouri)",
+       subtitle = str_c("MSE =  ", round(mean(d3$error2, na.rm = T), 4)), 
+       color = "") +
+  scale_x_continuous(breaks = seq(2006, 2024, 2)) +
   scale_color_manual(values = c("black", "red")) +
-  annotate("text", x = 2020.5, y = .027, label = "2.7%", size = 5, color = "red") +
-  theme(legend.position = c(0.8, 0.85))
+  theme(legend.position = c(0.2, 0.25)) +
+  annotate("text", x = 2024.5, y = d3$MA3[d3$year==2023], label = str_c(d3$MA3[d3$year==2023], "%"), size = 5, color = "red")
 ```
 
 ???
@@ -956,24 +810,27 @@ Everybody now redo the forecast but with 5 periods instead of 3.
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=7.5, fig.asp=0.6, cache=TRUE}
 ## Calculate MA5 forecast and mse
-d2 <- d %>%
-  add_row(state = "Missouri", year = 2019, GDP_Rate = NA) %>% 
+d4 <- d %>%
+  add_row(state = "Missouri", year = 2023, homeowner = NA) %>% 
   mutate(
-    MA5 = (lag(GDP_Rate, n = 1) + lag(GDP_Rate, n = 2) + lag(GDP_Rate, n = 3) + lag(GDP_Rate, n = 4) + lag(GDP_Rate, n = 5)) / 5,
-    error = (GDP_Rate - MA5),
+    MA5 = (lag(homeowner, n = 1) + lag(homeowner, n = 2) + lag(homeowner, n = 3) + lag(homeowner, n = 4) + lag(homeowner, n = 5)) / 5,
+    error = (homeowner - MA5),
     error2 = error^2
   ) 
 
-d2 %>%
-  pivot_longer(cols = c(GDP_Rate, MA5), names_to = "Variables", values_to = "Values") %>%
+d4 %>%
+  pivot_longer(cols = c(homeowner, MA5), names_to = "Variables", values_to = "Values") %>%
   ggplot(aes(x = year, y = Values, color = Variables)) +
   geom_line(size = 1.3) +
   theme_bw() +
-  labs(x = "", y = "Rate of Change in GDP (Missouri)", title = str_c("MSE =  ", prettyNum(mean(d2$error2, na.rm = T), scientific = TRUE, digits = 4)), color = "") +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,.07)) +
+  labs(x = "", y = "",
+       title = "Homeownership Rates (Missouri)",
+       subtitle = str_c("MSE =  ", round(mean(d4$error2, na.rm = T), 4)), 
+       color = "") +
+  scale_x_continuous(breaks = seq(2006, 2024, 2)) +
   scale_color_manual(values = c("black", "red")) +
-  annotate("text", x = 2020.5, y = .027, label = "2.7%", size = 5, color = "red") +
-  theme(legend.position = c(0.8, 0.85))
+  theme(legend.position = c(0.2, 0.25)) +
+  annotate("text", x = 2024.5, y = d4$MA5[d3$year==2023], label = str_c(round(d4$MA5[d4$year==2023], 2), "%"), size = 5, color = "red")
 ```
 
 ???
@@ -1003,7 +860,7 @@ Weighted Moving Average Forecast
 
 <br>
 
-- SLIDE: Examples
+- **SLIDE**: Examples
 
 
 
@@ -1041,7 +898,7 @@ Here's an example of an MA-3 with weights.
 
 <br>
 
-- SLIDE: A more standard example
+- **SLIDE**: A more standard example
 
 
 
@@ -1101,24 +958,27 @@ Everybody apply this to our trend, calculate the MSE, extend one year and visual
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=7.5, fig.asp=0.6, cache=TRUE}
 # Calculate Weighted MA3 forecast and mse
-d2 <- d %>%
-  add_row(state = "Missouri", year = 2019, GDP_Rate = NA) %>% 
+d5 <- d %>%
+  add_row(state = "Missouri", year = 2023, homeowner = NA) %>% 
   mutate(
-    Weighted_MA3 = (lag(GDP_Rate, n = 1) * 3 + lag(GDP_Rate, n = 2) * 2 + lag(GDP_Rate, n = 3)) / 6,
-    error = (GDP_Rate - Weighted_MA3),
+    Weighted_MA3 = (lag(homeowner, n = 1) * 3 + lag(homeowner, n = 2) * 2 + lag(homeowner, n = 3)) / 6,
+    error = (homeowner - Weighted_MA3),
     error2 = error^2
   ) 
 
-d2 %>%
-  pivot_longer(cols = c(GDP_Rate, Weighted_MA3), names_to = "Variables", values_to = "Values") %>%
+d5 %>%
+  pivot_longer(cols = c(homeowner, Weighted_MA3), names_to = "Variables", values_to = "Values") %>%
   ggplot(aes(x = year, y = Values, color = Variables)) +
   geom_line(size = 1.3) +
   theme_bw() +
-  labs(x = "", y = "Rate of Change in GDP (Missouri)", title = str_c("MSE =  ", prettyNum(mean(d2$error2, na.rm = T), scientific = TRUE, digits = 4)), color = "") +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,.07)) +
+  labs(x = "", y = "",
+       title = "Homeownership Rates (Missouri)",
+       subtitle = str_c("MSE =  ", round(mean(d5$error2, na.rm = T), 4)), 
+       color = "") +
+  scale_x_continuous(breaks = seq(2006, 2024, 2)) +
   scale_color_manual(values = c("black", "darkgreen")) +
-  annotate("text", x = 2020.5, y = .033, label = "3.3%", size = 5, color = "darkgreen") +
-  theme(legend.position = c(0.8, 0.85))
+  theme(legend.position = c(0.2, 0.25)) +
+  annotate("text", x = 2024.5, y = d5$Weighted_MA3[d3$year==2023], label = str_c(round(d5$Weighted_MA3[d5$year==2023], 2), "%"), size = 5, color = "darkgreen")
 ```
 
 ???
@@ -1144,12 +1004,12 @@ class: middle, center, slideblue
 ```{r, results='asis'}
 # Consolidate forecasts
 d10 <- d %>%
-  add_row(state = "Missouri", year = 2019, GDP_Rate = NA) %>% 
+  add_row(state = "Missouri", year = 2023, homeowner = NA) %>% 
   mutate(
-    Naive = lag(GDP_Rate, n = 1),
-    MA3 = (lag(GDP_Rate, n = 1) + lag(GDP_Rate, n = 2) + lag(GDP_Rate, n = 3)) / 3,
-    MA5 = (lag(GDP_Rate, n = 1) + lag(GDP_Rate, n = 2) + lag(GDP_Rate, n = 3) + lag(GDP_Rate, n = 4) + lag(GDP_Rate, n = 5)) / 5,
-    Weighted_MA3 = (lag(GDP_Rate, n = 1) * 3 + lag(GDP_Rate, n = 2) * 2 + lag(GDP_Rate, n = 3)) / 6
+    Naive = lag(homeowner, n = 1),
+    MA3 = (lag(homeowner, n = 1) + lag(homeowner, n = 2) + lag(homeowner, n = 3)) / 3,
+    MA5 = (lag(homeowner, n = 1) + lag(homeowner, n = 2) + lag(homeowner, n = 3) + lag(homeowner, n = 4) + lag(homeowner, n = 5)) / 5,
+    Weighted_MA3 = (lag(homeowner, n = 1) * 3 + lag(homeowner, n = 2) * 2 + lag(homeowner, n = 3)) / 6
   )
 
 # Re-calculate MSE on rows in common across forecast
@@ -1158,7 +1018,7 @@ error_calc <- function(forecast) {
   d10 %>%
     filter(complete.cases(.)) %>%
     mutate(
-      error = (GDP_Rate - {{forecast}}),
+      error = (homeowner - {{forecast}}),
       error2 = error^2
     ) %>%
     summarize(
@@ -1169,15 +1029,19 @@ error_calc <- function(forecast) {
 # Output table of Tool, MSE and prediction
 d100 <- tibble(
   Method = c("Naive", "MA-3", "MA-5", "Weighted-MA3"),
-  MSE = c(prettyNum(as.numeric(error_calc(forecast = Naive)), scientific = TRUE, digits = 3),
-          prettyNum(as.numeric(error_calc(forecast = MA3)), scientific = TRUE, digits = 3),
-          prettyNum(as.numeric(error_calc(forecast = MA5)), scientific = TRUE, digits = 3),
-          prettyNum(as.numeric(error_calc(forecast = Weighted_MA3)), scientific = TRUE, digits = 3)),
-  Prediction = c(tail(d10$Naive, n=1), tail(d10$MA3, n=1), tail(d10$MA5, n=1), tail(d10$Weighted_MA3, n=1))
-)
+  MSE = c(as.numeric(error_calc(forecast = Naive)),
+          as.numeric(error_calc(forecast = MA3)),
+          as.numeric(error_calc(forecast = MA5)),
+          as.numeric(error_calc(forecast = Weighted_MA3))),
+         Prediction = c(
+           str_c(round(tail(d10$Naive, n=1),1), '%'),
+           str_c(round(tail(d10$MA3, n=1),1), '%'),
+           str_c(round(tail(d10$MA5, n=1),1), '%'),
+           str_c(round(tail(d10$Weighted_MA3, n=1),1), '%')))
 
 d100 |>
-  kbl(format = "html", digits = 3, align = c('l', 'c', 'c')) |>
+  arrange(MSE) |>
+  kbl(format = "html", digits = 2, align = c('l', 'c', 'c')) |>
   row_spec(row = 0, background = "lightgrey") |>
   column_spec(column = 1:3, width = "10em")
 ```
@@ -1186,12 +1050,12 @@ d100 |>
 ???
 
 ### In terms of MSE, which is the most "accurate" forecast?
-- (MA-5)
+- (Naive)
 
 <br>
 
-### So, does that make the MA-5 the winner? Why or why not?
-- (SLIDE: Visualize)
+### So, does that make the Naive the winner? Why or why not?
+- (**SLIDE**: Visualize)
 
 
 
@@ -1202,12 +1066,12 @@ d100 |>
 d10 %>%
   pivot_longer(cols = Naive:Weighted_MA3, names_to = "Variables", values_to = "Values") %>%
   ggplot(aes(x = year)) +
-  geom_line(aes(y = GDP_Rate)) +
+  geom_line(aes(y = homeowner)) +
   geom_line(aes(y = Values, color = Variables), size = 1.3) +
   theme_bw() +
   facet_wrap(~ Variables) +
-  scale_y_continuous(labels = scales::percent_format(), limits = c(0,.07)) +
-  labs(x = "", y = "GDP (Rate)") +
+  #scale_y_continuous(labels = scales::percent_format(), limits = c(0,.07)) +
+  labs(x = "", y = "Homeownership Rates (MO)") +
   guides(color = "none")
 ```
 
@@ -1215,12 +1079,14 @@ d10 %>%
 ```{r, results='asis'}
 d100 |>
   select(Method, MSE) |>
+  mutate(
+    MSE = round(MSE, 3)
+  ) |>
   arrange(MSE) |>
   t() |>
-  kbl(format = "html", align = 'c') |>
+  kbl(format = "html", align = 'c', digits = 2) |>
   row_spec(row = 1, bold = TRUE) |>
   column_spec(column = 2:5, width = "10em")
-
 ```
 ]
 
@@ -1236,6 +1102,8 @@ Overfitting: A forecast model can have a tiny error in the past and still make t
 
 ### CLASS: So, which of these models best combines a low MSE with a line that logically tracks the underlying data?
 
+### - If this was your money on the line, which prediction guides your behavior? Why?
+
 
 
 
@@ -1250,28 +1118,27 @@ class: middle, slideblue
 <br>
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.6, cache=TRUE}
-## Assignment for Today: Homeownership rate in Missouri
-d <- read_excel("../Data_for_Class/Session4/MBA_Session4-Data.xlsx", sheet = "MO") %>% 
-  filter(abbrev == "MO") %>%
-  select(state, year, homeowner_rate) %>%
+# Test on GDP rate
+d_gdp <- d |>
+  select(state, year, gdp_rate) |>
   mutate(
-    time = 1:21,
+    time = 1:17,
     time2 = time^2,
     time3 = time^3
   )
 
 ## Visualize current data
-d %>%
-  ggplot(aes(x = year, y = homeowner_rate)) +
-  geom_line(size = 1.5) +
+d_gdp %>%
+  ggplot(aes(x = year, y = gdp_rate)) +
+  geom_line(linewidth = 1.5) +
   theme_bw() +
-  labs(x = "", y = "Homeownership Rate (%)") 
+  labs(x = "", y = "GDP Rate (%)") 
 ```
 ]
 
 .pull-right[
 .size35[
-.center[What is the best forecast model of homeownership rates in MO?]
+.center[What is the best forecast model of GDP  rates in MO?]
 
 - Naïve
 - MA (3), or
@@ -1282,9 +1149,7 @@ d %>%
 
 ???
 
-Class Practice: Homeowner Rate, fit naive, MA3 and WMA3, calculate MSEs and predict next period
-
-
+Class Practice
 
 
 
@@ -1292,12 +1157,14 @@ Class Practice: Homeowner Rate, fit naive, MA3 and WMA3, calculate MSEs and pred
 
 ```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=8, fig.asp=0.6, cache=TRUE}
 # Calculate forecasts
-d10 <- d %>%
-  add_row(state = "Missouri", year = 2019, homeowner_rate = NA) %>% 
+d10 <- d_gdp %>%
+  add_row(state = "Missouri", year = 2023, gdp_rate = NA) %>% 
   mutate(
-    Naive = lag(homeowner_rate, n = 1),
-    MA3 = (lag(homeowner_rate, n = 1) + lag(homeowner_rate, n = 2) + lag(homeowner_rate, n = 3)) / 3,
-    Weighted_MA3 = (lag(homeowner_rate, n = 1) * 3 + lag(homeowner_rate, n = 2) * 2 + lag(homeowner_rate, n = 3)) / 6
+    Naive = lag(gdp_rate, n = 1),
+    MA3 = (lag(gdp_rate, n = 1) + lag(gdp_rate, n = 2) + lag(gdp_rate, n = 3)) / 3,
+    MA5 = (lag(gdp_rate, n = 1) + lag(gdp_rate, n = 2) + lag(gdp_rate, n = 3) + lag(gdp_rate, n = 4) + lag(gdp_rate, n = 5)) / 5,
+    Weighted_MA3 = (lag(gdp_rate, n = 1) * 3 + lag(gdp_rate, n = 2) * 2 + lag(gdp_rate, n = 3)) / 6,
+    Weighted_MA5 = (lag(gdp_rate, n = 1) * 5 + lag(gdp_rate, n = 2) * 4 + lag(gdp_rate, n = 3) * 3 + lag(gdp_rate, n = 4) * 2 + lag(gdp_rate, n = 5)) / 15,
   )
 
 # Calculate MSE
@@ -1306,13 +1173,19 @@ error_calc <- function(forecast) {
   d10 %>%
     filter(complete.cases(.)) %>%
     mutate(
-      error = (homeowner_rate - {{forecast}}),
+      error = (gdp_rate - {{forecast}}),
       error2 = error^2
     ) %>%
     summarize(
       mean(error2, na.rm = T)
     )
 }
+
+# error_calc(forecast = Naive)
+# error_calc(forecast = MA3)
+# error_calc(forecast = MA5)
+# error_calc(forecast = Weighted_MA3)
+# error_calc(forecast = Weighted_MA5)
 
 # Output table of Tool, MSE and prediction
 d1000 <- tibble(
@@ -1326,19 +1199,19 @@ d1000 <- tibble(
 
 # Visualize
 d10 %>%
-    pivot_longer(cols = Naive:Weighted_MA3, names_to = "Variables", values_to = "Values") %>%
+    pivot_longer(cols = c(Naive, MA3, Weighted_MA3), names_to = "Variables", values_to = "Values") %>%
     mutate(
         Variables = case_when(
-                        Variables == "Naive" ~ str_c("Naive (MSE: ", round(as.numeric(error_calc(forecast = Naive)), 2), ", Predict: ", tail(d10$Naive, n=1), "%)"),
-                        Variables == "MA3" ~ str_c("2. MA-3 (MSE: ", round(as.numeric(error_calc(forecast = MA3)), 2), ", Predict: ", tail(d10$MA3, n=1), "%)"),
-                        Variables == "Weighted_MA3" ~ str_c("3. WMA-3 (MSE: ", round(as.numeric(error_calc(forecast = Weighted_MA3)), 2), ", Predict: ", tail(d10$Weighted_MA3, n=1), "%)"))
+                        Variables == "Naive" ~ str_c("Naive (MSE: ", round(as.numeric(error_calc(forecast = Naive)), 2), ", Predict: ", round(tail(d10$Naive, n=1), 2), "%)"),
+                        Variables == "MA3" ~ str_c("2. MA-3 (MSE: ", round(as.numeric(error_calc(forecast = MA3)), 2), ", Predict: ", round(tail(d10$MA3, n=1), 2), "%)"),
+                        Variables == "Weighted_MA3" ~ str_c("3. WMA-3 (MSE: ", round(as.numeric(error_calc(forecast = Weighted_MA3)), 2), ", Predict: ", round(tail(d10$Weighted_MA3, n=1),2), "%)"))
     ) %>%
     ggplot(aes(x = year)) +
-    geom_line(aes(y = homeowner_rate)) +
+    geom_line(aes(y = gdp_rate)) +
     geom_line(aes(y = Values, color = Variables), size = 1.3) +
     theme_bw() +
     facet_wrap(~ Variables, ncol = 2) +
-    labs(x = "", y = "Homeownership Rate (%)") +
+    labs(x = "", y = "Unemployment Rate (%)") +
     guides(color = "none")
 ```
 
@@ -1352,13 +1225,15 @@ d10 %>%
 
 ### So, the best model is?
 
+- Depends on combination of history AND your own expertise!
+
 <br>
 
 ### Questions on the random variation tools?
 
 <br>
 
-SLIDE: Let's add some new tools!
+**SLIDE**: Let's add some new tools!
 
 
 
@@ -1366,18 +1241,20 @@ SLIDE: Let's add some new tools!
 
 class: full, middle
 
-```{r, fig.align='center', fig.retina=3, out.width='93%', fig.width=8, fig.asp=0.45, cache=TRUE}
-d <- read_excel("../Data_for_Class/Session4/MBA_Session4-Data.xlsx", sheet = "Retail_Sales") %>%
+```{r, fig.align='center', fig.retina=3, out.width='93%', fig.width=8, fig.asp=0.45, cache=FALSE}
+d <- read_excel("../Data_for_Class/Session4/SU23-MBA_Session4-Data.xlsx", sheet = "Retail_Sales") %>%
   mutate(
     date = ymd(date),
-    Time = 1:60
+    Time = 1:101,
+    year = year(date),
+    month = month(date)
   )
 
 ## Plot both facets
 d %>%
-    pivot_longer(cols = advance_retail_sales:advance_retail_sales_adj, names_to = "Predictor", values_to = "Values") %>%
+    pivot_longer(cols = advance_retail_sales_adj:advance_retail_sales_raw, names_to = "Predictor", values_to = "Values") %>%
     mutate(
-        Predictor = if_else(Predictor == "advance_retail_sales", "1. Advanced Retail Sales", "2. Adjusted by the Fed")
+        Predictor = if_else(Predictor == "advance_retail_sales_raw", "1. Advanced Retail Sales (raw)", "2. Adjusted by the Fed")
         ) %>%
     ggplot(aes(x = date, y = Values)) +
     geom_line() +
@@ -1407,7 +1284,7 @@ Let's explore the actual data, not the adjusted, to see how and why they "adjust
 
 <br>
 
-SLIDE: Hopefully everyone can see that the actual data here has more going on than just random variation.
+**SLIDE**: Hopefully everyone can see that the actual data here has more going on than just random variation.
 
 
 
@@ -1443,14 +1320,14 @@ Everybody fit our three random variation models to the unadjusted data
 
 ---
 
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=8, fig.asp=0.6, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=10, fig.asp=0.6, cache=TRUE}
 # Calculate forecasts
 d20 <- d %>%
-  #add_row(state = "Missouri", year = 2019, homeowner_rate = NA) %>% 
+  #add_row(state = "Missouri", year = 2023, homeowner = NA) %>% 
   mutate(
-    Naive = lag(advance_retail_sales, n = 1),
-    MA3 = (lag(advance_retail_sales, n = 1) + lag(advance_retail_sales, n = 2) + lag(advance_retail_sales, n = 3)) / 3,
-    Weighted_MA3 = (lag(advance_retail_sales, n = 1) * 3 + lag(advance_retail_sales, n = 2) * 2 + lag(advance_retail_sales, n = 3)) / 6
+    Naive = lag(advance_retail_sales_raw, n = 1),
+    MA3 = (lag(advance_retail_sales_raw, n = 1) + lag(advance_retail_sales_raw, n = 2) + lag(advance_retail_sales_raw, n = 3)) / 3,
+    Weighted_MA3 = (lag(advance_retail_sales_raw, n = 1) * 3 + lag(advance_retail_sales_raw, n = 2) * 2 + lag(advance_retail_sales_raw, n = 3)) / 6
   )
 
 # Calculate MSE
@@ -1459,7 +1336,7 @@ error_calc <- function(forecast) {
   d20 %>%
     filter(complete.cases(.)) %>%
     mutate(
-      error = (advance_retail_sales - {{forecast}}),
+      error = (advance_retail_sales_raw - {{forecast}}),
       error2 = error^2
     ) %>%
     summarize(
@@ -1487,7 +1364,7 @@ d20 %>%
                         Variables == "Weighted_MA3" ~ str_c("3. WMA-3 (MSE: ", round(as.numeric(error_calc(forecast = Weighted_MA3)), 2), ", Predict: ", round(tail(d20$Weighted_MA3, n=1),1), ")"))
     ) %>%
     ggplot(aes(x = date)) +
-    geom_line(aes(y = advance_retail_sales)) +
+    geom_line(aes(y = advance_retail_sales_raw)) +
     geom_line(aes(y = Values, color = Variables), size = 1.3) +
     theme_bw() +
     facet_wrap(~ Variables, ncol = 2) +
@@ -1507,7 +1384,7 @@ d20 %>%
 
 <br>
 
-SLIDE: Let's see if we can do a better job of forecasting this data using OLS regressions
+**SLIDE**: Let's see if we can do a better job of forecasting this data using OLS regressions
 
 
 
@@ -1522,7 +1399,7 @@ class: middle, center, slideblue
 .size25[
 ```{r, results='asis'}
 d |>
-  select(date, "Retail Sales" = advance_retail_sales, Time) |>
+  select(date, "Retail Sales" = advance_retail_sales_raw, Time) |>
   slice(1:8) |>
   kbl(format = "html", digits = 2, align = 'c')
 ```
@@ -1534,7 +1411,7 @@ Create a "time" variable and regress advanced retail sales on it
 
 ???
 
-Create the time variable (1-60), then
+Create the time variable (1-101), then
 
 Fit a regression of unadjusted sales on time.
 
@@ -1550,8 +1427,8 @@ class: middle, center, slideblue
 <br>
 
 .size25[
-```{r, results='asis'}
-res1 <- d %>% lm(data = ., advance_retail_sales ~ Time)
+```{r, results='asis', eval=TRUE}
+res1 <- d %>% lm(data = ., advance_retail_sales_raw ~ Time)
 
 stargazer(res1, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = "rsq", dep.var.labels = "Retail Sales", covariate.labels = c("Time"))
 ```
@@ -1569,16 +1446,18 @@ stargazer(res1, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = 
 class: middle, center, slideblue
 
 .size25[
-```{r, results='asis'}
-res1 <- d %>% lm(data = ., advance_retail_sales ~ Time)
+```{r, results='asis', eval=TRUE}
+res1 <- d %>% lm(data = ., advance_retail_sales_raw ~ Time)
 
 stargazer(res1, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = "rsq", dep.var.labels = "Retail Sales", covariate.labels = c("Time"))
+
+coef1 <- as.numeric(round(coef(res1), 2))
 ```
 ]
 
 <br>
 
-.size40[.content-box-white[**Retail Sales = 375.76 + 1.54 * (Time)**]]
+.size40[.content-box-white[**Retail Sales = `r coef1[1]` + `r coef1[2]` * (Time)**]]
 
 ???
 
@@ -1596,22 +1475,22 @@ class: middle, center, slideblue
 
 .pull-left[
 .size22[
-```{r, results='asis'}
+```{r, results='asis', eval=TRUE}
 stargazer(res1, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = "rsq", dep.var.labels = "Retail Sales", covariate.labels = c("Time"))
 ```
 ]]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.9, cache=TRUE, eval=TRUE}
 d |>
   add_predictions(res1) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = advance_retail_sales), size = 1) +
+  geom_line(aes(y = advance_retail_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Billions USD",
-  title = "Advance Retail Sales") +
-  scale_x_date(date_breaks = "1 year")
+  title = "Advance Retail Sales (raw)") +
+  scale_x_date(date_breaks = "1 year", labels = lubridate::year)
 ```
 ]
 
@@ -1626,7 +1505,7 @@ d |>
 ### What is the MSE for this model?
 ### - How do we calculate it?
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -1640,11 +1519,15 @@ background-position: center
 
 The errors in your model are the residuals you output in your regression window
 
+- Forgive me as these aren't the matching residuals for the updated regression
+
+- I pulled updated data for us to work on in class
+
 <br>
 
 ### If these are the "errors", what do we need to do with them to get the MSE?
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -1664,7 +1547,10 @@ Next step, square the residuals!
 
 background-image: url('libs/Images/Session4-OLS_MSE3.png')
 background-size: 92%
-background-position: center
+background-position: top
+class: slideblue, bottom
+
+.center[.size55[**Summer 2023 MSE = `r round(mean((res1$residuals)^2), 2)`**]]
 
 ???
 
@@ -1676,7 +1562,7 @@ Finally, take the average.
 
 <br>
 
-SLIDE: Comparing MSEs across tools
+**SLIDE**: Comparing MSEs across tools
 
 
 
@@ -1689,7 +1575,7 @@ class: middle, slideblue
 <br>
 
 .size40[
-```{r, results='asis'}
+```{r, results='asis', eval=TRUE}
 d2000 |>
   select(-Prediction) |>
   add_row(Method = "Linear OLS", MSE = mean((res1$residuals)^2)) |>
@@ -1699,11 +1585,11 @@ d2000 |>
 ]]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE, eval=TRUE}
 d |>
   add_predictions(res1) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = advance_retail_sales), size = 1) +
+  geom_line(aes(y = advance_retail_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Billions USD",
@@ -1727,7 +1613,7 @@ class: middle, center, slideblue
 
 .size25[
 ```{r, results='asis'}
-res1 <- d %>% lm(data = ., advance_retail_sales ~ Time)
+res1 <- d %>% lm(data = ., advance_retail_sales_raw ~ Time)
 
 stargazer(res1, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = "rsq", dep.var.labels = "Retail Sales", covariate.labels = c("Time"))
 ```
@@ -1735,7 +1621,7 @@ stargazer(res1, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = 
 
 <br>
 
-.size40[.content-box-white[**Retail Sales = 375.76 + 1.54 * (Time)**]]
+.size40[.content-box-white[**Retail Sales = `r coef1[1]` + `r coef1[2]` * (Time)**]]
 
 ???
 
@@ -1747,7 +1633,7 @@ Next step, making predictions!
 
 Everybody use this formula to predict the next 12 months.
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -1758,15 +1644,15 @@ class: middle, slideblue
 
 ```{r, fig.align='center', fig.retina=3, out.width='70%', fig.width=5, fig.asp=0.618, cache=TRUE}
 new100 <- tibble(
-  Time = 61:72,
-  date = seq.Date(from = ymd("2020-01-01"), by = "month", length.out = 12)
+  Time = 102:113,
+  date = seq.Date(from = ymd("2023-06-01"), by = "month", length.out = 12)
 ) |>
   add_predictions(res1, var = "Predictions")
 
 d |>
   add_predictions(res1) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = advance_retail_sales), size = 1) +
+  geom_line(aes(y = advance_retail_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   geom_line(data = new100, aes(y = Predictions), size = 1.5, color = "springgreen") +
   theme_bw() +
@@ -1796,7 +1682,7 @@ d |>
 
 <br>
 
-SLIDE: Back to the decomposition
+**SLIDE**: Back to the decomposition
 
 
 
@@ -1824,16 +1710,24 @@ Now lets talk about seasonality.
 "Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
 ]]
 
-```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.618, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.618, cache=FALSE}
 ## highlight seasons
+
+ymin1 <- 340
+ymax1 <- 650
+
 d %>%
-  ggplot(aes(x = date, y = advance_retail_sales)) +
+  ggplot(aes(x = date, y = advance_retail_sales_raw)) +
   geom_line() +
-  annotate("rect", xmin = ymd("2015-01-01"), xmax = ymd("2015-12-31"), ymin = 340, ymax = 525, alpha = .1, fill = "#CCCC00") +
-  annotate("rect", xmin = ymd("2016-01-01"), xmax = ymd("2016-12-31"), ymin = 340, ymax = 525, alpha = .1, fill = "#006633") +
-  annotate("rect", xmin = ymd("2017-01-01"), xmax = ymd("2017-12-31"), ymin = 340, ymax = 525, alpha = .1, fill = "#CCCC00") +
-  annotate("rect", xmin = ymd("2018-01-01"), xmax = ymd("2018-12-31"), ymin = 340, ymax = 525, alpha = .1, fill = "#006633") +
-  annotate("rect", xmin = ymd("2019-01-01"), xmax = ymd("2019-12-15"), ymin = 340, ymax = 525, alpha = .1, fill = "#CCCC00") +
+  annotate("rect", xmin = ymd("2015-01-01"), xmax = ymd("2015-12-31"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#CCCC00") +
+  annotate("rect", xmin = ymd("2016-01-01"), xmax = ymd("2016-12-31"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#006633") +
+  annotate("rect", xmin = ymd("2017-01-01"), xmax = ymd("2017-12-31"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#CCCC00") +
+  annotate("rect", xmin = ymd("2018-01-01"), xmax = ymd("2018-12-31"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#006633") +
+  annotate("rect", xmin = ymd("2019-01-01"), xmax = ymd("2019-12-15"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#CCCC00") +
+  annotate("rect", xmin = ymd("2020-01-01"), xmax = ymd("2020-12-15"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#006633") +
+  annotate("rect", xmin = ymd("2021-01-01"), xmax = ymd("2021-12-15"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#CCCC00") +
+  annotate("rect", xmin = ymd("2022-01-01"), xmax = ymd("2022-12-15"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#006633") +
+  annotate("rect", xmin = ymd("2023-01-01"), xmax = ymd("2023-12-15"), ymin = ymin1, ymax = ymax1, alpha = .1, fill = "#CCCC00") +
   theme_bw() +
   labs(x = "", y = "Billions USD", title = "Advance Retail Sales",
        caption = "Source: U.S. Census Bureau")
@@ -1847,10 +1741,10 @@ d %>%
 "Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
 ]]
 
-```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.618, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.618, cache=FALSE}
 ## highlight seasons
 d %>%
-  ggplot(aes(x = date, y = advance_retail_sales)) +
+  ggplot(aes(x = date, y = advance_retail_sales_raw)) +
   geom_line() +
   theme_bw() +
   labs(x = "", y = "Billions USD") +
@@ -1867,9 +1761,9 @@ d %>%
 "Seasonality is a characteristic of a time series in which the data experiences regular and predictable changes that recur every calendar year" (Investopedia 2020).
 ]]
 
-```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.618, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.618, cache=FALSE}
 ## Overlap the seasonality
-x1 <- ts(data = d$advance_retail_sales, frequency = 12, start = c(2015, 1))
+x1 <- ts(data = d$advance_retail_sales_raw, frequency = 12, start = c(2015, 1))
 
 forecast::ggseasonplot(x1, year.labels = TRUE) +
   theme_bw() +
@@ -1879,7 +1773,7 @@ forecast::ggseasonplot(x1, year.labels = TRUE) +
 
 ???
 
-SLIDE: Ok, let's now add seasonality to our model!
+**SLIDE**: Ok, let's now add seasonality to our model!
 
 
 
@@ -1891,7 +1785,7 @@ class: middle, slideblue
 
 .size40[
 1. Fit the model
-    - Time period = 1:60
+    - Time period = 1:101
     - Spring = '1' if Apr, May, Jun
     - Summer = '1' if Jul, Aug, Sep
     - Fall = '1' if Oct, Nov, Dec
@@ -1903,7 +1797,7 @@ class: middle, slideblue
 
 ???
 
-SLIDE: Ok, to do this you'll need to create dummy variables for the seasons.
+**SLIDE**: Ok, to do this you'll need to create dummy variables for the seasons.
 
 
 
@@ -1955,7 +1849,7 @@ class: middle, slideblue
 
 .size40[
 1. Fit the model
-    - Time period = 1:60
+    - Time period = 1:101
     - Spring = '1' if Apr, May, Jun
     - Summer = '1' if Jul, Aug, Sep
     - Fall = '1' if Oct, Nov, Dec
@@ -1988,42 +1882,48 @@ d2 <- d |>
      Fall = if_else(month %in% 10:12, 1, 0)
    )
 
-res2 <- d2 %>% lm(data = ., advance_retail_sales ~ time + Spring + Summer + Fall)
+res2 <- d2 %>% lm(data = ., advance_retail_sales_raw ~ time + Spring + Summer + Fall)
 
 stargazer(res2, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = c("rsq", "f", "ser"), dep.var.labels = "Retail Sales") #, covariate.labels = c("Time")
 ```
 ]]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=FALSE}
 d2 |>
   add_predictions(res2) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = advance_retail_sales), size = 1) +
+  geom_line(aes(y = advance_retail_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Billions USD",
   title = "Advance Retail Sales") +
   scale_x_date(date_breaks = "1 year", date_labels = "%Y")
 ```
-]
 
 .size20[
 ```{r, results='asis'}
-tibble(
-  time = 61:72,
-  month = 1:12,
-    Spring = if_else(month %in% 4:6, 1, 0),
-    Summer = if_else(month %in% 7:9, 1, 0),
-    Fall = if_else(month %in% 10:12, 1, 0)
+x1 <- tibble(
+  time = 102:113,
+  month = c(6:12, 1:5),
+  Spring = if_else(month %in% 4:6, 1, 0),
+  Summer = if_else(month %in% 7:9, 1, 0),
+  Fall = if_else(month %in% 10:12, 1, 0)
 ) |>
   add_predictions(res2, var = "Predictions") |>
-  select(Time = time, Predictions) |>
+  select(Time = time, Predictions)
+
+x1[1:6,] |>
   t() |>
   kbl(format = "html", digits = 0) |>
   row_spec(row = 1, bold = TRUE, background = "lightgrey")
 
+x1[7:12,] |>
+  t() |>
+  kbl(format = "html", digits = 0) |>
+  row_spec(row = 1, bold = TRUE, background = "lightgrey")
 ```
+]
 ]
 
 ???
@@ -2062,11 +1962,11 @@ d2000 |>
 ]]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=FALSE}
 d2 |>
   add_predictions(res2) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = advance_retail_sales), size = 1) +
+  geom_line(aes(y = advance_retail_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Billions USD",
@@ -2093,7 +1993,7 @@ class: middle, slideblue
 
 .size40[
 1. Fit the model
-    - Time period = 1:60
+    - Time period = 1:101
     - Month dummies (x 11)
 
 2. Visualize the model (line plot)
@@ -2103,7 +2003,7 @@ class: middle, slideblue
 
 ???
 
-SLIDE: Last extension of our model, forget seasons, let's do months!
+**SLIDE**: Last extension of our model, forget seasons, let's do months!
 
 *Optional if you ask them to do this...*
 
@@ -2128,7 +2028,7 @@ class: middle, center, slideblue
 
 .pull-left[
 ```{r, out.width='75%'}
-res3 <- d2 %>% lm(data = ., advance_retail_sales ~ time + factor(month))
+res3 <- d2 %>% lm(data = ., advance_retail_sales_raw ~ time + factor(month))
 
 #stargazer(res3, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = c("rsq", "f", "ser"), dep.var.labels = "Retail Sales") #, covariate.labels = c("Time")
 
@@ -2137,35 +2037,41 @@ knitr::include_graphics('libs/Images/Session4-Monthly_Table_Abridged.png')
 ]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=FALSE}
 d2 |>
   add_predictions(res3) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = advance_retail_sales), size = 1) +
+  geom_line(aes(y = advance_retail_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Billions USD",
   title = "Advance Retail Sales") +
   scale_x_date(date_breaks = "1 year", date_labels = "%Y")
 ```
-]
 
 .size20[
 ```{r, results='asis'}
-tibble(
-  time = 61:72,
-  month = 1:12,
-    Spring = if_else(month %in% 4:6, 1, 0),
-    Summer = if_else(month %in% 7:9, 1, 0),
-    Fall = if_else(month %in% 10:12, 1, 0)
+x10 <- tibble(
+  time = 102:113,
+  month = c(6:12, 1:5),
+  Spring = if_else(month %in% 4:6, 1, 0),
+  Summer = if_else(month %in% 7:9, 1, 0),
+  Fall = if_else(month %in% 10:12, 1, 0)
 ) |>
   add_predictions(res3, var = "Predictions") |>
-  select(Time = time, Predictions) |>
+  select(Time = time, Predictions)
+
+x10[1:6,] |>
   t() |>
   kbl(format = "html", digits = 0) |>
   row_spec(row = 1, bold = TRUE, background = "lightgrey")
 
+x10[7:12,] |>
+  t() |>
+  kbl(format = "html", digits = 0) |>
+  row_spec(row = 1, bold = TRUE, background = "lightgrey")
 ```
+]
 ]
 
 ???
@@ -2200,11 +2106,11 @@ d2000 |>
 ]]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=FALSE}
 d2 |>
   add_predictions(res3) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = advance_retail_sales), size = 1) +
+  geom_line(aes(y = advance_retail_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Billions USD",
@@ -2251,6 +2157,8 @@ Let's wrap-up today, and this week, by practicing these linear models.
 
 Last new dataset: New Home Sales
 
+- Focus on the raw data!
+
 
 
 ---
@@ -2260,29 +2168,28 @@ class: middle, center, slideblue
 .pull-left[
 .size25[
 ```{r, results='asis'}
-d <- read_excel("../Data_for_Class/Session4/MBA_Session4-Data.xlsx", sheet = "Home_Sales") |>
+d <- read_excel("../Data_for_Class/Session4/SU23-MBA_Session4-Data.xlsx", sheet = "Home_Sales") |>
   mutate(
-    date = ymd(observation_date),
-    time = 1:121,
+    date = ymd(date),
+    time = 1:101,
     month = month(date),
     Spring = if_else(month %in% 4:6, 1, 0),
     Summer = if_else(month %in% 7:9, 1, 0),
     Fall = if_else(month %in% 10:12, 1, 0)
-  ) |>
-  select(date, Home_Sales = "New One Family Houses Sold: United States, Thousands of Units, Monthly, Not Seasonally Adjusted", time:Fall)
+  )
 
-res1 <- d %>% lm(data = ., Home_Sales ~ time) 
+res1 <- d %>% lm(data = ., home_sales_raw ~ time) 
 
 stargazer(res1, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = c("rsq", "f", "ser"), dep.var.labels = "New Home Sales")
 ```
 ]]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=FALSE}
 d |>
   add_predictions(res1) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = Home_Sales), size = 1) +
+  geom_line(aes(y = home_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Thousands of Units",
@@ -2312,29 +2219,28 @@ class: middle, center, slideblue
 .pull-left[
 .size22[
 ```{r, results='asis'}
-d <- read_excel("../Data_for_Class/Session4/MBA_Session4-Data.xlsx", sheet = "Home_Sales") |>
+d <- read_excel("../Data_for_Class/Session4/SU23-MBA_Session4-Data.xlsx", sheet = "Home_Sales") |>
   mutate(
-    date = ymd(observation_date),
-    time = 1:121,
+    date = ymd(date),
+    time = 1:101,
     month = month(date),
     Spring = if_else(month %in% 4:6, 1, 0),
     Summer = if_else(month %in% 7:9, 1, 0),
     Fall = if_else(month %in% 10:12, 1, 0)
-  ) |>
-  select(date, Home_Sales = "New One Family Houses Sold: United States, Thousands of Units, Monthly, Not Seasonally Adjusted", time:Fall)
+  )
 
-res2 <- d %>% lm(data = ., Home_Sales ~ time + Spring + Summer + Fall)
+res2 <- d %>% lm(data = ., home_sales_raw ~ time + Spring + Summer + Fall)
 
 stargazer(res2, type = "html", digits = 2, dep.var.caption = "", star.cutoffs = .05, notes.append = FALSE, notes = "*p<0.05", omit.stat = c("rsq", "f", "ser"), dep.var.labels = "New Home Sales")
 ```
 ]]
 
 .pull-right[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=FALSE}
 d |>
   add_predictions(res2) |>
   ggplot(aes(x = date)) +
-  geom_line(aes(y = Home_Sales), size = 1) +
+  geom_line(aes(y = home_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   theme_bw() +
   labs(x = "", y = "Thousands of Units",
@@ -2358,7 +2264,7 @@ tibble(
 ???
 
 
-SLIDE: Predict the rest of the year
+**SLIDE**: Predict the rest of the year
 
 
 
@@ -2367,10 +2273,10 @@ SLIDE: Predict the rest of the year
 
 class: middle, center, slideblue
 
-```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.6, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=7, fig.asp=0.6, cache=FALSE}
 d500 <- tibble(
-  time = 122:131,
-  month = 3:12,
+  time = 102:113,
+  month = c(6:12, 1:5),
   Spring = if_else(month %in% 4:6, 1, 0),
   Summer = if_else(month %in% 7:9, 1, 0),
   Fall = if_else(month %in% 10:12, 1, 0)
@@ -2380,7 +2286,7 @@ d500 <- tibble(
 d |>
   add_predictions(res2) |>
   ggplot(aes(x = time)) +
-  geom_line(aes(y = Home_Sales), size = 1) +
+  geom_line(aes(y = home_sales_raw), size = 1) +
   geom_line(aes(y = pred), size = 1.5, color = "blue") +
   geom_line(data = d500, aes(x = time, y = pred), color = "darkorange", size = 1.5) +
   theme_bw() +
@@ -2391,19 +2297,20 @@ d |>
 
 .size25[
 ```{r, results='asis'}
-tibble(
-  time = 122:131,
-  month = 3:12,
+x100 <- tibble(
+  time = 102:113,
+  month = c(6:12, 1:5),
   Spring = if_else(month %in% 4:6, 1, 0),
   Summer = if_else(month %in% 7:9, 1, 0),
   Fall = if_else(month %in% 10:12, 1, 0)
 ) |>
   add_predictions(res2, var = "Predictions") |>
-  select(Time = time, Predictions) |>
-  t() |>
-  kbl(format = "html", digits = 0) |>
-  row_spec(row = 1, bold = TRUE, background = "lightgrey")
+  select(Time = time, Predictions)
 
+x100[1:12,] |>
+  t() |>
+  kbl(format = "html", digits = 1) |>
+  row_spec(row = 1, bold = TRUE, background = "lightgrey")
 ```
 ]
 

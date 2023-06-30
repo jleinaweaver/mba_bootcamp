@@ -39,27 +39,28 @@ knitr::opts_chunk$set(echo = FALSE,
 
 ## Just for fun, adjust income for inflation
 ## 1990 to 2021: 102.66% increase (ballpark estimate)
-d <- read_excel("../Data_for_Class/Session2/MBA_Session2-Data.xlsx", na = c("NA"), guess_max = 10000) |>
+d <- read_excel("../Data_for_Class/Session2/Ross1990-Data.xlsx", na = c("NA"), guess_max = 10000) |>
     mutate(
-        earnk2021 = earnk*2.0266,
+        earnk_adj = earnk*2.3483,
         male = if_else(gender == "Male", 1, 0)
         )
 ```
 
-class: middle, slideblue
+background-image: url('libs/Images/01-statistics-background_v1.png')
+background-size: 100%
+background-position: center
+class: middle
 
 .size60[.content-box-white[**Today's Agenda**]]
 
 <br>
 
-.size40[
+.size45[
 Simple OLS Regression Modeling
 1. Fitting the models
 2. Interpreting the models
 3. Evaluating the models
 ]
-
-<br>
 
 .center[.size40[
   Justin Leinaweaver (Summer 2023)
@@ -160,7 +161,7 @@ knitr::include_graphics('libs/Images/Session2-Ross1990_header.png')
 
 ```{r, results='asis'}
 d |>
-  select(height:education, age, walk, exercise) |>
+  select(height:gender, earnk, ethnicity, education, age, walk, exercise) |>
   slice(1:9) |>
   kbl(format = "html", align = 'c') |>
   row_spec(row = 0, background = "#eedc82")
@@ -178,23 +179,45 @@ Introduce today's dataset
 
 ---
 
-background-image: url('libs/Images/Session2-Inflation.png')
-background-size: 100%
-background-position: center
+background-image: url('libs/Images/Session2-Inflation-2023-06.png')
+background-size: 85%
+background-position: top left
+class: slideblue
 
+.right[.size55[.content-box-blue[**+134.83% (est)**]]]
+
+.size65[
+
+<br>
+
+<br>
+
+<br>
+
+.center[.content-box-white[earn_adj = earnk * (1 + 1.3483)]]
+]
 ???
+
+[BLS CPI Calculator](https://www.bls.gov/data/inflation_calculator.htm)
+- Jan 1990 to Jan 2023: $100 is $234.83
+
+[St Louis FRED Inflation](https://fred.stlouisfed.org/series/FPCPITOTLZGUSA#)
+
+<br>
 
 First, let's adjust the earnings for inflation since 1990. 
 
-- Ballpark the cumulative increase as 102.66%
+- Per the BLS CPI calculator we can estimate the cumulative increase as 134.83%
 
 <br>
 
 To keep things more interesting for us today let's update the earnings in the survey for inflation.
 
-- Make a new column, earnk_2021
+- Make a new column, earnk_adj
 
-- The value of that column is the current earnk * 2.0266
+- Multiply the amount by 1 +the rate of inflation
+
+- The value of that column is the current earnk * 2.3483
 
 - Note: Each time you copy this new variable to a new working sheet you have to paste special as a number.
 
@@ -214,9 +237,9 @@ knitr::include_graphics('libs/Images/Session2-Ross1990_header.png')
 
 ```{r, results='asis'}
 d |>
-  select(height:education, age, walk, exercise) |>
+  select(earnk_adj, height:gender, education, age, walk, exercise) |>
   slice(1:10) |>
-  kbl(format = "html", align = 'c') |>
+  kbl(format = "html", align = 'c', digits = 1) |>
   row_spec(row = 0, background = "#eedc82")
 ```
 
@@ -232,7 +255,7 @@ Explore the data using the filter and the codebook!
 
 <br>
 
-SLIDE: Let's take some time to practice our skills from Session 1 and learn something about the US in 1990. 
+**SLIDE**: Let's take some time to practice our skills from Session 1 and learn something about the US in 1990. 
 
 
 
@@ -258,7 +281,7 @@ class: middle, slideblue
 
 ### What tools from last class could we use to answer each of these questions?
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -279,6 +302,23 @@ class: middle, slideblue
 ???
 
 Ok, 10 mins, get to it!
+
+
+
+---
+
+background-image: url('libs/Images/Session2-Ross_Pivot_Education.png')
+background-size: 100%
+background-position: center
+
+???
+
+Don't forget to filter out the NA and blank rows BEFORE you insert the bar plot.
+
+- Use the drop-down arrow beside the column label for "education"
+    - Choose "filter" and uncheck NA and blank
+
+
 
 
 
@@ -327,8 +367,8 @@ class: middle, slideblue
 ```{r, results='asis'}
 d |>
   summarize(
-    "Minimum Reported Earnings" = min(earnk2021),
-    "Maximum Reported Earnings" = max(earnk2021)
+    "Minimum Reported Earnings" = min(earnk_adj),
+    "Maximum Reported Earnings" = max(earnk_adj)
   ) |>
   kbl(format = "html", digits = 2, align = 'c') |>
   row_spec(row = 0, bold = TRUE, background = "#ece9e8")
@@ -338,7 +378,7 @@ d |>
 
 ```{r, fig.align='center', fig.retina=3, out.width='70%', fig.width=6, fig.asp=0.618, cache=TRUE}
 d |>
-  ggplot(aes(x = earnk2021)) +
+  ggplot(aes(x = earnk_adj)) +
   geom_histogram(color = "white", bins = 20) +
   theme_bw() +
   labs(x = "Yearly Earnings (2021k)", y = "", title = "Reported Sample Incomes (20 bins)")
@@ -375,12 +415,14 @@ d |>
 
 <br>
 
-```{r, fig.align='center', fig.retina=3, out.width='70%', fig.width=6, fig.asp=0.618, cache=TRUE}
-d |>
-  ggplot(aes(x = gender, y = height)) +
-  geom_boxplot() +
-  theme_bw() +
-  labs(y = "Height (inches)", x = "", title = "Is there a gender difference in height?")
+```{r, echo = FALSE, fig.align = 'center', out.width = '80%'}
+knitr::include_graphics("libs/Images/Session2-Boxes-Gender-Height.png")
+
+# d |>
+#   ggplot(aes(x = gender, y = height)) +
+#   geom_boxplot() +
+#   theme_bw() +
+#   labs(y = "Height (inches)", x = "", title = "Is there a gender difference in height?")
 ```
 
 ???
@@ -408,7 +450,7 @@ class: middle, slideblue
 
 ```{r, fig.align='center', fig.retina=3, out.width='97%', fig.width=7, fig.asp=0.618, cache=TRUE}
 d |>
-  ggplot(aes(x = education, y = earnk2021)) +
+  ggplot(aes(x = education, y = earnk_adj)) +
   geom_point() +
   theme_bw() +
   labs(y = "Yearly Earnings (2021k)", x = "Education (Years)", title = "Is there a relationship between education and reported earnings?")
@@ -453,7 +495,7 @@ Everybody take a minute to review the example on p19 in the book.
 <br>
 
 ### What does each axis represent? 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -476,7 +518,7 @@ background-position: center
 - (An OLS "line of best fit" e.g. the model)
 
 ### So, what is the question this scatter plot is trying to answer? 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -495,7 +537,7 @@ background-position: center
 <br>
 
 ### And what appears to be the answer? 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -578,7 +620,7 @@ Here's the formula for the basketball example in the book.
 <br>
 
 ### How does OLS draw this line through the data points?
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -632,7 +674,7 @@ background-position: center
 
 For the rest of today we practice!
 
-SLIDE: Let's walk through the process of fitting and interpreting a regression model in Excel
+**SLIDE**: Let's walk through the process of fitting and interpreting a regression model in Excel
 
 
 
@@ -642,11 +684,17 @@ SLIDE: Let's walk through the process of fitting and interpreting a regression m
 
 class: middle, center, slideblue
 
+.size60[.content-box-white[**Summarizing a Relationship with OLS**]]
+
+<br>
+
+<br>
+
 .size70[**Is height a useful model of weight in the Ross (1990) sample?**]
 
 ???
 
-Question: Is height a useful model of weight in the Ross (1990) sample?
+**SLIDE**: Before we fit our OLS model, let's visualize the data!
 
 
 
@@ -656,46 +704,10 @@ class: middle, slideblue
 
 .center[.size50[**Is height a useful model of weight in the Ross (1990) sample?**]]
 
-.size45[
-1. Copy data to new sheet
+.size50[
+1. Make a scatterplot of height and weight
 
-2. **Filter** and **sort** by each variable to find missing data
-
-3. **Delete rows** with missing data in any relevant column
-]
-
-???
-
-First step, copy data to working page and remove missing data. 
-
-- Use filter to identify NA / missing data values.
-
-<br>
-
-### Why do we have to do this? 
-- (You can't measure a relationship between two variables if values for one of them are missing.)
-
-<br>
-
-### Is removing 27 respondents a problem for our conclusions? Why or why not?
-
-<br>
-
-SLIDE: Before we fit the regression let's visualize the data!
-
-
-
-
----
-
-class: middle, slideblue
-
-.center[.size50[**Is height a useful model of weight in the Ross (1990) sample?**]]
-
-.size45[
-.center[Visualize the relationship between height and weight]
-
-1. Add linear trend line
+2. Add linear trend line
 
 2. Make the line red and solid
 
@@ -704,15 +716,7 @@ class: middle, slideblue
 
 ???
 
-Visualize Height and Weight as scatter plot. 
-
-- Add a linear trend line, make it solid red and zoom the x axis on the data
-
-<br>
-
-SLIDE: Results
-
-
+(**SLIDE**: Results)
 
 
 ---
@@ -720,7 +724,7 @@ SLIDE: Results
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=6, fig.asp=0.618, cache=TRUE}
 d %>%
   ggplot(aes(x = height, y = weight)) +
-  geom_point(alpha = .2) +
+  geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   theme_bw() +
   labs(x = "Height (in)", y = "Weight (lb)", caption = "Source: Ross (1990)",
@@ -739,8 +743,46 @@ d %>%
 
 The basic trend line added by Excel is an approximation of the OLS line.
 
-So, let's use OLS to get the details about this line.
+- So, let's use OLS to get the details about this line.
 
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size50[.content-box-white[**OLS Step 1: Remove Missing Data**]]]
+
+.pull-left[
+.size35[
+1. Copy data to new sheet
+
+2. **Filter** each variable to find missing data
+
+3. **Delete complete rows** if missing data in any **relevant** column
+]]
+
+.pull-right[
+```{r, echo = FALSE, fig.align = 'center', out.width = '100%'}
+knitr::include_graphics("libs/Images/Session2-Filter_NA_1.png")
+```
+]
+
+???
+
+First step, copy data to working page and remove missing data. 
+
+- Use filter to identify NA / missing data values.
+
+<br>
+
+### Why do we have to do this? 
+- (You can't measure a relationship between two variables if values for one of them are missing.)
+
+<br>
+
+### Is removing 27 respondents a problem for our conclusions? Why or why not?
 
 
 
@@ -871,7 +913,7 @@ First, let's make sure everyone writes this down in their notes.
 
 <br>
 
-SLIDE: The height OLS regression in a report ready table
+**SLIDE**: The height OLS regression in a report ready table
 
 
 
@@ -895,7 +937,7 @@ And here's what the completed table looks like.
 class: middle
 
 .pull-left[
-```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=4.5, fig.asp=1, cache=TRUE}
 d %>%
   ggplot(aes(x = height, y = weight)) +
   geom_point(alpha = .2) +
@@ -915,14 +957,14 @@ stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*
 
 <br>
 
-.center[.size35[**Outcome = Constant + Beta Coefficient * Predictor**]]
+.center[.size40[**Outcome = Constant + Beta Coefficient * Predictor**]]
 
 ???
 
 Now remember, the OLS results are the numbers you need in the formula for a line.
 
 ### What values from the table do we plug into this formula for a line?
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -932,7 +974,7 @@ Now remember, the OLS results are the numbers you need in the formula for a line
 class: middle
 
 .pull-left[
-```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=4.5, fig.asp=1, cache=TRUE}
 d %>%
   ggplot(aes(x = height, y = weight)) +
   geom_point(alpha = .2) +
@@ -950,7 +992,7 @@ stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*
 
 <br>
 
-.center[.size35[**Weight = -173.26 + 4.95 * Height**]]
+.center[.size45[**Weight = -173.26 + 4.95 * Height**]]
 
 ???
 
@@ -965,14 +1007,8 @@ However, the model is really only useful for values inside the data.
 Let's practice.
 
 ### First, what is the average height in the sample data?
-- `r mean(d$height)`
+- (**SLIDE**: `r mean(d$height)`)
 
-### Now, plug in this value for 'height' and tell me what your model predicts for the average weight of a person in this sample of average height?
-- `r predict.lm(res1, newdata = data.frame(height = mean(d$height)))`
-
-### Everybody understand how to use this formula to make predictions based on height?
-
-- SLIDE: Practice
 
 
 ---
@@ -980,60 +1016,33 @@ Let's practice.
 class: middle
 
 .pull-left[
-.size45[
-.center[Calculate point estimates using the following values for height:]
-
-- 25th percentile
-
-- 75th percentile
-]]
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=4.5, fig.asp=1, cache=TRUE}
+d %>%
+  ggplot(aes(x = height, y = weight)) +
+  geom_point(alpha = .02) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  annotate("segment", x = mean(d$height), xend = mean(d$height), y = 75, yend = 156, color = "blue") +
+  annotate("text", x = 68, y = 80, label = "66.6", color = "blue") +
+  annotate("point", x = 66.6, y = 156.2, color = "blue", size = 2) +
+  theme_bw() +
+  labs(x = "Height (in)", y = "Weight (lb)")
+```
+]
 
 .pull-right[
-.size25[
 ```{r, results='asis'}
 stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Constant"), dep.var.labels = "Weight", dep.var.caption = "")
 ```
-]]
-
-???
-
-It can be useful to calculate point estimates for interesting differences in the data as a way to evaluate the effect we are interested in.
-
-### What are the heights in this data that correspond to the 25th and 75th percentiles?
-- (SLIDE)
-
-
-
-
----
-
-class: middle
-
-.pull-left[
+]
 
 <br>
 
-.size40[
-.center[Calculate point estimates using the following values for height:]
-
-- 25th percentile = 64"
-
-- 75th percentile = 70"
-]]
-
-.pull-right[
-.size25[
-```{r, results='asis'}
-stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Constant"), dep.var.labels = "Weight", dep.var.caption = "")
-```
-]]
+.center[.size45[**Weight = -173.26 + 4.95 * (Height = 66.6)**]]
 
 ???
 
-Now, use those values to calculate the estimated weights at the 25th and 75th percentiles?
-
-- (SLIDE)
-
+### Now, plug in this value for 'height' and tell me what your model predicts for the average weight of a person in this sample of average height?
+- (**SLIDE**)
 
 
 
@@ -1042,26 +1051,244 @@ Now, use those values to calculate the estimated weights at the 25th and 75th pe
 class: middle
 
 .pull-left[
-.size45[
-.center[Calculate point estimates using the following values for height:]
-
-- 64" Height = 144lb
-
-- 66" Height = 156lb
-
-- 70" Height = 173lb
-]]
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=4.5, fig.asp=1, cache=TRUE}
+d %>%
+  ggplot(aes(x = height, y = weight)) +
+  geom_point(alpha = .02) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  annotate("segment", x = mean(d$height), xend = mean(d$height), y = 75, yend = 156, color = "blue") +
+  annotate("text", x = 68, y = 80, label = "66.6", color = "blue") +
+  annotate("segment", x = 57, xend = mean(d$height), y = 156, yend = 156, color = "blue") +
+  annotate("point", x = 66.6, y = 156.2, color = "blue", size = 2) +
+  annotate("text", x = 68, y = 80, label = "66.6", color = "blue") +
+  annotate("text", x = 58, y = 165, label = "156.2", color = "blue") +
+  theme_bw() +
+  labs(x = "Height (in)", y = "Weight (lb)")
+```
+]
 
 .pull-right[
-.size25[
 ```{r, results='asis'}
-stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Constant"), dep.var.labels = "Weight", dep.var.caption = "")
+stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.03", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Constant"), dep.var.labels = "Weight", dep.var.caption = "")
 ```
-]]
+]
+
+<br>
+
+.center[.size45[**156.2 = -173.26 + 4.95 * (66.6)**]]
 
 ???
 
-### Everybody get these?
+Prediction: `r predict.lm(res1, newdata = data.frame(height = mean(d$height)))`
+
+<br>
+
+### Does everybody understand how the OLS line attempts to summarize the relationship between these two variables?
+
+We can plug any height value in and the line gives us a prediction of weight based on the data we have.
+
+### Any questions on how to extract the formula for a line from the OLS regression and then to use it to make predictions?
+
+<br>
+
+Let's practice making predictions using our OLS regression.
+
+- **SLIDE**
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Point Estimates to Evaluate Changes in the Predictor**]]]
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=.618, out.width='75%'}
+d |>
+  ggplot(aes(x = height)) +
+  geom_histogram(color = "white", bins = 12) +
+  theme_bw() +
+  labs(x = "Height (inches)", y = "Count") +
+  geom_vline(xintercept = 66.6, color = "red", linewidth = 2)
+```
+
+???
+
+Here is the histogram of heights in the dataset.
+
+We just made a point estimate (prediction) based on the mean value (66.6).
+- That's typically the first place everybody begins making predictions.
+
+- Pretty clearly here that represents the most common height value in the data so seeing what our model predicts for it makes sense
+
+<br>
+
+Our next task is to use our model to evaluate how changes in the predictor translate to changes in the outcome.
+
+- **SLIDE**: Common options...
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Point Estimates to Evaluate Changes in the Predictor**]]]
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=.618, out.width='75%'}
+d |>
+  ggplot(aes(x = height)) +
+  geom_histogram(color = "white", bins = 12) +
+  theme_bw() +
+  labs(x = "Height (inches)", y = "Count",
+       title = "The Range of the Data") +
+  geom_vline(xintercept = 57, color = "red", linewidth = 2) +
+  annotate("text", x = 59, y = 450, label = "57", color = "red", size = 5) +
+  geom_vline(xintercept = 82, color = "red", linewidth = 2) +
+  annotate("text", x = 80, y = 450, label = "82", color = "red", size = 5)
+```
+
+???
+
+One option is to make two point predictions, one for the minimum and one for the maximum heights in the dataset.
+
+<br>
+
+### Under what circumstances would this be useful information?
+
+- Model testing: What are the limits of my model? Do the extreme predictions sound plausible?
+
+- Product design: What are the absolute largest and smallest sizes we need to make sure our product can accommodate?
+
+<br>
+
+Ok, use our model to make these two predictions.
+
+- What is the predicted weight for the shortest and tallest observations in the dataset?
+
+- (**SLIDE**)
+
+
+
+---
+
+class: middle
+
+.center[.size40[.content-box-blue[**Point Estimates to Evaluate Changes in the Predictor**]]]
+
+.pull-left[
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=4.5, fig.asp=1, cache=TRUE}
+preds1 <- predict(res1, newdata = data.frame(height = c(57,82)))
+
+d %>%
+  ggplot(aes(x = height, y = weight)) +
+  geom_point(alpha = .02) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  annotate("segment", x = min(d$height), xend = min(d$height), y = 75, yend = preds1[1], color = "blue") +
+  annotate("point", x = min(d$height), y = preds1[1], color = "blue", size = 2) +
+  annotate("segment", x = max(d$height), xend = max(d$height), y = 75, yend = preds1[2], color = "blue") +
+  annotate("point", x = max(d$height), y = preds1[2], color = "blue", size = 2) +
+  annotate("text", x = min(d$height) + .5, y = preds1[1]+15, label = round(preds1[1],1), color = "blue") +
+  annotate("text", x = max(d$height)-.5, y = preds1[2]+15, label = round(preds1[2],1), color = "blue") +
+  theme_bw() +
+  labs(x = "Height (in)", y = "Weight (lb)")
+```
+]
+
+.pull-right[
+```{r, results='asis'}
+stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.03", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Constant"), dep.var.labels = "Weight", dep.var.caption = "")
+```
+]
+
+???
+
+### Everybody get these results?
+
+<br>
+
+Assuming our sample is representative of all Americans today then this would give us our range of possible weights!
+
+- I'm guessing this data is pretty outdated 33 years later.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Point Estimates to Evaluate Changes in the Predictor**]]]
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=.618, out.width='75%'}
+d |>
+  ggplot(aes(x = height)) +
+  geom_histogram(color = "white", bins = 12) +
+  theme_bw() +
+  labs(x = "Height (inches)", y = "Count",
+       title = "The Interquartile Range of the Data") +
+  geom_vline(xintercept = 64, color = "red", linewidth = 2) +
+  geom_vline(xintercept = 69, color = "red", linewidth = 2) +
+  annotate("text", x = 62, y = 450, label = "64", color = "red", size = 5) +
+  annotate("text", x = 71, y = 450, label = "69", color = "red", size = 5)
+```
+
+???
+
+A second option is to make two point predictions on a narrower slice of the data.
+- We don't meet a lot of extremes day to day, so let's go with a narrower slice of the data: 25th to 75th percentile
+
+<br>
+
+### Under what circumstances would this be useful information?
+
+- 50% of the population between these two values so much more likely to encounter these weights.
+
+<br>
+
+Go for it!
+
+
+
+---
+
+class: middle
+
+.center[.size40[.content-box-blue[**Point Estimates to Evaluate Changes in the Predictor**]]]
+
+.pull-left[
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=4.5, fig.asp=1, cache=TRUE}
+preds2 <- predict(res1, newdata = data.frame(height = c(64,69)))
+
+d %>%
+  ggplot(aes(x = height, y = weight)) +
+  geom_point(alpha = .02) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  annotate("segment", x = 64, xend = 64, y = 75, yend = preds2[1], color = "blue") +
+  annotate("point", x = 64, y = preds2[1], color = "blue", size = 2) +
+  annotate("segment", x = 69, xend = 69, y = 75, yend = preds2[2], color = "blue") +
+  annotate("point", x = 69, y = preds2[2], color = "blue", size = 2) +
+  annotate("text", x = 64, y = preds2[1]+15, label = round(preds2[1],1), color = "blue") +
+  annotate("text", x = 69, y = preds2[2]+15, label = round(preds2[2],1), color = "blue") +
+  theme_bw() +
+  labs(x = "Height (in)", y = "Weight (lb)")
+```
+]
+
+.pull-right[
+```{r, results='asis'}
+stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*p < 0.03", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Constant"), dep.var.labels = "Weight", dep.var.caption = "")
+```
+]
+
+???
+
+### Everybody get these results?
 
 <br>
 
@@ -1083,7 +1310,7 @@ class: middle
 <br>
 
 .pull-left[
-```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=5, fig.asp=0.8, cache=TRUE}
+```{r, fig.align='center', fig.retina=3, out.width='100%', fig.width=4.5, fig.asp=1, cache=TRUE}
 d %>%
   ggplot(aes(x = height, y = weight)) +
   geom_point(alpha = .2) +
@@ -1103,11 +1330,13 @@ stargazer(res1, type = "html", omit.stat = "rsq", star.cutoffs = .05, notes = "*
 
 ### Any questions on the basics of fitting an OLS regression in Excel?
 
+### How to translate Excel output into this style of professional table?
+
 ### Or how to make point estimates using the OLS results?
 
 <br>
 
-SLIDE: Let's practice!
+**SLIDE**: Let's practice!
 
 
 
@@ -1121,13 +1350,13 @@ class: middle, slideblue
 <br>
 
 .size45[
-Analyze the following three relationships using a scatterplot **AND** the OLS method
+Make a scatterplot and write the formula for a line:
 
-- Model 1: Regress earnk2021 on height
+- Model 1: Regress earnk_adj on height
 
-- Model 2: Regress earnk2021 on age
+- Model 2: Regress earnk_adj on age
 
-- Model 3: Regress earnk2021 on education
+- Model 3: Regress earnk_adj on education
 ]
 
 ???
@@ -1165,12 +1394,16 @@ d %>%
   facet_wrap(~ Predictor, scales = "free") +
   theme_bw() +
     labs(x = "", y = "Yearly Income (Thousands 2021 USD)", caption = "Source: Ross (1990)")
+
+res1 <- lm(data = d, earnk_adj ~ age)
+res2 <- lm(data = d, earnk_adj ~ education)
+res3 <- lm(data = d, earnk_adj ~ height)
 ```
 
 .size45[
-- Income = 33.17 + 0.22 * Age
-- Income = -31.34 + 5.57 * Education
-- Income = -162.54 + 3.08 * Height
+- Income = `r as.numeric(round(coef(res1)[1], 2))` + `r as.numeric(round(coef(res1)[2], 2))` * Age
+- Income = `r as.numeric(round(coef(res2)[1], 2))` + `r as.numeric(round(coef(res2)[2], 2))` * Education
+- Income = `r as.numeric(round(coef(res3)[1], 2))` + `r as.numeric(round(coef(res3)[2], 2))` * Height
 ]
 
 ???
@@ -1194,7 +1427,7 @@ d %>%
 
 <br>
 
-SLIDE: Let's explore what the other statistics in our regression tables tell us about how well these models fit the data.
+**SLIDE**: Let's explore what the other statistics in our regression tables tell us about how well these models fit the data.
 
 
 
@@ -1288,9 +1521,9 @@ class: middle
 .pull-right[
 ```{r, results='asis'}
 # Simple Regression Options
-res1 <- d %>% lm(data = ., earnk2021 ~ height)
-res2 <- d %>% lm(data = ., earnk2021 ~ age)
-res3 <- d %>% lm(data = ., earnk2021 ~ education)
+res1 <- d %>% lm(data = ., earnk_adj ~ height)
+res2 <- d %>% lm(data = ., earnk_adj ~ age)
+res3 <- d %>% lm(data = ., earnk_adj ~ education)
 
 stargazer(res1, res2, res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Height", "Age", "Education", "Constant"), dep.var.labels = "Earnings (Thousands)", dep.var.caption = "", type = "html")
 ```
@@ -1351,7 +1584,7 @@ The 'alternative' refers to a hypothesis that the predictor and the outcome are 
 
 <br>
 
-SLIDE: The 'null' refers to a hypothesis that the two things are not related at all.
+**SLIDE**: The 'null' refers to a hypothesis that the two things are not related at all.
 
 
 
@@ -1394,7 +1627,7 @@ Let's look at the data and see if we can tell which hypothesis is more consisten
 
 ### - How have you visualized the data thus far?
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -1403,7 +1636,7 @@ Let's look at the data and see if we can tell which hypothesis is more consisten
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=7, fig.asp=0.618, cache=TRUE}
 # Significant example
 d %>%
-  ggplot(aes(x = education, y = earnk2021)) +
+  ggplot(aes(x = education, y = earnk_adj)) +
   geom_jitter(width = 0, height = 0, alpha = .25) +
   geom_smooth(method = "lm", se = FALSE) +
   theme_bw() +
@@ -1421,7 +1654,7 @@ d %>%
 
 ### - What kind of line do we draw to show an expectation that there is no relationship between education and earnings?
 
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -1437,7 +1670,7 @@ class: middle
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=5, fig.asp=0.8, cache=TRUE}
 # Significant example
 d %>%
-  ggplot(aes(x = education, y = earnk2021)) +
+  ggplot(aes(x = education, y = earnk_adj)) +
   geom_jitter(width = 0, height = 0, alpha = .25) +
   geom_smooth(method = "lm", se = FALSE) +
   theme_bw() +
@@ -1449,9 +1682,9 @@ d %>%
 .pull-right[
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=5, fig.asp=0.8, cache=TRUE}
 d %>%
-  ggplot(aes(x = education, y = earnk2021)) +
+  ggplot(aes(x = education, y = earnk_adj)) +
   geom_jitter(width = 0, height = 0, alpha = .25) +
-  geom_hline(yintercept = mean(d$earnk2021), color = "red") +
+  geom_hline(yintercept = mean(d$earnk_adj), color = "red") +
   theme_bw() +
   #coord_cartesian(ylim = c(-10, 100)) +
   labs(x = "Education (years)", y = "Earnings (2021 USD)", title = "Null Hypothesis")
@@ -1472,7 +1705,7 @@ In short, the test of statistical significance asks which of these two lines bet
 
 The good news is, we don't have to eye-ball it.
 
-SLIDE: The bad news is that the test itself isn't quite this intuitive...
+**SLIDE**: The bad news is that the test itself isn't quite this intuitive...
 
 
 
@@ -1484,8 +1717,8 @@ class: middle, slideblue
 
 <br>
 
-```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education2.png')
+```{r, fig.align='center', out.width='93%'}
+knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_red_outline.png')
 ```
 
 ???
@@ -1510,12 +1743,12 @@ So, remember the coefficients are the estimated values in our formula for a line
 
 class: middle, slideblue
 
-.size65[.center[**The Standard Error**]]
+.size65[.center[.content-box-white[**The Standard Error**]]]
 
 <br>
 
 ```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3a.png')
+knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_std_error.png')
 ```
 
 <br>
@@ -1526,7 +1759,7 @@ knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3a.png')
 
 The standard error is an attempt to represent the uncertainty in our coefficient estimates.
 
-- SLIDE: Think of this like the standard deviation we calculate for any list of numbers.
+- **SLIDE**: Think of this like the standard deviation we calculate for any list of numbers.
 
 
 
@@ -1581,7 +1814,7 @@ Here we see two histograms of different lists of numbers.
 class: middle, slideblue, size35
 
 ```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3a.png')
+knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_std_error.png')
 ```
 
 ```{r, fig.retina=3, fig.align='center', fig.asp=0.45, fig.width=8, out.width='100%', cache=TRUE}
@@ -1621,7 +1854,7 @@ The standard error works like this for the regression estimates.
 
 ### Out of curiosity, which plot better represents our actual regression results?
 
-(SLIDE)
+(**SLIDE**)
 
 
 ---
@@ -1629,7 +1862,7 @@ The standard error works like this for the regression estimates.
 class: middle, slideblue, size35
 
 ```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3a.png')
+knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_std_error.png')
 ```
 
 ```{r, fig.retina=3, fig.align='center', fig.asp=0.45, fig.width=8, out.width='100%', cache=TRUE}
@@ -1678,12 +1911,12 @@ Our actual estimated SE is tiny!
 
 class: middle, slideblue
 
-.size65[.center[**Calculating the T-Statistic**]]
+.size65[.center[.content-box-white[**Calculating the T-Statistic**]]]
 
 <br>
 
 ```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3b.png')
+knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_t_stat.png')
 ```
 
 <br>
@@ -1816,7 +2049,7 @@ Let's say we want to be more careful than that, so we bump it to 75%
 <br>
 
 ### Does anybody know what we conventionally use as our threshold of significance in statistics?
-- (SLIDE: 95%)
+- (**SLIDE**: 95%)
 
 
 
@@ -1893,7 +2126,7 @@ In our education example we see our coefficient estimate is 15 SE units away fro
 
 - That's a long, long way out there!
 
-SLIDE: Of course, nobody really communicates in SE units, so let's convert those into probabilities!
+**SLIDE**: Of course, nobody really communicates in SE units, so let's convert those into probabilities!
 
 
 
@@ -1902,12 +2135,15 @@ SLIDE: Of course, nobody really communicates in SE units, so let's convert those
 
 class: middle, slideblue
 
-.size65[.center[**The P-Value**]]
+.size65[.center[.content-box-white[**The P-Value**]]]
 
 <br>
 
 ```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-Excel_Output_Education3c.png')
+knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_p_value.png')
+
+res3 <- lm(data = d, earnk_adj ~ education)
+# summary(res3)
 ```
 
 <br>
@@ -1924,6 +2160,8 @@ The p-value in an OLS regression table is presented in the other direction, e.g.
 - In other words, the smaller the p-value the better
 
 - So, giving the null hypothesis a 95% chance of winning is 1 - .95 = 0.05, e.g. a 5% test.
+
+- Excel here is rounding to 2 digits. I have an estimate of something like 2e-16
 
 ### Make sense?
 
@@ -1942,17 +2180,38 @@ Key takeaway: Researchers have come to accept that any p-value smaller than 5% (
 ### What questions do you have about this chain of steps that start with a coefficient and end with a probability?
 
 
+
 ---
 
-background-image: url('libs/Images/Session2-Simple_OLS7.png')
-background-size: 100%
-background-position: center
+class: middle, slideblue
+
+```{r, fig.align='center', out.width='93%'}
+knitr::include_graphics('libs/Images/Session2-OLS-Education1-coef.png')
+```
+
+.pull-left[
+.size25[
+```{r, results='asis'}
+stargazer(res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05, notes = "*p < 0.05", notes.append = FALSE, digits = 2, covariate.labels = c("Education", "Constant"), dep.var.labels = "Earnings (2021)", dep.var.caption = "", type = "html")
+```
+]]
+
+.pull-right[
+```{r, fig.retina=3, fig.align='center', out.width='100%', fig.asp=.8, fig.width=5}
+ggplot(data = d, aes(x = education, y = earnk_adj)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_hline(yintercept = mean(d$earnk_adj), color = "red") +
+  theme_bw() +
+  labs(x = "Education", y = "Yearly Earnings (Adjusted)")
+```
+]
 
 ???
 
 Let's put it all together.
 
-Here are the Excel results, the properly fomratted regression table and the scatter plot.
+Here are the Excel and the scatter plot.
 
 - These p-values are both below 0.05 so we say that the blue line fits the data better than the red line.
 
@@ -1970,17 +2229,19 @@ So, when formatting a regression table the expectation is that you will include 
 
 <br>
 
-SLIDE: Let me show you a not significant result as a comparison.
+**SLIDE**: Let me show you a not significant result as a comparison.
 
 
 ---
 
-```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=8, fig.asp=0.618, cache=TRUE}
+class: middle, slideblue
+
+```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=7, fig.asp=0.618, cache=TRUE}
 d %>%
-  ggplot(aes(x = smokenow, y = earnk2021)) +
+  ggplot(aes(x = smokenow, y = earnk_adj)) +
   geom_jitter(width = .1, height = 0, alpha = .35) +
   geom_smooth(method = "lm", se = FALSE, size = 1.1) +
-  geom_segment(x = 1, xend = 2, y = mean(d$earnk2021), yend = mean(d$earnk2021), color = "red") +
+  geom_segment(x = 1, xend = 2, y = mean(d$earnk_adj), yend = mean(d$earnk_adj), color = "red") +
   theme_bw() +
   labs(x = "", y = "Yearly Income (Thousands USD)", title = "Alternative vs the Null Hypothesis") +
   scale_x_continuous(breaks = c(1,2), labels = c("Smoker", "Non-Smoker"), limits = c(0.75,2.25))
@@ -1996,9 +2257,22 @@ It should be clear to see from the lines that the red and blue lines overlap con
 
 ---
 
-background-image: url('libs/Images/Session2-Null_Hypothesis.png')
-background-size: 100%
-background-position: center
+class: middle, slideblue
+
+```{r, fig.align='center', out.width='93%'}
+knitr::include_graphics('libs/Images/Session2-Non_Smoker_OLS_2.png')
+```
+
+```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=6, fig.asp=0.618, cache=TRUE}
+d %>%
+  ggplot(aes(x = smokenow, y = earnk_adj)) +
+  geom_jitter(width = .1, height = 0, alpha = .35) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.1) +
+  geom_segment(x = 1, xend = 2, y = mean(d$earnk_adj), yend = mean(d$earnk_adj), color = "red") +
+  theme_bw() +
+  labs(x = "", y = "Yearly Income (Thousands USD)", title = "Alternative vs the Null Hypothesis") +
+  scale_x_continuous(breaks = c(1,2), labels = c("Smoker", "Non-Smoker"), limits = c(0.75,2.25))
+```
 
 ???
 
@@ -2066,9 +2340,9 @@ Evaluation Step 3: Coefficient of Determination
 
 <br>
 
-- SLIDE: Example of high R2
+- **SLIDE**: Example of high R2
 
-- SLIDE: Example of low R2
+- **SLIDE**: Example of low R2
 
 
 
@@ -2401,7 +2675,7 @@ stargazer(res1, res2, res3, omit.stat = c("rsq", "ser", "f"), star.cutoffs = .05
 class: middle, slideblue
 
 .size60[
-.center[**Which is a better model of personal income (earnk2021)**:]
+.center[**Which is a better model of personal income (earnk_adj)**:]
 
 1. Mother's education level, or
 
@@ -2412,7 +2686,7 @@ class: middle, slideblue
 
 Class Practice: Which is a better model of personal income (earnk): Mother's education level, or Personal exercise
 
-- SLIDE: first step...
+- **SLIDE**: first step...
 
 
 
@@ -2422,7 +2696,7 @@ Class Practice: Which is a better model of personal income (earnk): Mother's edu
 class: middle, slideblue
 
 .size45[
-.center[**Which is a better model of personal income (earnk2021)**:]
+.center[**Which is a better model of personal income (earnk_adj)**:]
 
 1. Mother's education level, or
 2. Personal exercise
@@ -2435,7 +2709,7 @@ class: middle, slideblue
 
 ???
 
-- SLIDE: Scatter plots and table
+- **SLIDE**: Scatter plots and table
 
 
 
@@ -2444,16 +2718,16 @@ class: middle, slideblue
 .pull-left[
 ```{r, fig.align='center', fig.retina=3, out.width='90%', fig.width=5, fig.asp=1.4, cache=TRUE}
 # Which is a better model of earnings: Mother's education or Father's education
-res1 <- d %>% lm(data = ., earnk2021 ~ mother_education)
-res2 <- d %>% lm(data = ., earnk2021 ~ exercise)
+res1 <- d %>% lm(data = ., earnk_adj ~ mother_education)
+res2 <- d %>% lm(data = ., earnk_adj ~ exercise)
 
 d %>%
-  select(earnk2021, mother_education, exercise) %>%
+  select(earnk_adj, mother_education, exercise) %>%
   pivot_longer(cols = mother_education:exercise, names_to = "Predictor", values_to = "Values") %>%
   mutate(
     Predictor = if_else(Predictor == "mother_education", "Mother's Education", "Strenuous Exercise")
   ) %>%
-  ggplot(aes(x = Values, y = earnk2021)) +
+  ggplot(aes(x = Values, y = earnk_adj)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   facet_wrap(~ Predictor, scales = "free", ncol = 1) +
@@ -2479,7 +2753,7 @@ stargazer(res1, res2, type = "html", omit.stat = c("rsq", "ser", "f"), star.cuto
 
 ### Any concerns raised by the four evaluation steps?
 
-- SLIDE: Residual plots
+- **SLIDE**: Residual plots
 
 
 
@@ -2526,7 +2800,7 @@ d %>%
 class: middle, slideblue
 
 .size45[
-.center[**Which is a better model of personal income (earnk2021)**:]
+.center[**Which is a better model of personal income (earnk_adj)**:]
 
 1. Mother's education level, or
 2. Personal exercise
