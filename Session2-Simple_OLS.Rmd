@@ -1531,6 +1531,10 @@ stargazer(res1, res2, res3, omit.stat = c("rsq", "f", "ser"), star.cutoffs = .05
 
 ???
 
+*Note: Just the intuitions today, deeper dive next class*
+
+<br>
+
 Let's talk about the second step in our evaluation process: statistical significance.
 
 - e.g. the little stars on the coefficients in the regression results table
@@ -1705,7 +1709,7 @@ In short, the test of statistical significance asks which of these two lines bet
 
 The good news is, we don't have to eye-ball it.
 
-**SLIDE**: The bad news is that the test itself isn't quite this intuitive...
+- **SLIDE**: The bad news is that the test itself isn't quite this intuitive...
 
 
 
@@ -1727,16 +1731,11 @@ Let's root ourselves here back in the Excel regression output and focus on the c
 
 - Each coefficient is provided along with a series of statistical measures
 
-<br>
-
-### Remind me, what does the coefficient on education represent? How do we interpret it?
-
-### And what about the coefficient on the intercept?
+- Remember, the coefficients are the pieces we plug into the formula for a line.
 
 <br>
 
-So, remember the coefficients are the estimated values in our formula for a line and our job in evaluation step 2 is to ask if these estimates are "statistically significant."
-
+- **SLIDE**: The standard error
 
 
 ---
@@ -1759,7 +1758,10 @@ knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_std_error.png'
 
 The standard error is an attempt to represent the uncertainty in our coefficient estimates.
 
-- **SLIDE**: Think of this like the standard deviation we calculate for any list of numbers.
+<br>
+
+**SLIDE**: Think of this like the standard deviation.
+
 
 
 
@@ -1787,15 +1789,13 @@ tibble(
 
 ???
 
-The standard deviation tells you how far from the mean the values in any list of numbers are on average.
-
-- If the mean is the "correct" answer, the sd tells you how far off these numbers tend to be.
+The standard deviation is a measure of the spread of a series of data points around the mean.
 
 <br>
 
-Here we see two histograms of different lists of numbers.
+Here I am showing you two histograms for made-up data
 
-- In both lists, the mean is the most common value but the rest of the numbers are spread around it.
+- In both cases the distributions are somewhat normal around the average value.
 
 - On the left we see a distribution with a large standard deviation
     - A big sd means the numbers are very spread out and any single number you select from the list may be very far from the mean
@@ -1852,57 +1852,9 @@ The standard error works like this for the regression estimates.
 
 ### Does this make sense?
 
-### Out of curiosity, which plot better represents our actual regression results?
-
-(**SLIDE**)
-
-
----
-
-class: middle, slideblue, size35
-
-```{r, fig.align='center'}
-knitr::include_graphics('libs/Images/Session2-OLS-Full-Education1_std_error.png')
-```
-
-```{r, fig.retina=3, fig.align='center', fig.asp=0.45, fig.width=8, out.width='100%', cache=TRUE}
-tibble(
-  x1 = rnorm(n = 5000, mean = 5.57, sd = 0.362),
-  x2 = rnorm(n = 5000, mean = 5.57, sd = 6)
-) |>
-  pivot_longer(cols = x1:x2, names_to = "Vars", values_to = "Values") |>
-  mutate(
-    Vars = if_else(Vars == "x1", "1. Estimated Standard Error (0.36)", "2. Large Standard Error (6)")
-  ) |>
-  ggplot(aes(x = Values)) +
-  geom_histogram(bins = 15, color = "white") +
-  facet_wrap(~Vars, scales = "free") +
-  geom_vline(xintercept = 5.57, color = "red", lwd = 1.25) +
-  theme_bw() +
-  labs(x = "", y = "")
-  #scale_x_continuous(breaks = c(-10, 0, 5.57, 10, 20), labels = c("-10", "0", "\u03B2", "10", "20"))
-```
-
-???
-
-Our actual estimated SE is tiny!
-- These histograms use the SE to simulate our whole analysis 5,000 times.
-
-### What do we notice when comparing these two histograms? Perhaps something related to the null hypothesis?
-
-### Focusing just on the histogram that uses our actual SE, what can we say about the education coefficient across all 5,000 simulations?
-- (Basically every single simulation produced an estimate of the coefficient between 4.5 and 6.5!)
-    - We should feel super confident about our estimate!
-    
-### And what do we learn from the 5,000 simulations with the large SE?
-- (Results show a HUGE range; estimates vary from -10 to above 20!)
-- (AND a bunch of the estimates are 0, e.g. the null hypothesis!)
-- (AND a bunch of results are NEGATIVE meaning more education lowers your earnings!)
-
-### Does this make sense? Any questions on how to interpret the SE?
+<br>
 
 **SLIDE:** Now, with an estimate of the coefficient and a measure of the error we can try to measure the probability that our alternative hypothesis beats the null hypothesis.
-
 
 
 
@@ -1932,14 +1884,24 @@ T-statistic = $\frac{\text{coefficient}}{\text{standard error}}$
 
 ???
 
-The t-statistic gives us a statistical method for determining if our model estimates are likely to be significant, rather than having to visualize thousands of simulations.
+The t-statistic is calculated by dividing the estimated coefficient by the standard error.
 
-- Calculated by dividing the estimated coefficient by the standard error
+- In other words, the t-statistic rescales the coefficient to be in the terms of the SE.
+
+- So, the education coefficient only has meaning in terms of years (e.g. 1 year of education increases earnings on average by $6.5k)
+
+- BUT, the education t-value only has meaning in terms of the error (e.g. the education coefficient is 15.36 SEs away from zero).
 
 <br>
 
-This converts our estimates into a new number, called a t-statistic, which represents the number of error units between zero (the null hypothesis) and our estimate (the alternative hypothesis).
+### And why is the distance from zero useful for us to know?
+- (The null hypothesis is a beta of zero!)
 
+- The farther away from zero, the less likely the null hypothesis beats our alternative hypothesis
+
+<br>
+
+**SLIDE**: And how far from zero do we have to go to be "significant"?
 
 
 
@@ -1962,94 +1924,13 @@ distdata |>
 
 ???
 
-It turns out that t-scores can be evaluated using the Student's t-distribution which is approximately normal in shape and can be estimated using degrees of freedom when you don't know the actual underlying standard deviation.
+We can visualize t-scores using the Student's t-distribution
 
 - Here we see a density curve of the Student's t with 1800 degrees of freedom (approximately the size of our survey sample).
 
 - Think of this like a histogram but instead of counting bins it represents probabilities.
 
 - The entire area under the curve equals 100% of all possible coefficient estimates.
-
-<br>
-
-We can use this distribution to evaluate our model's t-statistic and it will tell us how likely we are to get our results IF THE NULL HYPOTHESIS IS TRUE.
-
-
-
-
----
-
-```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
-## Visualize the t-distribution
-
-## 50% interval
-dist50 <- distdata |>
-  filter(x >= qt(p = .25, df = 1800) & x <= qt(p = .75, df = 1800))
-
-distdata |>
-  ggplot(aes(x = x, y = y)) +
-  geom_line() +
-  
-  theme_bw() +
-  labs(x = "Estimated t-Score", y = "",
-       title = "Student's t-Distribution: 50% of Outcomes") +
-  geom_ribbon(data = dist50, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
-  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
-  annotate("text", x = 1, y = .025, label = "+0.67") +
-  annotate("text", x = -1, y = .025, label = "-0.67")
-```
-
-???
-
-The Student's t allows us to make projections based on a world where the null hypothesis is true.
-
-<br>
-
-For example, let's say we could re-run our survey 1000 times with 1000 different samples.
-
-- The t distribution tells us that in half of the new surveys the coefficient on education would have a t-statistic between -.67 and +.67.
-
-- In other words, assuming the null is true and education has ZERO effect on earnings we would expect to find half of our surveys give results in this blue area.
-    - This blue area, therefore, represents results mostly indistinguishable from zero.
-
-
-
----
-
-```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
-## Visualize the t-distribution
-
-## 75% interval
-dist75 <- distdata |>
-  filter(x >= qt(p = .125, df = 1800) & x <= qt(p = .875, df = 1800))
-
-distdata |>
-  ggplot(aes(x = x, y = y)) +
-  geom_line() +
-  
-  theme_bw() +
-  labs(x = "Estimated t-Score", y = "",
-       title = "Student's t-Distribution: 75% of Outcomes") +
-  geom_ribbon(data = dist75, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
-  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
-  annotate("text", x = 1.5, y = .025, label = "+1.15") +
-  annotate("text", x = -1.5, y = .025, label = "-1.15")
-```
-
-???
-
-Let's say we want to be more careful than that, so we bump it to 75%
-
-- Here we see that 75% of the new surveys would produce education t-stats between -1.15 and 1.15.
-
-- So, a result above or below those numbers would be different than 75% of the null results.
-
-### Making some sense?
-
-<br>
-
-### Does anybody know what we conventionally use as our threshold of significance in statistics?
-- (**SLIDE**: 95%)
 
 
 
@@ -2078,12 +1959,20 @@ distdata |>
 
 ???
 
-So, we run 1,000 new analyses using our current research plan and we would expect 95% of the education t-stats to be between -2 and 2 ASSUMING THE NULL HYPOTHESIS IS TRUE.
+The Student's t allows us to make projections based on a world where the null hypothesis is true.
 
-- In other words, assuming a null hypothesis world you should almost never see a t-score on education above 2!
+- The red vertical line in the middle is the null hypothesis (beta = 0) and the shaded region is an estimate of possible t-values that are 95% possible IF THE NULL HYPOTHESIS IS TRUE.
+
+<br>
+
+So, in a world where education has ZERO effect on earnings we would expect our regression coefficient to have a t-value between -1.96 and +1.96
+
+- That represents 95% confidence in this case.
+
+<br>
 
 ### And what is the t-stat we estimated in our regression?
-- (SLIDE)
+- (**SLIDE**)
 
 
 
@@ -2112,19 +2001,11 @@ distdata |>
 
 ???
 
-And this is the intuition behind the check for statistical significance.
-
-<br>
-
-Typically we assume that t-statistics above 2 or below -2 are far enough away from zero to be meaningful (e.g. "statistically significant").
-
-- In other words, estimates that are at least two error units away from zero are probably pretty good.
-
-<br>
-
 In our education example we see our coefficient estimate is 15 SE units away from zero.
 
 - That's a long, long way out there!
+
+<br>
 
 **SLIDE**: Of course, nobody really communicates in SE units, so let's convert those into probabilities!
 

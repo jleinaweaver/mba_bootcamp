@@ -1687,6 +1687,10 @@ class: middle
 
 ???
 
+*Note: Just the intuitions today, deeper dive next class*
+
+&lt;br&gt;
+
 Let's talk about the second step in our evaluation process: statistical significance.
 
 - e.g. the little stars on the coefficients in the regression results table
@@ -1853,7 +1857,7 @@ In short, the test of statistical significance asks which of these two lines bet
 
 The good news is, we don't have to eye-ball it.
 
-**SLIDE**: The bad news is that the test itself isn't quite this intuitive...
+- **SLIDE**: The bad news is that the test itself isn't quite this intuitive...
 
 
 
@@ -1873,16 +1877,11 @@ Let's root ourselves here back in the Excel regression output and focus on the c
 
 - Each coefficient is provided along with a series of statistical measures
 
-&lt;br&gt;
-
-### Remind me, what does the coefficient on education represent? How do we interpret it?
-
-### And what about the coefficient on the intercept?
+- Remember, the coefficients are the pieces we plug into the formula for a line.
 
 &lt;br&gt;
 
-So, remember the coefficients are the estimated values in our formula for a line and our job in evaluation step 2 is to ask if these estimates are "statistically significant."
-
+- **SLIDE**: The standard error
 
 
 ---
@@ -1903,7 +1902,10 @@ class: middle, slideblue
 
 The standard error is an attempt to represent the uncertainty in our coefficient estimates.
 
-- **SLIDE**: Think of this like the standard deviation we calculate for any list of numbers.
+&lt;br&gt;
+
+**SLIDE**: Think of this like the standard deviation.
+
 
 
 
@@ -1915,15 +1917,13 @@ class: slideblue, middle, full
 
 ???
 
-The standard deviation tells you how far from the mean the values in any list of numbers are on average.
-
-- If the mean is the "correct" answer, the sd tells you how far off these numbers tend to be.
+The standard deviation is a measure of the spread of a series of data points around the mean.
 
 &lt;br&gt;
 
-Here we see two histograms of different lists of numbers.
+Here I am showing you two histograms for made-up data
 
-- In both lists, the mean is the most common value but the rest of the numbers are spread around it.
+- In both cases the distributions are somewhat normal around the average value.
 
 - On the left we see a distribution with a large standard deviation
     - A big sd means the numbers are very spread out and any single number you select from the list may be very far from the mean
@@ -1962,39 +1962,9 @@ The standard error works like this for the regression estimates.
 
 ### Does this make sense?
 
-### Out of curiosity, which plot better represents our actual regression results?
-
-(**SLIDE**)
-
-
----
-
-class: middle, slideblue, size35
-
-&lt;img src="libs/Images/Session2-OLS-Full-Education1_std_error.png" style="display: block; margin: auto;" /&gt;
-
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-47-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-???
-
-Our actual estimated SE is tiny!
-- These histograms use the SE to simulate our whole analysis 5,000 times.
-
-### What do we notice when comparing these two histograms? Perhaps something related to the null hypothesis?
-
-### Focusing just on the histogram that uses our actual SE, what can we say about the education coefficient across all 5,000 simulations?
-- (Basically every single simulation produced an estimate of the coefficient between 4.5 and 6.5!)
-    - We should feel super confident about our estimate!
-    
-### And what do we learn from the 5,000 simulations with the large SE?
-- (Results show a HUGE range; estimates vary from -10 to above 20!)
-- (AND a bunch of the estimates are 0, e.g. the null hypothesis!)
-- (AND a bunch of results are NEGATIVE meaning more education lowers your earnings!)
-
-### Does this make sense? Any questions on how to interpret the SE?
+&lt;br&gt;
 
 **SLIDE:** Now, with an estimate of the coefficient and a measure of the error we can try to measure the probability that our alternative hypothesis beats the null hypothesis.
-
 
 
 
@@ -2022,14 +1992,64 @@ T-statistic = `\(\frac{\text{coefficient}}{\text{standard error}}\)`
 
 ???
 
-The t-statistic gives us a statistical method for determining if our model estimates are likely to be significant, rather than having to visualize thousands of simulations.
+The t-statistic is calculated by dividing the estimated coefficient by the standard error.
 
-- Calculated by dividing the estimated coefficient by the standard error
+- In other words, the t-statistic rescales the coefficient to be in the terms of the SE.
+
+- So, the education coefficient only has meaning in terms of years (e.g. 1 year of education increases earnings on average by $6.5k)
+
+- BUT, the education t-value only has meaning in terms of the error (e.g. the education coefficient is 15.36 SEs away from zero).
 
 &lt;br&gt;
 
-This converts our estimates into a new number, called a t-statistic, which represents the number of error units between zero (the null hypothesis) and our estimate (the alternative hypothesis).
+### And why is the distance from zero useful for us to know?
+- (The null hypothesis is a beta of zero!)
 
+- The farther away from zero, the less likely the null hypothesis beats our alternative hypothesis
+
+&lt;br&gt;
+
+**SLIDE**: And how far from zero do we have to go to be "significant"?
+
+
+
+---
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-47-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+We can visualize t-scores using the Student's t-distribution
+
+- Here we see a density curve of the Student's t with 1800 degrees of freedom (approximately the size of our survey sample).
+
+- Think of this like a histogram but instead of counting bins it represents probabilities.
+
+- The entire area under the curve equals 100% of all possible coefficient estimates.
+
+
+
+
+---
+
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-48-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+???
+
+The Student's t allows us to make projections based on a world where the null hypothesis is true.
+
+- The red vertical line in the middle is the null hypothesis (beta = 0) and the shaded region is an estimate of possible t-values that are 95% possible IF THE NULL HYPOTHESIS IS TRUE.
+
+&lt;br&gt;
+
+So, in a world where education has ZERO effect on earnings we would expect our regression coefficient to have a t-value between -1.96 and +1.96
+
+- That represents 95% confidence in this case.
+
+&lt;br&gt;
+
+### And what is the t-stat we estimated in our regression?
+- (**SLIDE**)
 
 
 
@@ -2039,96 +2059,11 @@ This converts our estimates into a new number, called a t-statistic, which repre
 
 ???
 
-It turns out that t-scores can be evaluated using the Student's t-distribution which is approximately normal in shape and can be estimated using degrees of freedom when you don't know the actual underlying standard deviation.
-
-- Here we see a density curve of the Student's t with 1800 degrees of freedom (approximately the size of our survey sample).
-
-- Think of this like a histogram but instead of counting bins it represents probabilities.
-
-- The entire area under the curve equals 100% of all possible coefficient estimates.
-
-&lt;br&gt;
-
-We can use this distribution to evaluate our model's t-statistic and it will tell us how likely we are to get our results IF THE NULL HYPOTHESIS IS TRUE.
-
-
-
-
----
-
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-50-1.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-???
-
-The Student's t allows us to make projections based on a world where the null hypothesis is true.
-
-&lt;br&gt;
-
-For example, let's say we could re-run our survey 1000 times with 1000 different samples.
-
-- The t distribution tells us that in half of the new surveys the coefficient on education would have a t-statistic between -.67 and +.67.
-
-- In other words, assuming the null is true and education has ZERO effect on earnings we would expect to find half of our surveys give results in this blue area.
-    - This blue area, therefore, represents results mostly indistinguishable from zero.
-
-
-
----
-
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-51-1.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-???
-
-Let's say we want to be more careful than that, so we bump it to 75%
-
-- Here we see that 75% of the new surveys would produce education t-stats between -1.15 and 1.15.
-
-- So, a result above or below those numbers would be different than 75% of the null results.
-
-### Making some sense?
-
-&lt;br&gt;
-
-### Does anybody know what we conventionally use as our threshold of significance in statistics?
-- (**SLIDE**: 95%)
-
-
-
-
----
-
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-52-1.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-???
-
-So, we run 1,000 new analyses using our current research plan and we would expect 95% of the education t-stats to be between -2 and 2 ASSUMING THE NULL HYPOTHESIS IS TRUE.
-
-- In other words, assuming a null hypothesis world you should almost never see a t-score on education above 2!
-
-### And what is the t-stat we estimated in our regression?
-- (SLIDE)
-
-
-
----
-
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-53-1.png" width="95%" style="display: block; margin: auto;" /&gt;
-
-???
-
-And this is the intuition behind the check for statistical significance.
-
-&lt;br&gt;
-
-Typically we assume that t-statistics above 2 or below -2 are far enough away from zero to be meaningful (e.g. "statistically significant").
-
-- In other words, estimates that are at least two error units away from zero are probably pretty good.
-
-&lt;br&gt;
-
 In our education example we see our coefficient estimate is 15 SE units away from zero.
 
 - That's a long, long way out there!
+
+&lt;br&gt;
 
 **SLIDE**: Of course, nobody really communicates in SE units, so let's convert those into probabilities!
 
@@ -2203,7 +2138,7 @@ class: middle, slideblue
 ]]
 
 .pull-right[
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-57-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-53-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2235,7 +2170,7 @@ So, when formatting a regression table the expectation is that you will include 
 
 class: middle, slideblue
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-58-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-54-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2251,7 +2186,7 @@ class: middle, slideblue
 
 &lt;img src="libs/Images/Session2-Non_Smoker_OLS_2.png" width="93%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-60-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-56-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2453,7 +2388,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-64-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-60-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2571,7 +2506,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-65-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-61-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2593,7 +2528,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-66-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-62-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 ???
 
@@ -2614,7 +2549,7 @@ class: middle
 
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-67-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-63-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 ???
 
 ### Everybody get this?
@@ -2714,7 +2649,7 @@ class: middle, slideblue
 ---
 
 .pull-left[
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-69-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-65-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -2758,11 +2693,11 @@ class: middle, slideblue
 .center[.size30[.content-box-white[**Evaluation Step 4: Visualize the Residuals**]]]
 
 .pull-left[
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-71-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-67-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
-&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-72-1.png" width="97%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Session2-Simple_OLS_files/figure-html/unnamed-chunk-68-1.png" width="97%" style="display: block; margin: auto;" /&gt;
 ]
 
 ???

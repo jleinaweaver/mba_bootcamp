@@ -21,6 +21,7 @@ library(readxl)
 library(stargazer)
 library(modelr)
 library(kableExtra)
+library(modelsummary)
 
 knitr::opts_chunk$set(echo = FALSE,
                       eval = TRUE,
@@ -53,6 +54,10 @@ Multiple OLS Regression Modeling
 
 ???
 
+**NOTE: You removed the box plots from these slides because students struggling to keep up. Consider putting back next year.**
+
+<br>
+
 ## Prep for Class
 1. Upload data and variable description document for today
 
@@ -80,6 +85,7 @@ class: middle, slideblue
 2. Interpreting the results
 
 3. Evaluating the fit (4 steps)
+
 4. Making point estimates
 ]
 
@@ -107,8 +113,8 @@ class: middle, slideblue
 
 3. Evaluate the fit (four steps)
 
-4. Make five predictions
-    - Minimum wage at the minimum, 25th percentile, median, 75th percentile and the maximum
+4. Make three predictions
+    - Minimum wage at the minimum, median, and the maximum
 ]
 
 ???
@@ -168,6 +174,10 @@ stargazer(res1, type = "html", digits = 2, omit.stat = "rsq", dep.var.caption = 
 
 <br>
 
+### Walk me through the four steps of the evaluation. Does the regression fit the data "well"?
+
+<br>
+
 ### How does this regression answer our question: Do states that pay a higher minimum wage see more people finish college?
 
 <br>
@@ -178,20 +188,36 @@ stargazer(res1, type = "html", digits = 2, omit.stat = "rsq", dep.var.caption = 
 
 ---
 
-class: middle, center, slideblue
+class: slideblue
 
-.size40[
+.pull-left[
+
+<br>
+
+.size24[
+```{r, results='asis'}
+stargazer(res1, type = "html", digits = 2, omit.stat = "rsq", dep.var.caption = "", dep.var.labels = "Bachelors (%)", covariate.labels = "Minimum Wage", notes = "*p<0.05", notes.append = FALSE, star.cutoffs = .05)
+```
+]]
+
+.pull-right[
+.size50[
+
+<br>
+]
+
+.size30[
 ```{r, results='asis'}
 tibble(
-  "Minimum Wage" = c("Minimum = 0", "25th percentile = 7.25", "Median = 8.25", "75th percentile = 9.96", "Maximum = 11.50"),
-  "Predicted Bachelors" = round(as.numeric(predict(res1, newdata = data.frame(min_wage = c(0, 7.25, 8.25, 9.96, 11.5)))), 2)
+  "Minimum Wage" = c("Minimum = 0", "Median = 8.25", "Maximum = 11.50"),
+  "Predicted Bachelors" = round(as.numeric(predict(res1, newdata = data.frame(min_wage = c(0, 8.25, 11.5)))), 2)
 ) |>
   kbl(format = "html", digits = 2, align = c('l', 'c')) |>
   row_spec(row = 0, bold = TRUE, background = "lightgrey") |>
   column_spec(column = 1, width = "15em", background = "#ece9e8") |>
   column_spec(column = 2, width = "8em", background = "#ece9e8")
 ```
-]
+]]
 
 ???
 
@@ -224,8 +250,8 @@ class: middle, slideblue
 .size30[
 ```{r, results='asis'}
 tibble(
-  "Minimum Wage" = c(0, 7.25, 8.25, 9.96, 11.50),
-  "Predicted Bachelors" = round(as.numeric(predict(res1, newdata = data.frame(min_wage = c(0, 7.25, 8.25, 9.96, 11.5)))), 2)
+  "Minimum Wage" = c(0, 8.25, 11.50),
+  "Predicted Bachelors" = round(as.numeric(predict(res1, newdata = data.frame(min_wage = c(0, 8.25, 11.5)))), 2)
 ) |>
   kbl(format = "html", digits = 2, align = 'c') |>
   row_spec(row = 0, bold = TRUE, background = "lightgrey") |>
@@ -237,8 +263,8 @@ tibble(
 .pull-right[
 ```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=4.5, fig.asp=0.85, cache=TRUE}
 tibble(
-  wage = c(0, 7.25, 8.25, 9.96, 11.50),
-  pred = round(as.numeric(predict(res1, newdata = data.frame(min_wage = c(0, 7.25, 8.25, 9.96, 11.5)))), 2)
+  wage = c(0, 8.25, 11.50),
+  pred = round(as.numeric(predict(res1, newdata = data.frame(min_wage = c(0, 8.25, 11.50)))), 2)
 ) |>
   ggplot(aes(x = wage, y = pred)) +
   geom_line() +
@@ -258,15 +284,698 @@ This is a marginal effects plot
 
 - e.g. It shows the estimated relationship between one of our predictors and the outcome controlling for all the other parts of the model.
 
-<br>
+- As your models get more complicated, e.g. more variables and more complex transformations, this can become the only way to easily communicate to other people what you've found.
 
-As your models get more complicated, e.g. more variables and more complex transformations, this can become the only way to easily communicate to other people what you've found.
+- A scatter plot is typically limited to only two variables so you cannot just add a trendline on top if your regression includes more than one predictor (as it will today!).
+
+<br>
 
 ### Any questions on making or interpreting a marginal effects plot?
 
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size40[.content-box-white[**Presenting OLS Regression Results**]]]
+
+.pull-left[
+
 <br>
 
-### Everybody clear on the value add of this exercise?
+```{r, fig.align='center', fig.retina=3, out.width='95%', fig.width=4.5, fig.asp=0.85, cache=TRUE}
+tibble(
+  wage = c(0, 8.25, 11.50),
+  pred = round(as.numeric(predict(res1, newdata = data.frame(min_wage = c(0, 8.25, 11.50)))), 2)
+) |>
+  ggplot(aes(x = wage, y = pred)) +
+  geom_line() +
+  geom_point() +
+  theme_bw() +
+  labs(x = "Minimum Wage", y = "Predicted Bachelor's Degrees (%)")
+```
+]
+
+.pull-right[
+.size24[
+```{r, results='asis'}
+stargazer(res1, type = "html", digits = 2, omit.stat = "rsq", dep.var.caption = "", dep.var.labels = "Bachelors (%)", covariate.labels = "Minimum Wage", notes = "*p<0.05", notes.append = FALSE, star.cutoffs = .05)
+```
+]
+]
+
+???
+
+This is what I consider to be "best practice" for reporting an OLS regression.
+
+- You give people the table which includes the key details on the coefficients and model fit, PLUS
+
+- You give them an easy to digest version that shows what your model predicts for various levels of the predictor (marginal effects plot).
+
+<br>
+
+**SLIDE**: Before we move to new material, and now that you've had a day to digest it, I want to go through the significance testing criteria a second time.
+
+- Let's see if it makes a tiny bit more sense after sleeping on it!
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size35[.content-box-white[**Statistical Significance: Take Two!**]]]
+
+.pull-left[
+```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=6, fig.asp=0.618, cache=TRUE}
+# Alternative
+d |>
+  ggplot(aes(x = min_wage, y = bachelors)) +
+  geom_point() +
+  theme_bw() + 
+  labs(x = "Minimum Wage", y = "Bachelors (%)",
+       title = "Alternative Hypothesis") +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r, fig.align='center', fig.retina=3, out.width='80%', fig.width=6, fig.asp=0.618, cache=TRUE}
+# Null
+d |>
+  ggplot(aes(x = min_wage, y = bachelors)) +
+  geom_point() +
+  geom_hline(yintercept = mean(d$bachelors), color = "red") +
+  theme_bw() + 
+  labs(x = "Minimum Wage", y = "Bachelors (%)",
+       title = "Null Hypothesis")
+```
+]
+
+.pull-right[
+.size24[
+```{r, results='asis'}
+stargazer(res1, type = "html", digits = 2, omit.stat = "rsq", dep.var.caption = "", dep.var.labels = "Bachelors (%)", covariate.labels = "Minimum Wage", notes = "*p<0.05", notes.append = FALSE, star.cutoffs = .05)
+```
+]
+]
+
+???
+
+Now, remember that significance testing sets up a comparison between the alternative and the null hypothesis.
+
+- The statistical significance question is, in essence, which line fits the data better?
+
+<br>
+
+To answer this question the OLS results include the standard error, a t-score and a p-value.
+
+- Let me approach each of those concepts in a new way.
+
+<br>
+
+**SLIDE**: Let's start with the standard error.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=0.618, out.width='80%', cache=TRUE}
+# Histogram bachelors to illustrate SD
+d |>
+  ggplot(aes(x = bachelors)) +
+  geom_histogram(bins = 10, color = "white", fill = "blue1") +
+  theme_bw() +
+  labs(x = "Bachelors Degrees (%)", y = "",
+       title = "Our Outcome to Explain: Bachelors Degrees") 
+```
+
+???
+
+Here we see the distribution of the outcome we're trying to explain.
+
+- Why do some states have lots of college completions and others not so much?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=0.618, out.width='80%', cache=TRUE}
+# Histogram bachelors to illustrate SD
+d |>
+  ggplot(aes(x = bachelors)) +
+  geom_histogram(bins = 10, color = "white", fill = "blue1") +
+  theme_bw() +
+  labs(x = "Bachelors Degrees (%)", y = "",
+       title = "Summarizing the Middle: The Mean") +
+  geom_vline(xintercept = mean(d$bachelors), color = "red", linewidth = 3) +
+  annotate("text", x = 42, y = 10.5, label = str_c("Mean = ", round(mean(d$bachelors), 1)), size = 5) #+
+  #annotate("text", x = 42, y = 9.5, label = str_c("Median = ", round(median(d$bachelors), 1)), size = 5)
+```
+
+???
+
+Let's say we want to describe college completion across the US
+
+- We could do worse than simply providing the mean.
+
+- The range isn't very wide so I wouldn't expect the mean and median to give very different answers.
+
+<br>
+
+Mean: `r mean(d$bachelors)`
+
+Median: `r median(d$bachelors)`
+
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=0.618, out.width='80%', cache=TRUE}
+# Histogram bachelors to illustrate SD
+d |>
+  ggplot(aes(x = bachelors)) +
+  geom_histogram(bins = 10, color = "white", fill = "blue1") +
+  theme_bw() +
+  labs(x = "Bachelors Degrees (%)", y = "",
+       title = "Evaluating the Mean: +/- 1 Standard Deviation") +
+  geom_vline(xintercept = mean(d$bachelors), color = "red", linewidth = 3) +
+  geom_vline(xintercept = mean(d$bachelors)-sd(d$bachelors), color = "red", linewidth = 1.5, linetype = "dashed") +
+  geom_vline(xintercept = mean(d$bachelors)+sd(d$bachelors), color = "red", linewidth = 1.5, linetype = "dashed") +
+  annotate("text", x = 42, y = 10.5, label = str_c("Mean = ", round(mean(d$bachelors), 1)), size = 5) +
+  annotate("text", x = 42, y = 9.5, label = str_c("Std Dev = ", round(sd(d$bachelors), 1)), size = 5)
+```
+
+???
+
+Remember from Johnson (2012) the standard deviation is a measure of the dispersion of the data around the mean.
+
+- Small SD means most observations are close to the avg
+
+- Big SD means most observations far away from the avg
+
+<br>
+
+Here I'm showing you the range that is +/- 1 SD
+
+- If the data is normally distributed this should include 68% of the observations
+
+- +/- 2 is 96% if normally distributed.
+
+<br>
+
+### Questions on SD?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+.pull-left[
+
+<br>
+
+```{r}
+d |>
+  select(state, year, min_wage, bachelors) |>
+  slice_sample(n = 10) |>
+  kbl(align = 'c') |>
+  kableExtra::row_spec(row = 0, background = "gold")
+```
+]
+
+.pull-right[
+.size24[
+```{r, results='asis'}
+stargazer(res1, type = "html", digits = 2, omit.stat = "rsq", dep.var.caption = "", dep.var.labels = "Bachelors (%)", covariate.labels = "Minimum Wage", notes = "*p<0.05", notes.append = FALSE, star.cutoffs = .05)
+```
+]
+]
+
+???
+
+So here's the thing, the standard error is the standard deviation of the coefficient estimates.
+
+- In a sense the 0.96 coefficient estimate is the average and the standard error tells us how much the other possible estimates vary around this average.
+
+- Easy, right? :)
+
+<br>
+
+It's actually not as crazy as it sounds!
+
+- Let's root ourselves back in the process that resulted in our OLS estimates.
+
+<br>
+
+What we did to this point:
+- Collected data, 
+- tidied data, and
+- fit OLS
+
+This process produced one fit of the model.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+<br>
+
+```{r, echo = FALSE, fig.align = 'center', out.width = '80%'}
+knitr::include_graphics("libs/Images/Session3-US_Map.png")
+```
+
+???
+
+Imagine we could re-run our data collection process and collect new data on the exact same variables. 
+
+- We could then re-run the OLS and estimate a new formula for a line for this new data.
+
+- Our hope would be that the two OLS results would be similar. 
+
+- If they were very different then we would likely feel like our survey/data were not generating precise estimates of the world. 
+
+- If they were very similar our confidence would increase in the model fit (estimate of the slope of the line)
+
+<br>
+
+Actually, we can approximate the effect of re-running our data collection using a bootstrap simulation.
+
+- Imagine dumping the observations from our current data set into a bag and shaking it up
+
+- That bag holds all of the variation we currently think exists in the US
+
+- So, we reach in and pull out an observation and add it to a new spreadsheet.
+
+- Then put it back in the bag, shake it up and pick another one.
+
+- Once you have 50 observations you have a bootstrap simulation of the original dataset.
+
+- Since we assume that the original sample reflects the actual underlying data of the country pulling from it to generate new data should produce equally representative samples even if the new dataset duplicates states (2 missouri's possible!)
+
+### Make a vague sort-of sense?
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+<br>
+
+```{r}
+## Bootstrap one time and refit
+res1 <- lm(data = d, bachelors ~ min_wage)
+
+# Create bootstrapped sample
+set.seed(155)
+d_temp <- d |> slice_sample(n = nrow(d), replace = TRUE)
+res2 <- lm(data = d_temp, bachelors ~ min_wage)
+
+# Output
+modelsummary(models = list("Original" = res1, "New Sample" = res2), fmt = 2, stars = c('*' = .05), gof_omit = "IC|Log|F", output = "kableExtra") |>
+  column_spec(1, width = "10em") |>
+  column_spec(2:3, width = "7em") |>
+  row_spec(row = 5:8, background = "lightgrey") |>
+  kable_styling(font_size = 24)
+```
+
+???
+
+So, I created a bootstrap sample and refit the OLS regression
+
+<br>
+
+### What do we see here?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+<br>
+
+```{r}
+## Bootstrap one time and refit
+res1 <- lm(data = d, bachelors ~ min_wage)
+
+# Create bootstrapped samples (1,000)
+# d_repo <- vector("list", 1000)
+# 
+# for (i in 1:1000){
+#   d_repo[[i]] <- slice_sample(d, n = nrow(d), replace = TRUE)
+# }
+# 
+# save(d_repo, file = "d_repo.RData")
+
+load(file = "d_repo.RData")
+
+res2 <- lm(data = d_repo[[1]], bachelors ~ min_wage)
+res3 <- lm(data = d_repo[[2]], bachelors ~ min_wage)
+res4 <- lm(data = d_repo[[3]], bachelors ~ min_wage)
+res5 <- lm(data = d_repo[[4]], bachelors ~ min_wage)
+res6 <- lm(data = d_repo[[5]], bachelors ~ min_wage)
+
+# Output the first 5
+modelsummary(models = list("Original" = res1, "1" = res2, "2" = res3, "3" = res4, "4" = res5, "5" = res6), fmt = 2, stars = c('*' = .05), gof_omit = "IC|Log|F", output = "kableExtra") |>
+  column_spec(1, width = "10em") |>
+  column_spec(2:7, width = "5em") |>
+  row_spec(row = 5:8, background = "lightgrey") |>
+  kable_styling(font_size = 24)
+```
+
+???
+
+Now, what if we re-did the data collection and analysis 5 times! 
+
+- Again, the more similar they are the better!
+
+<br>
+
+Remember, each of these represents a simulated sample from our original data.
+
+- In each the states are represented in different groups
+
+- The cool thing is that this lets us examine the robustness of our estimates.
+
+<br>
+
+### Make sense so far?
+
+### What do we see here?
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=0.618, out.width='80%', cache=TRUE}
+## Fit OLS to all samples
+betas1 <- vector("list", 1000)
+
+for (i in 1:1000){
+  
+  betas1[[i]] <- coef(lm(data = d_repo[[i]], bachelors ~ min_wage))[2]
+  
+}
+
+d_sample <- tibble(
+  Sample = 1:1000,
+  min_wage = as.numeric(betas1)
+)
+
+d_sample |>
+  ggplot(aes(x = min_wage)) +
+  geom_histogram(color = "white", fill = "blue1") +
+  theme_bw() +
+  labs(x = "Minimum Wage Beta Coefficients", y = "",
+       title = "Bootstrapped Estimates") +
+  annotate("text", x = 2, y = 200, label = str_c("Mean = ", round(mean(d_sample$min_wage), 2)), size = 5) +
+  annotate("text", x = 2, y = 175, label = str_c("Std Dev = ", round(sd(d_sample$min_wage), 2)), size = 5)
+```
+
+???
+
+Now, what if we did it 1,000 times!
+
+- Here is a histogram of the beta coefficients estimated on minimum wage across all 1,000 runs.
+
+- Each of these 1,000 could produce their own OLS regression table but our interest for now is just on the estimated betas on the minimum wage.
+    - e.g. the slope of the lines
+    
+<br>
+
+### Does everybody understand what I'm showing you here?
+
+<br>
+
+I've also given you the average and SD of this distribution
+
+### Are the specific mean and SD familiar to you?
+- (**SLIDE**)
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size30[.content-box-white[**Statistical Significance:  What is the Standard Error?**]]]
+
+.pull-left[
+
+<br>
+
+```{r, fig.retina=3, fig.align='center', fig.asp=0.85, out.width='100%', cache=TRUE}
+d_sample |>
+  ggplot(aes(x = min_wage)) +
+  geom_histogram(color = "white", fill = "blue1") +
+  theme_bw() +
+  labs(x = "Minimum Wage Beta Coefficients", y = "",
+       title = "Bootstrapped Estimates") +
+  annotate("text", x = 2, y = 200, label = str_c("Mean = ", round(mean(d_sample$min_wage), 2)), size = 5) +
+  annotate("text", x = 2, y = 175, label = str_c("Std Dev = ", round(sd(d_sample$min_wage), 2)), size = 5)
+```
+]
+
+.pull-right[
+.size24[
+```{r, results='asis'}
+stargazer(res1, type = "html", digits = 2, omit.stat = "rsq", dep.var.caption = "", dep.var.labels = "Bachelors (%)", covariate.labels = "Minimum Wage", notes = "*p<0.05", notes.append = FALSE, star.cutoffs = .05)
+```
+]
+]
+
+???
+
+They approximate the coefficient and standard error from our original OLS model!
+
+- In this way I hope you can see that the coefficient estimate is kind of an average.
+
+- Underpinning it is a bunch of alternative possible estimates of the slope of the line.
+
+- So, the SD is a measure of dispersion around the mean, AND the SE is the SD around the estimate of the coefficient.
+
+### Ok, does everybody have a better sense of what the SE is?
+
+<br>
+
+**SLIDE**: Let's now shift to the t-scores and p-values part of the statistical significance test.
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size50[.content-box-white[**Statistical Significance:  What is the t Value?**]]]
+
+<br>
+
+.center[
+
+.size50[**Rescaling our coefficient into SE-units**
+
+T-statistic = $\frac{\text{coefficient}}{\text{standard error}}$
+
+]]
+
+???
+
+t-scores and p-values are just a simple way to translate a specific SE into a value we can evaluate without needing a simulation.
+
+- Remember that the t-score is simply the coefficient divided by the standard error.
+
+- This gives us a number whose units are simplified
+
+<br>
+
+Minimum wage WAS in dollars but now we can think of it as units of error
+
+- Minimum wage has a t-value of 4.4 which means the coefficient is 4 SEs away from zero.
+
+<br>
+
+**SLIDE**: Now, what do we do with the t-value?
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+distdata <- tibble(
+  x = seq(qt(p = c(0.0001), df = 48), qt(p = c(0.9999), df = 48), 0.0001),
+  y = dt(x = x, df = 48)
+)
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_vline(xintercept = 0, color = "red") +
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution (df = 48)") 
+```
+
+???
+
+This slide visualizes the Student t-distribution with 48 degrees of freedom.
+
+- This represents the null hypothesis in t-values for our current model.
+
+- You can see the vertical line at zero that represents no effect of minimum wage on bachelors degrees.
+
+<br>
+
+Any t-value can be plotted on this distribution and it will correspond to a percentage chance the null hypothesis could explain it.
+
+- This is what we'd expect to see in a world where the null is the "true" relationship.
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+
+## 99% interval
+dist99 <- distdata |>
+  filter(x >= qt(p = .005, df = 48) & x <= qt(p = .995, df = 48))
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution: 99% of Outcomes") +
+  geom_ribbon(data = dist99, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
+  annotate("text", x = 2.68, y = .05, label = "+2.68") +
+  annotate("text", x = -2.68, y = .05, label = "-2.68")
+```
+
+???
+
+One of the benefits of converting the coefficient to the t-distribution is that we have mathematically mapped its entire range.
+
+- That means we can say that in a world where the null hypothesis is true you can explain any coefficient t-value between -2.68 and +2.68 
+
+- In other words, you could miss zero by 2.6 times the error and still plausibly be explained by the null hypothesis.
+
+<br>
+
+**SLIDE**: It turns out that 99% is too stringent a test.
+
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+
+## 95% interval
+dist95 <- distdata |>
+  filter(x >= qt(p = .025, df = 48) & x <= qt(p = .975, df = 48))
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution: 95% of Outcomes") +
+  geom_ribbon(data = dist95, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
+  annotate("text", x = 2.2, y = .1, label = "+2.01") +
+  annotate("text", x = -2.2, y = .1, label = "-2.01")
+```
+
+???
+
+Fisher's test threshold is 95% which for our data is between -2.1 and 2.1.
+
+- In other words, if your estimate is outside this range you get to say it is "statistically significant."
+
+### Does this make a little sense?
+
+
+
+---
+
+```{r, fig.retina=3, fig.align='center', fig.width=9, out.width='95%', fig.asp=0.618}
+## Visualize the t-distribution
+
+## 95% interval
+dist95 <- distdata |>
+  filter(x >= qt(p = .025, df = 48) & x <= qt(p = .975, df = 48))
+
+distdata |>
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  theme_bw() +
+  labs(x = "Estimated t-Score", y = "",
+       title = "Student's t-Distribution: 95% of Outcomes") +
+  geom_ribbon(data = dist95, aes(ymin = 0, ymax = y), fill = "blue", alpha = .3) +
+  geom_vline(xintercept = 0, color = "red", lwd = 1.2) +
+  annotate("text", x = 2.2, y = .1, label = "+2.01") +
+  annotate("text", x = -2.2, y = .1, label = "-2.01") +
+  geom_vline(xintercept = 4.4, color = "darkgreen", linewidth = 1.5) +
+  xlim(-5, 6) +
+  annotate("text", x = 5.2, y = .35, label = "Our OLS\nEstimate", color = "darkgreen")
+```
+
+???
+
+So, we take the t-score from our regression and plot it on this t-distribution and what do we see? 
+
+- +4.4! 
+
+- In a world where the null is true, our result is VERY, VERY, VERY unlikely.
+
+- Corresponds to a p-value of something like .000061
+
+- This shouldn't happen in the null world, therefore, our model fits the data better than the null!
+
+<br>
+
+### Did going through this a second time help?
+
 
 
 
@@ -349,13 +1058,8 @@ Jump back to the Ross (1990) data from Session 2!
 
 <br>
 
-Let's examine three ways to answer this question with our data!
+Let's work through these together!
 
-1. Group means,
-
-2. Box plots, and
-
-3. Our OLS regression
 
 
 
@@ -371,25 +1075,19 @@ background-position: center
 ]
 
 .right-column[
+.size55[
+
+<br>
 
 <br>
 
 .center[
-.size40[
-Calculate the mean earnk_adj for each gender:
-
-Pivot table
-
-OR 
-
-Sort the data by gender and use AVERAGE()
+Calculate the mean earnk_adj for each gender using a pivot table
 ]]]
 
 ???
 
-Let's do the first one.
-
-- Everybody calculate the group means.
+Get to it!
 
 
 
@@ -444,7 +1142,7 @@ d %>%
 
 - Seems a pretty stark difference, no?
 
-- HOWEVER, the key here for our understanding is, how well does the average represent the full distirbution of the data?
+- HOWEVER, the key here for our understanding is, how well does the average represent the full distribution of the data?
 
 
 
@@ -559,42 +1257,11 @@ d %>%
 
 ### So, do we now have a clear answer to the question? Why or why not?
 
-
-
-
----
-
-background-image: url('libs/Images/background-columns.png')
-background-size: 100%
-background-position: center
-
-.left-column[
-.size35[.center[.textblack[**Is there a significant gender difference in income?**]]]
-]
-
-.right-column[
-
 <br>
-
-<br>
-
-<br>
-
-<br>
-
-.center[
-.size65[
-Regress earnk_adj on gender using OLS
-]]]
-
-???
 
 Thanks to regression we now have the basic tools to check the "statistical significance" of this difference. 
 
-<br>
-
-**SLIDE**: Unfortunately, Excel cannot fit an OLS to categorical variables...
-
+- **SLIDE**: Time for the regression.
 
 
 
@@ -615,6 +1282,8 @@ class: middle, slideblue
 ]
 
 ???
+
+Unfortunately, Excel cannot fit an OLS to categorical variables...
 
 Two steps
 
@@ -721,38 +1390,43 @@ Like a mannequin, these variables are meant to serve as stand-ins for actual var
 
 
 
-
 ---
 
-class: middle, center, slideblue
+class: middle, slideblue
 
-.center[.size40[.content-box-white[**Convert Categorical Vars to Dummies**]]]
+.pull-left[
+.center[.size35[.content-box-white[**Convert Categorical**]]]
+
+.center[.size35[.content-box-white[**Vars to Dummies**]]]
 
 <br>
 
-.pull-left[
 ```{r, out.width='100%'}
 knitr::include_graphics('libs/Images/Session3-convert_vars5_v2.png')
 ```
 ]
 
 .pull-right[
+.size55[
 
-.size25[
-```{r}
-d |>
-  select(earnk_adj, male) |>
-  slice(1:9) |>
-  kbl(format = "html", digits = 2, align = 'c') |>
-  row_spec(row = 0, background = "#ece9e8")
-```
-]]
+<br>
+
+**Regression:**
+
+- Y = earnk_adj
+
+- X = male
+]
+]
 
 ???
 
-Back to the process of preparing a categorical variable for running an OLS in Excel.
 
-- Next step is to remove one dummy as a baseline.
+<br>
+
+Now, here's the key, final step is to remove one dummy as a baseline.
+
+- You will regress earnk_adj as the 'y' and male as the only 'x'
 
 <br>
 
@@ -764,9 +1438,7 @@ To refresh, preparing a categorical variable for OLS regression in Excel require
 
 <br>
 
-Why do we delete one of the dummies? 
-
-- Everybody now run a regression of earnings on the male dummy variable.
+Everybody now run a regression of earnings on the male dummy variable.
 
 <br>
 
@@ -974,11 +1646,9 @@ class: middle, center, slideblue
 <br>
 
 .size50[
-1) Group means,
+1) Group means, and
 
-2) Box plot, and
-
-3) OLS regression
+2) OLS regression
 
 ]
 
@@ -990,9 +1660,7 @@ Everybody repeat our exercise but now using a categorical variable with more tha
 
 <br>
 
-Let's start with just approach 1 and 2.
-
-- Everybody calculate the group means and the box plots.
+Let's start with the group means
 
 
 
@@ -1631,7 +2299,7 @@ You'll remember from last session that we built a marginal effects plot to exami
 
 ---
 
-class: slideblue
+class: middle, slideblue
 
 .center[.size35[.content-box-white[Earnings = `r coef3[1]` + `r coef3[2]` (Male) + `r coef3[3]` (Education)]]]
 
@@ -1640,7 +2308,7 @@ class: slideblue
 .size55[
 ```{r, results='asis', fig.align='center'}
 tibble(
-  Education = c(1, 5, 9, 13, 17),
+  Education = c(1, 9, 17),
   Male = 1,
   Earnings = ""
 ) |>
@@ -1659,7 +2327,7 @@ Everybody calculate point estimates for our model across these levels of educati
 
 ---
 
-class: slideblue
+class: middle, slideblue
 
 .center[.size35[.content-box-white[Earnings = `r coef3[1]` + `r coef3[2]` (Male) + `r coef3[3]` (Education)]]]
 
@@ -1667,11 +2335,10 @@ class: slideblue
 
 .size55[
 ```{r, results='asis', fig.align='center'}
-preds_male <- predict.lm(res3, newdata = data.frame(education = c(1, 5, 9, 13, 17),
-                                                    male = 1))
+preds_male <- predict.lm(res3, newdata = data.frame(education = c(1, 9, 17), male = 1))
 
 tibble(
-  Education = c(1, 5, 9, 13, 17),
+  Education = c(1, 9, 17),
   Male = 1,
   Earnings = str_c(round(as.numeric(preds_male), 1), 'k')
 ) |>
@@ -1690,7 +2357,7 @@ tibble(
 
 ---
 
-class: slideblue
+class: middle, slideblue
 
 .center[.size35[.content-box-white[Earnings = `r coef3[1]` + `r coef3[2]` (Male) + `r coef3[3]` (Education)]]]
 
@@ -1699,7 +2366,7 @@ class: slideblue
 .size55[
 ```{r, results='asis', fig.align='center'}
 tibble(
-  Education = c(1, 5, 9, 13, 17),
+  Education = c(1, 9, 17),
   Male = 0,
   Earnings = ""
 ) |>
@@ -1718,7 +2385,7 @@ Repeat for females
 
 ---
 
-class: slideblue
+class: middle, slideblue
 
 .center[.size35[.content-box-white[Earnings = `r coef3[1]` + `r coef3[2]` (Male) + `r coef3[3]` (Education)]]]
 
@@ -1726,11 +2393,11 @@ class: slideblue
 
 .size55[
 ```{r, results='asis', fig.align='center'}
-preds_female <- predict.lm(res3, newdata = data.frame(education = c(1, 5, 9, 13, 17),
+preds_female <- predict.lm(res3, newdata = data.frame(education = c(1, 9, 17),
                                                     male = 0))
 
 tibble(
-  Education = c(1, 5, 9, 13, 17),
+  Education = c(1, 9, 17),
   Male = 0,
   Earnings = str_c(round(as.numeric(preds_female), 1), 'k')
 ) |>
@@ -1750,7 +2417,7 @@ tibble(
 
 ---
 
-class: slideblue
+class: middle, slideblue
 
 .center[.size35[.content-box-white[Earnings = `r coef3[1]` + `r coef3[2]` (Male) + `r coef3[3]` (Education)]]]
 
@@ -1758,11 +2425,11 @@ class: slideblue
 
 .size55[
 ```{r, results='asis', fig.align='center'}
-preds_female <- predict.lm(res3, newdata = data.frame(education = c(1, 5, 9, 13, 17),
+preds_female <- predict.lm(res3, newdata = data.frame(education = c(1, 9, 17),
                                                     male = 0))
 
 tibble(
-  Education = c(1, 5, 9, 13, 17),
+  Education = c(1, 9, 17),
   Male = str_c(round(as.numeric(preds_male), 1), 'k'),
   Female = str_c(round(as.numeric(preds_female), 1), 'k')
 ) |>
@@ -1958,6 +2625,41 @@ Our textbook has given us five steps for evaluating a regression model but now t
 
 
 
+
+
+
+---
+
+class: middle, slideblue
+
+.center[.size45[**For Next Class:** What is the "best" model of bachelor's degree completion in the  Session 1 data?]]
+
+.size40[
+- Outcome:
+    - Bachelors' Degrees
+]
+
+.size40[
+- Predictors to consider:
+    - GDP (Rate), Homeownership, Minimum wage, State Tax Rate on Wages, Unemployment
+
+]
+
+???
+
+### Questions on the assignment?
+
+Let's get to it!
+
+
+
+
+---
+
+OLD SLIDES TO SAVE
+
+
+
 ---
 
 class: middle, slideblue
@@ -2039,37 +2741,6 @@ Let's now create a marginal effects plot for one of the predictors in our "best"
 <br>
 
 ### Questions on multiple regression?
-
-
-
-
-
-
----
-
-class: middle, slideblue
-
-.center[.size45[**For Next Class:** What is the "best" model of bachelor's degree completion in the  Session 1 data?]]
-
-.size40[
-- Outcome:
-    - Bachelors' Degrees
-]
-
-.size40[
-- Predictors to consider:
-    - GDP (Rate), Homeownership, Minimum wage, State Tax Rate on Wages, Unemployment
-
-]
-
-???
-
-### Questions on the assignment?
-
-Let's get to it!
-
-
-
 
 
 
